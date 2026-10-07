@@ -6,60 +6,72 @@
 <title>MRBHNCO</title>
 <style>
 *{box-sizing:border-box}
-html,body{margin:0;width:100%;min-height:100%;background:#000;color:#fff;font-family:Arial,Helvetica,sans-serif}
-body{overflow-x:hidden}
-.page{min-height:100vh;padding:22px 28px 40px}
-.brand{text-align:center;font-size:clamp(32px,5vw,52px);font-weight:900;letter-spacing:.18em;margin:0 0 24px}
-.shop{display:grid;grid-template-columns:minmax(260px,1fr) minmax(320px,520px);gap:40px;align-items:start;max-width:1200px;margin:0 auto}
-.controls{padding-top:20px}
-.label{font-size:14px;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:12px}
-.sizes{display:flex;gap:10px;flex-wrap:wrap}
-.size-btn{background:#111;color:#fff;border:1px solid #555;border-radius:8px;padding:14px 24px;font-size:17px;font-weight:700;cursor:pointer}
-.size-btn:hover{border-color:#fff}
-.size-btn.active{background:#fff;color:#000;border-color:#fff}
-.subtotal{margin-top:26px;padding-top:20px;border-top:1px solid #333;display:flex;justify-content:space-between;align-items:center;font-size:22px;font-weight:800}
-.video-wrap{width:100%;height:min(70vh,620px);overflow:hidden;background:#000;position:relative}
-video{position:absolute;top:-10%;left:50%;width:120%;height:120%;transform:translateX(-50%);object-fit:cover;object-position:center top;background:#000}
+html,body{margin:0;width:100%;height:100%;background:#000;color:#fff;font-family:Arial,Helvetica,sans-serif;overflow:hidden}
+.page{display:grid;grid-template-columns:50vw 50vw;width:100vw;height:100vh}
+.left{height:100vh;overflow-y:auto;padding:24px 28px 40px}
+.brand{text-align:center;color:#d4af37;font-size:clamp(32px,5vw,52px);font-weight:900;letter-spacing:.18em;margin:0 0 28px}
+.label{text-align:center;font-size:14px;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:14px}
+.shirts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;max-width:620px;margin:0 auto}
+.shirt-btn{background:#111;color:#fff;border:1px solid #555;border-radius:8px;padding:13px 10px;font-size:15px;font-weight:700;cursor:pointer}
+.shirt-btn:hover{border-color:#d4af37;color:#d4af37}
+.shirt-btn.active{background:#d4af37;color:#000;border-color:#d4af37}
+.subtotal{margin:26px auto 0;padding-top:20px;border-top:1px solid #333;max-width:620px;display:flex;justify-content:space-between;align-items:center;font-size:22px;font-weight:800}
+.video-side{height:100vh;width:50vw;overflow:hidden;background:#000;position:relative}
+video{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;object-position:center center;background:#000}
 @media(max-width:768px){
-.page{padding:18px 16px 32px}
-.brand{margin-bottom:18px}
-.shop{display:flex;flex-direction:column-reverse;gap:22px}
-.video-wrap{width:100%;height:55vh;min-height:300px}
-.controls{padding-top:0;width:100%}
-.sizes{width:100%}
-.size-btn{flex:1;min-width:90px}
-.subtotal{margin-top:20px}
+.page{grid-template-columns:50vw 50vw}
+.left{padding:18px 12px 30px}
+.brand{font-size:clamp(24px,7vw,38px);letter-spacing:.12em;margin-bottom:20px}
+.label{font-size:11px}
+.shirts{grid-template-columns:1fr;gap:7px}
+.shirt-btn{padding:11px 6px;font-size:12px}
+.subtotal{font-size:18px;margin-top:18px}
 }
 </style>
 </head>
 <body>
 <main class="page">
+<section class="left">
 <div class="brand">MRBHNCO</div>
-<section class="shop">
-<div class="controls">
-<div class="label">Choose Size</div>
-<div class="sizes">
-<button class="size-btn" data-size="Medium" data-price="30">MED</button>
-<button class="size-btn" data-size="Large" data-price="35">LARGE</button>
-<button class="size-btn" data-size="X Large" data-price="40">X LARGE</button>
+<div class="label">Choose Your Shirt</div>
+<div class="shirts">
+<button class="shirt-btn" data-shirt="Shirt 1">SHIRT 1</button>
+<button class="shirt-btn" data-shirt="Shirt 2">SHIRT 2</button>
+<button class="shirt-btn" data-shirt="Shirt 3">SHIRT 3</button>
+<button class="shirt-btn" data-shirt="Shirt 4">SHIRT 4</button>
+<button class="shirt-btn" data-shirt="Shirt 5">SHIRT 5</button>
+<button class="shirt-btn" data-shirt="Shirt 6">SHIRT 6</button>
+<button class="shirt-btn" data-shirt="Shirt 7">SHIRT 7</button>
+<button class="shirt-btn" data-shirt="Shirt 8">SHIRT 8</button>
+<button class="shirt-btn" data-shirt="Shirt 9">SHIRT 9</button>
+<button class="shirt-btn" data-shirt="Shirt 10">SHIRT 10</button>
+<button class="shirt-btn" data-shirt="Shirt 11">SHIRT 11</button>
+<button class="shirt-btn" data-shirt="Shirt 12">SHIRT 12</button>
+<button class="shirt-btn" data-shirt="Shirt 13">SHIRT 13</button>
+<button class="shirt-btn" data-shirt="Shirt 14">SHIRT 14</button>
+<button class="shirt-btn" data-shirt="Shirt 15">SHIRT 15</button>
+<button class="shirt-btn" data-shirt="Shirt 16">SHIRT 16</button>
+<button class="shirt-btn" data-shirt="Shirt 17">SHIRT 17</button>
+<button class="shirt-btn" data-shirt="Shirt 18">SHIRT 18</button>
+<button class="shirt-btn" data-shirt="Shirt 19">SHIRT 19</button>
+<button class="shirt-btn" data-shirt="Shirt 20">SHIRT 20</button>
 </div>
 <div class="subtotal"><span>Subtotal</span><span id="subtotal">$0.00</span></div>
-</div>
-<div class="video-wrap">
+</section>
+<section class="video-side">
 <video controls autoplay muted loop playsinline preload="metadata">
 <source src="/vid.mp4" type="video/mp4">
 </video>
-</div>
 </section>
 </main>
 <script>
-const buttons=document.querySelectorAll('.size-btn');
+const buttons=document.querySelectorAll('.shirt-btn');
 const subtotal=document.getElementById('subtotal');
 buttons.forEach(button=>{
 button.addEventListener('click',()=>{
 buttons.forEach(b=>b.classList.remove('active'));
 button.classList.add('active');
-subtotal.textContent='$'+Number(button.dataset.price).toFixed(2);
+subtotal.textContent='$30.00';
 });
 });
 </script>
