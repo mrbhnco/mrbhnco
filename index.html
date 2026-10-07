@@ -73,7 +73,7 @@ video{display:block;width:100%;height:100%;aspect-ratio:9/16;object-fit:cover;ob
 </div>
 </section>
 <section class="video-side">
-<video id="siteVideo" autoplay loop playsinline preload="auto">
+<video id="siteVideo" autoplay muted loop playsinline preload="auto">
 <source src="/vid.mp4" type="video/mp4">
 </video>
 </section>
@@ -108,10 +108,12 @@ const back=document.getElementById('back');
 const form=document.getElementById('shippingForm');
 let selected=false;
 const siteVideo=document.getElementById('siteVideo');
-const startVideo=()=>{siteVideo.muted=false;siteVideo.volume=1;const p=siteVideo.play();if(p&&p.catch)p.catch(()=>{});};
+const startVideo=()=>{const p=siteVideo.play();if(p&&p.catch)p.catch(()=>{});};
+const enableSound=()=>{siteVideo.muted=false;siteVideo.volume=1;const p=siteVideo.play();if(p&&p.catch)p.catch(()=>{});};
 startVideo();
 siteVideo.addEventListener('loadeddata',startVideo,{once:true});
 siteVideo.addEventListener('canplay',startVideo,{once:true});
+['click','touchstart','pointerdown','keydown'].forEach(event=>document.addEventListener(event,enableSound,{once:true,passive:true}));
 buttons.forEach(button=>button.addEventListener('click',()=>{
  buttons.forEach(b=>b.classList.remove('active'));
  button.classList.add('active');
