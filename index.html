@@ -5,20 +5,63 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MRBHNCO</title>
 <style>
+*{box-sizing:border-box}
 html,body{margin:0;width:100%;min-height:100%;background:#000;color:#fff;font-family:Arial,Helvetica,sans-serif}
-body{display:flex;flex-direction:column;align-items:center;overflow-x:hidden}
-.brand{margin:28px 0 24px;font-size:clamp(32px,5vw,52px);font-weight:900;letter-spacing:.18em;text-align:center}
-.video-wrap{width:min(90vw,900px);margin:0 auto}
-video{display:block;width:100%;height:auto;max-height:80vh;object-fit:contain;background:#000}
-@media(max-width:768px){.brand{margin:22px 0 18px}.video-wrap{width:94vw}video{max-height:none}}
+body{overflow-x:hidden}
+.page{min-height:100vh;padding:22px 28px 40px}
+.brand{text-align:center;font-size:clamp(32px,5vw,52px);font-weight:900;letter-spacing:.18em;margin:0 0 24px}
+.shop{display:grid;grid-template-columns:minmax(260px,1fr) minmax(320px,520px);gap:40px;align-items:start;max-width:1200px;margin:0 auto}
+.controls{padding-top:20px}
+.label{font-size:14px;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:12px}
+.sizes{display:flex;gap:10px;flex-wrap:wrap}
+.size-btn{background:#111;color:#fff;border:1px solid #555;border-radius:8px;padding:14px 24px;font-size:17px;font-weight:700;cursor:pointer}
+.size-btn:hover{border-color:#fff}
+.size-btn.active{background:#fff;color:#000;border-color:#fff}
+.subtotal{margin-top:26px;padding-top:20px;border-top:1px solid #333;display:flex;justify-content:space-between;align-items:center;font-size:22px;font-weight:800}
+.video-wrap{width:100%;height:min(70vh,620px);overflow:hidden;background:#000;position:relative}
+video{position:absolute;top:-10%;left:50%;width:120%;height:120%;transform:translateX(-50%);object-fit:cover;object-position:center top;background:#000}
+@media(max-width:768px){
+.page{padding:18px 16px 32px}
+.brand{margin-bottom:18px}
+.shop{display:flex;flex-direction:column-reverse;gap:22px}
+.video-wrap{width:100%;height:55vh;min-height:300px}
+.controls{padding-top:0;width:100%}
+.sizes{width:100%}
+.size-btn{flex:1;min-width:90px}
+.subtotal{margin-top:20px}
+}
 </style>
 </head>
 <body>
+<main class="page">
 <div class="brand">MRBHNCO</div>
+<section class="shop">
+<div class="controls">
+<div class="label">Choose Size</div>
+<div class="sizes">
+<button class="size-btn" data-size="Medium" data-price="30">MED</button>
+<button class="size-btn" data-size="Large" data-price="35">LARGE</button>
+<button class="size-btn" data-size="X Large" data-price="40">X LARGE</button>
+</div>
+<div class="subtotal"><span>Subtotal</span><span id="subtotal">$0.00</span></div>
+</div>
 <div class="video-wrap">
 <video controls autoplay muted loop playsinline preload="metadata">
 <source src="/vid.mp4" type="video/mp4">
 </video>
 </div>
+</section>
+</main>
+<script>
+const buttons=document.querySelectorAll('.size-btn');
+const subtotal=document.getElementById('subtotal');
+buttons.forEach(button=>{
+button.addEventListener('click',()=>{
+buttons.forEach(b=>b.classList.remove('active'));
+button.classList.add('active');
+subtotal.textContent='$'+Number(button.dataset.price).toFixed(2);
+});
+});
+</script>
 </body>
 </html>
