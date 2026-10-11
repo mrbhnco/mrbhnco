@@ -9,7 +9,10 @@
 html,body{margin:0;width:100%;height:100%;background:#000;color:#fff;font-family:Arial,Helvetica,sans-serif}
 .page{width:100vw;height:100vh;display:flex;justify-content:space-between}
 .left{height:100vh;flex:1;overflow-y:auto;padding:24px 28px 40px}
-.brand{text-align:center;color:#00a651;font-size:clamp(32px,5vw,52px);font-weight:900;letter-spacing:.18em;margin:0 0 28px}
+.brand{text-align:center;font-size:clamp(32px,5vw,52px);font-weight:900;letter-spacing:.18em;margin:0 0 28px;
+  background:linear-gradient(90deg,#ff6b35,#f7931e,#ffd700);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;filter:drop-shadow(0 0 8px rgba(255,107,53,.5))}
 
 .product-card{background:#111;border:1px solid #333;border-radius:12px;padding:16px;max-width:680px;margin:0 auto 28px}
 .product-top{display:flex;gap:16px}
@@ -35,14 +38,13 @@ select,input[type="number"]{width:100%;padding:10px;border:1px solid #555;border
 .pay-btn{width:100%;border:0;border-radius:8px;padding:15px;background:#ff0000;color:#fff;font-size:18px;font-weight:900;cursor:pointer}
 .pay-btn:disabled{opacity:.4;cursor:not-allowed}
 
-.video-side{height:100vh;width:min(42vw,70vh);flex:none;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;overflow:hidden;padding:8px}
-.main-video-wrap{width:100%;flex:1;display:flex;align-items:center;justify-content:center;background:#000;border-radius:8px;overflow:hidden}
-.main-video-wrap video{display:block;width:100%;height:100%;object-fit:contain;object-position:center;background:#000}
+.video-side{height:100vh;width:min(42vw,70vh);flex:none;background:#000;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;overflow:hidden;padding:0}
+.main-video-wrap{width:100%;flex:1;display:flex;align-items:stretch;justify-content:center;background:#000;overflow:hidden}
+.main-video-wrap video{display:block;width:100%;height:100%;object-fit:cover;object-position:center;background:#000}
 .video-thumbs{width:100%;display:flex;gap:8px;padding:8px 4px 4px;overflow-x:auto;justify-content:center;flex-shrink:0}
 .video-thumb{flex:0 0 110px;height:72px;border:2px solid #333;border-radius:6px;overflow:hidden;cursor:pointer;background:#111;position:relative}
 .video-thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .video-thumb:hover,.video-thumb.active{border-color:#ffd700}
-.video-thumb span{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.7);font-size:9px;text-align:center;padding:2px 0;color:#fff}
 
 .checkout{display:none;min-height:100vh;padding:28px 16px 60px;overflow-y:auto;background:#050505}
 .checkout.show{display:block}
@@ -94,54 +96,54 @@ label input{display:block;width:100%;margin-top:5px;padding:12px;border:1px soli
 
 <!-- BIKINI -->
 <div class="product-card">
-  <div class="product-top">
-    <div class="product-image">
-      <img id="bikiniImage" src="bikini-model-black-yellow.jpg" alt="Bikini">
-    </div>
-    <div class="product-details">
-      <h2>Bikini</h2>
-      <div class="price">$50.00</div>
-      <div class="field-label">Choose Color</div>
-      <div class="color-grid">
-        <div class="color-thumb active" data-img="bikini-model-black-yellow.jpg" data-target="bikini"><img src="bikini-black-yellow.jpg" alt=""><span>Black / Yellow</span></div>
-        <div class="color-thumb" data-img="bikini-model-white-black.jpg" data-target="bikini"><img src="bikini-white-black.jpg" alt=""><span>White / Black</span></div>
-        <div class="color-thumb" data-img="bikini-model-red-white.jpg" data-target="bikini"><img src="bikini-red-white.jpg" alt=""><span>Red / White</span></div>
-        <div class="color-thumb" data-img="bikini-model-royal-blue.jpg" data-target="bikini"><img src="bikini-royal-blue.jpg" alt=""><span>Royal Blue</span></div>
-        <div class="color-thumb" data-img="bikini-model-pink-black.jpg" data-target="bikini"><img src="bikini-pink-black.jpg" alt=""><span>Pink / Black</span></div>
-        <div class="color-thumb" data-img="bikini-model-purple-white.jpg" data-target="bikini"><img src="bikini-purple-white.jpg" alt=""><span>Purple / White</span></div>
-      </div>
-      <div class="field-label">Size</div>
-      <select class="size" data-product="bikini"><option value="">Select size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select>
-      <div class="field-label">Quantity</div>
-      <input type="number" class="qty" data-product="bikini" value="1" min="1" max="50">
-      <div class="stock">In stock: 42</div>
-      <button class="add-btn" data-product="bikini" data-price="50">ADD TO ORDER</button>
-    </div>
-  </div>
+<div class="product-top">
+<div class="product-image">
+<img id="bikiniImage" src="bikini-model-black-yellow.jpg" alt="Bikini">
+</div>
+<div class="product-details">
+<h2>Bikini</h2>
+<div class="price">$50.00</div>
+<div class="field-label">Choose Color</div>
+<div class="color-grid">
+<div class="color-thumb active" data-img="bikini-model-black-yellow.jpg" data-target="bikini"><img src="bikini-black-yellow.jpg" alt=""><span>Black / Yellow</span></div>
+<div class="color-thumb" data-img="bikini-model-white-black.jpg" data-target="bikini"><img src="bikini-white-black.jpg" alt=""><span>White / Black</span></div>
+<div class="color-thumb" data-img="bikini-model-red-white.jpg" data-target="bikini"><img src="bikini-red-white.jpg" alt=""><span>Red / White</span></div>
+<div class="color-thumb" data-img="bikini-model-royal-blue.jpg" data-target="bikini"><img src="bikini-royal-blue.jpg" alt=""><span>Royal Blue</span></div>
+<div class="color-thumb" data-img="bikini-model-pink-black.jpg" data-target="bikini"><img src="bikini-pink-black.jpg" alt=""><span>Pink / Black</span></div>
+<div class="color-thumb" data-img="bikini-model-purple-white.jpg" data-target="bikini"><img src="bikini-purple-white.jpg" alt=""><span>Purple / White</span></div>
+</div>
+<div class="field-label">Size</div>
+<select class="size" data-product="bikini"><option value="">Select size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select>
+<div class="field-label">Quantity</div>
+<input type="number" class="qty" data-product="bikini" value="1" min="1" max="50">
+<div class="stock">In stock: 42</div>
+<button class="add-btn" data-product="bikini" data-price="50">ADD TO ORDER</button>
+</div>
+</div>
 </div>
 
 <!-- TRACKSUIT -->
 <div class="product-card">
-  <div class="product-top">
-    <div class="product-image">
-      <img id="tracksuitImage" src="tracksuit-black-front.jpg" alt="Tracksuit">
-    </div>
-    <div class="product-details">
-      <h2>Tracksuit</h2>
-      <div class="price">$50.00</div>
-      <div class="field-label">Choose Color</div>
-      <div class="color-grid two">
-        <div class="color-thumb active" data-img="tracksuit-black-front.jpg" data-target="tracksuit"><img src="tracksuit-black-front.jpg" alt="Black"><span>Black</span></div>
-        <div class="color-thumb" data-img="tracksuit-grey-front.jpg" data-target="tracksuit"><img src="tracksuit-grey-front.jpg" alt="Grey"><span>Grey</span></div>
-      </div>
-      <div class="field-label">Size</div>
-      <select class="size" data-product="tracksuit"><option value="">Select size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select>
-      <div class="field-label">Quantity</div>
-      <input type="number" class="qty" data-product="tracksuit" value="1" min="1" max="50">
-      <div class="stock">In stock: 28</div>
-      <button class="add-btn" data-product="tracksuit" data-price="50">ADD TO ORDER</button>
-    </div>
-  </div>
+<div class="product-top">
+<div class="product-image">
+<img id="tracksuitImage" src="tracksuit-black-front.jpg" alt="Tracksuit">
+</div>
+<div class="product-details">
+<h2>Tracksuit</h2>
+<div class="price">$50.00</div>
+<div class="field-label">Choose Color</div>
+<div class="color-grid two">
+<div class="color-thumb active" data-img="tracksuit-black-front.jpg" data-target="tracksuit"><img src="tracksuit-black-front.jpg" alt="Black"><span>Black</span></div>
+<div class="color-thumb" data-img="tracksuit-grey-front.jpg" data-target="tracksuit"><img src="tracksuit-grey-front.jpg" alt="Grey"><span>Grey</span></div>
+</div>
+<div class="field-label">Size</div>
+<select class="size" data-product="tracksuit"><option value="">Select size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select>
+<div class="field-label">Quantity</div>
+<input type="number" class="qty" data-product="tracksuit" value="1" min="1" max="50">
+<div class="stock">In stock: 28</div>
+<button class="add-btn" data-product="tracksuit" data-price="50">ADD TO ORDER</button>
+</div>
+</div>
 </div>
 
 <div class="cart">
@@ -152,69 +154,67 @@ label input{display:block;width:100%;margin-top:5px;padding:12px;border:1px soli
 </section>
 
 <section class="video-side">
-  <div class="main-video-wrap">
-    <video id="siteVideo" autoplay muted loop playsinline preload="auto">
-      <source src="/video5.mp4" type="video/mp4">
-    </video>
-  </div>
-  <div class="video-thumbs">
-    <div class="video-thumb active" data-src="/video5.mp4">
-      <img src="r4r.png" alt="R4R">
-      <span>R4R</span>
-    </div>
-    <div class="video-thumb" data-src="vid.mp4">
-      <img src="mark.png" alt="Mark">
-      <span>Mark</span>
-    </div>
-  </div>
+<div class="main-video-wrap">
+<video id="siteVideo" autoplay muted loop playsinline preload="auto">
+<source src="/video5.mp4" type="video/mp4">
+</video>
+</div>
+<div class="video-thumbs">
+<div class="video-thumb active" data-src="/video5.mp4">
+<img src="r4r.png" alt="R4R">
+</div>
+<div class="video-thumb" data-src="vid.mp4">
+<img src="mark.png" alt="Mark">
+</div>
+</div>
 </section>
 
 </main>
 
 <section id="checkout" class="checkout">
 <div class="checkout-inner">
-  <button type="button" id="back" class="back-btn">← BACK</button>
+<button type="button" id="back" class="back-btn">← BACK</button>
 
-  <div class="card">
-    <h2>Order</h2>
-    <div id="orderItems"></div>
-    <div class="row bold"><span>Subtotal</span><span id="checkoutSubtotal">$0.00</span></div>
-    <div class="ship-row">
-      <div class="ship active" data-cost="5.99"><strong>Standard — $5.99</strong><span>3–5 business days</span></div>
-      <div class="ship" data-cost="10.99"><strong>Priority — $10.99</strong><span>1–2 business days</span></div>
-    </div>
-    <div class="row"><span>Shipping</span><span id="shippingCost">$5.99</span></div>
-    <div class="row bold"><span>Total</span><span id="checkoutTotal">$0.00</span></div>
-  </div>
+<div class="card">
+<h2>Order</h2>
+<div id="orderItems"></div>
+<div class="row bold"><span>Subtotal</span><span id="checkoutSubtotal">$0.00</span></div>
+<div class="ship-row">
+<div class="ship active" data-cost="5.99"><strong>Standard — $5.99</strong><span>3–5 business days</span></div>
+<div class="ship" data-cost="10.99"><strong>Priority — $10.99</strong><span>1–2 business days</span></div>
+</div>
+<div class="row"><span>Shipping</span><span id="shippingCost">$5.99</span></div>
+<div class="row bold"><span>Total</span><span id="checkoutTotal">$0.00</span></div>
+</div>
 
-  <div class="card">
-    <h2>Customer Information</h2>
-    <form id="shippingForm">
-      <label>Full name<input id="name" required autocomplete="name"></label>
-      <label>Email<input id="email" type="email" required autocomplete="email"></label>
-      <label>Phone number<input id="phone" type="tel" autocomplete="tel"></label>
-      <label>Street address<input id="address" required autocomplete="street-address"></label>
-      <label>City<input id="city" required autocomplete="address-level2"></label>
-      <label>State<input id="state" required autocomplete="address-level1"></label>
-      <label>ZIP code<input id="zip" required autocomplete="postal-code"></label>
-    </form>
-  </div>
+<div class="card">
+<h2>Customer Information</h2>
+<form id="shippingForm">
+<label>Full name<input id="name" required autocomplete="name"></label>
+<label>Email<input id="email" type="email" required autocomplete="email"></label>
+<label>Phone number<input id="phone" type="tel" autocomplete="tel"></label>
+<label>Street address<input id="address" required autocomplete="street-address"></label>
+<label>City<input id="city" required autocomplete="address-level2"></label>
+<label>State<input id="state" required autocomplete="address-level1"></label>
+<label>ZIP code<input id="zip" required autocomplete="postal-code"></label>
+</form>
+</div>
 
-  <div class="card">
-    <h2>Payment Method</h2>
-    <div class="pay-opt active" data-method="card">
-      <span>Credit Card</span>
-      <div class="logos"><span>VISA</span><span>MC</span><span>AMEX</span></div>
-    </div>
-    <div class="pay-opt" data-method="paypal"><span>Pay with PayPal</span></div>
-    <div class="pay-opt" data-method="venmo"><span>Pay with Venmo or Zelle</span></div>
-    <p class="note">Practice mode: selecting Credit Card does not collect or charge card information.</p>
-    <div class="qr-row">
-      <div class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=venmo" alt=""><div>venmo</div></div>
-      <div class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=zelle" alt=""><div>Zelle</div></div>
-    </div>
-    <button type="button" id="placeOrder" class="place-btn">Place Practice Order</button>
-  </div>
+<div class="card">
+<h2>Payment Method</h2>
+<div class="pay-opt active" data-method="card">
+<span>Credit Card</span>
+<div class="logos"><span>VISA</span><span>MC</span><span>AMEX</span></div>
+</div>
+<div class="pay-opt" data-method="paypal"><span>Pay with PayPal</span></div>
+<div class="pay-opt" data-method="venmo"><span>Pay with Venmo or Zelle</span></div>
+<p class="note">Practice mode: selecting Credit Card does not collect or charge card information.</p>
+<div class="qr-row">
+<div class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=venmo" alt=""><div>venmo</div></div>
+<div class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=zelle" alt=""><div>Zelle</div></div>
+</div>
+<button type="button" id="placeOrder" class="place-btn">Place Practice Order</button>
+</div>
 </div>
 </section>
 
@@ -245,110 +245,110 @@ let selected = false;
 let cartItems = [];
 
 colorThumbs.forEach(thumb => {
-  thumb.addEventListener('click', () => {
-    const target = thumb.dataset.target;
-    const img = thumb.dataset.img;
-    document.querySelectorAll(`.color-thumb[data-target="${target}"]`).forEach(t => t.classList.remove('active'));
-    thumb.classList.add('active');
-    if (target === 'bikini') bikiniImage.src = img;
-    if (target === 'tracksuit') tracksuitImage.src = img;
-  });
+thumb.addEventListener('click', () => {
+const target = thumb.dataset.target;
+const img = thumb.dataset.img;
+document.querySelectorAll(`.color-thumb[data-target="${target}"]`).forEach(t => t.classList.remove('active'));
+thumb.classList.add('active');
+if (target === 'bikini') bikiniImage.src = img;
+if (target === 'tracksuit') tracksuitImage.src = img;
+});
 });
 
 addBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const product = btn.dataset.product;
-    const price = parseFloat(btn.dataset.price) || 50;
-    const sizeEl = document.querySelector(`.size[data-product="${product}"]`);
-    const qtyEl = document.querySelector(`.qty[data-product="${product}"]`);
-    if (!sizeEl.value) { alert('Please select a size.'); return; }
-    const qty = parseInt(qtyEl.value, 10) || 1;
-    const name = product === 'bikini' ? 'Bikini' : 'Tracksuit';
-    cartItems.push({ name, qty, price });
-    cartTotal += price * qty;
-    subtotal.textContent = '$' + cartTotal.toFixed(2);
-    selected = true;
-    pay.disabled = false;
-  });
+btn.addEventListener('click', () => {
+const product = btn.dataset.product;
+const price = parseFloat(btn.dataset.price) || 50;
+const sizeEl = document.querySelector(`.size[data-product="${product}"]`);
+const qtyEl = document.querySelector(`.qty[data-product="${product}"]`);
+if (!sizeEl.value) { alert('Please select a size.'); return; }
+const qty = parseInt(qtyEl.value, 10) || 1;
+const name = product === 'bikini' ? 'Bikini' : 'Tracksuit';
+cartItems.push({ name, qty, price });
+cartTotal += price * qty;
+subtotal.textContent = '$' + cartTotal.toFixed(2);
+selected = true;
+pay.disabled = false;
+});
 });
 
 shipOptions.forEach(opt => {
-  opt.addEventListener('click', () => {
-    shipOptions.forEach(o => o.classList.remove('active'));
-    opt.classList.add('active');
-    shippingCost = parseFloat(opt.dataset.cost);
-    shippingCostEl.textContent = '$' + shippingCost.toFixed(2);
-    updateTotal();
-  });
+opt.addEventListener('click', () => {
+shipOptions.forEach(o => o.classList.remove('active'));
+opt.classList.add('active');
+shippingCost = parseFloat(opt.dataset.cost);
+shippingCostEl.textContent = '$' + shippingCost.toFixed(2);
+updateTotal();
+});
 });
 
 payOpts.forEach(opt => {
-  opt.addEventListener('click', () => {
-    payOpts.forEach(o => o.classList.remove('active'));
-    opt.classList.add('active');
-  });
+opt.addEventListener('click', () => {
+payOpts.forEach(o => o.classList.remove('active'));
+opt.classList.add('active');
+});
 });
 
 function updateTotal() {
-  checkoutTotal.textContent = '$' + (cartTotal + shippingCost).toFixed(2);
+checkoutTotal.textContent = '$' + (cartTotal + shippingCost).toFixed(2);
 }
 
 videoThumbs.forEach(thumb => {
-  thumb.addEventListener('click', () => {
-    const newSrc = thumb.dataset.src;
-    if (!newSrc) return;
-    videoThumbs.forEach(t => t.classList.remove('active'));
-    thumb.classList.add('active');
-    siteVideo.pause();
-    siteVideo.src = newSrc;
-    siteVideo.load();
-    const p = siteVideo.play();
-    if (p && p.catch) p.catch(() => {});
-  });
+thumb.addEventListener('click', () => {
+const newSrc = thumb.dataset.src;
+if (!newSrc) return;
+videoThumbs.forEach(t => t.classList.remove('active'));
+thumb.classList.add('active');
+siteVideo.pause();
+siteVideo.src = newSrc;
+siteVideo.load();
+const p = siteVideo.play();
+if (p && p.catch) p.catch(() => {});
+});
 });
 
 const startVideo = () => {
-  const p = siteVideo.play();
-  if (p && p.catch) p.catch(() => {});
+const p = siteVideo.play();
+if (p && p.catch) p.catch(() => {});
 };
 const enableSound = () => {
-  siteVideo.muted = false;
-  siteVideo.volume = 1;
-  const p = siteVideo.play();
-  if (p && p.catch) p.catch(() => {});
+siteVideo.muted = false;
+siteVideo.volume = 1;
+const p = siteVideo.play();
+if (p && p.catch) p.catch(() => {});
 };
 startVideo();
 siteVideo.addEventListener('loadeddata', startVideo, {once: true});
 siteVideo.addEventListener('canplay', startVideo, {once: true});
 ['click','touchstart','pointerdown','keydown'].forEach(event =>
-  document.addEventListener(event, enableSound, {once: true, passive: true})
+document.addEventListener(event, enableSound, {once: true, passive: true})
 );
 
 pay.addEventListener('click', () => {
-  if (!selected) return;
-  orderItems.innerHTML = '';
-  cartItems.forEach(item => {
-    const div = document.createElement('div');
-    div.className = 'row';
-    div.innerHTML = `<span>${item.name} × ${item.qty}</span><span>$${(item.price * item.qty).toFixed(2)}</span>`;
-    orderItems.appendChild(div);
-  });
-  checkoutSubtotal.textContent = '$' + cartTotal.toFixed(2);
-  updateTotal();
-  shop.style.display = 'none';
-  checkout.classList.add('show');
-  document.body.style.overflow = 'auto';
+if (!selected) return;
+orderItems.innerHTML = '';
+cartItems.forEach(item => {
+const div = document.createElement('div');
+div.className = 'row';
+div.innerHTML = `<span>${item.name} × ${item.qty}</span><span>$${(item.price * item.qty).toFixed(2)}</span>`;
+orderItems.appendChild(div);
+});
+checkoutSubtotal.textContent = '$' + cartTotal.toFixed(2);
+updateTotal();
+shop.style.display = 'none';
+checkout.classList.add('show');
+document.body.style.overflow = 'auto';
 });
 
 back.addEventListener('click', () => {
-  checkout.classList.remove('show');
-  shop.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
+checkout.classList.remove('show');
+shop.style.display = 'flex';
+document.body.style.overflow = 'hidden';
 });
 
 placeOrder.addEventListener('click', () => {
-  if (!form.checkValidity()) { form.reportValidity(); return; }
-  alert('Practice order placed. No payment was processed.');
+if (!form.checkValidity()) { form.reportValidity(); return; }
+alert('Practice order placed. No payment was processed.');
 });
 </script>
 </body>
