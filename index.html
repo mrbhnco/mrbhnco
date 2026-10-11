@@ -233,42 +233,25 @@ document.getElementById('placeOrder').addEventListener('click', () => {
 });
 const siteVideo = document.getElementById('siteVideo');
 
-// Browsers block unmuted autoplay. Start silently so the video begins
-// immediately, then enable audio on the first user interaction.
-siteVideo.muted = true;
+// Try to start the video WITH sound immediately.
+// If the browser's autoplay policy rejects audible autoplay,
+// fall back to muted playback so the video still starts.
+siteVideo.muted = false;
 siteVideo.volume = 1;
 
-function startVideo() {
-  const p = siteVideo.play();
-  if (p && p.catch) p.catch(() => {});
-}
-
-function enableSound() {
+function startVideoWithSound() {
   siteVideo.muted = false;
   siteVideo.volume = 1;
-  startVideo();
-  document.removeEventListener('pointerdown', enableSound);
-  document.removeEventListener('touchstart', enableSound);
-  document.removeEventListener('keydown', enableSound);
+  const p = siteVideo.play();
+  if (p && p.catch) {
+    p.catch(() => {
+      siteVideo.muted = true;
+      siteVideo.play().catch(() => {});
+    });
+  }
 }
 
-startVideo();
-siteVideo.addEventListener('loadeddata', startVideo);
-document.addEventListener('pointerdown', enableSound, {once: true, passive: true});
-document.addEventListener('touchstart', enableSound, {once: true, passive: true});
-document.addEventListener('keydown', enableSound, {once: true});
-document.querySelectorAll('.video-thumb').forEach(thumb => {
-  thumb.addEventListener('click', () => {
-    const newSrc = thumb.dataset.src;
-    if (!newSrc) return;
-    document.querySelectorAll('.video-thumb').forEach(t => t.classList.remove('active'));
-    thumb.classList.add('active');
-    siteVideo.pause();
-    siteVideo.src = newSrc;
-    siteVideo.load();
-    forcePlay();
-  });
-});
-</script>
+startVideoWithSound();
+siteVideo.addEventListener('loadeddata', startVideoWithSound, {once: true});</script>
 </body>
 </html>
