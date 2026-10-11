@@ -9,11 +9,8 @@
 html,body{margin:0;width:100%;height:100%;background:#000;color:#fff;font-family:Arial,Helvetica,sans-serif}
 .page{width:100vw;height:100vh;display:flex;justify-content:space-between}
 .left{height:100vh;flex:1;overflow-y:auto;padding:24px 28px 40px}
-.brand{text-align:center;font-size:clamp(32px,5vw,52px);font-weight:900;letter-spacing:.18em;margin:0 0 28px;
-  background:linear-gradient(90deg,#ff6b35,#f7931e,#ffd700);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;filter:drop-shadow(0 0 8px rgba(255,107,53,.5))}
-
+.brand{text-align:center;margin:0 0 28px}
+.brand img{max-width:min(420px,90%);height:auto;display:block;margin:0 auto}
 .product-card{background:#111;border:1px solid #333;border-radius:12px;padding:16px;max-width:680px;margin:0 auto 28px}
 .product-top{display:flex;gap:16px}
 .product-image{flex:0 0 300px;background:#fff;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center}
@@ -32,12 +29,10 @@ select,input[type="number"]{width:100%;padding:10px;border:1px solid #555;border
 .stock{font-size:13px;color:#aaa;margin:2px 0}
 .add-btn{width:100%;border:0;border-radius:8px;padding:14px;background:#d4a017;color:#000;font-size:16px;font-weight:900;cursor:pointer;margin-top:6px}
 .add-btn:hover{background:#e6b422}
-
 .cart{max-width:680px;margin:26px auto 0;padding-top:20px;border-top:1px solid #333}
 .subtotal-row{display:flex;justify-content:space-between;align-items:center;font-size:22px;font-weight:800;margin-bottom:14px}
 .pay-btn{width:100%;border:0;border-radius:8px;padding:15px;background:#ff0000;color:#fff;font-size:18px;font-weight:900;cursor:pointer}
 .pay-btn:disabled{opacity:.4;cursor:not-allowed}
-
 .video-side{height:100vh;width:min(42vw,70vh);flex:none;background:#000;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;overflow:hidden;padding:0;position:relative}
 .main-video-wrap{width:100%;height:100%;position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:stretch;justify-content:center;background:#000;overflow:hidden}
 .main-video-wrap video{display:block;width:100%;height:100%;object-fit:cover;object-position:center;background:#000}
@@ -46,7 +41,6 @@ select,input[type="number"]{width:100%;padding:10px;border:1px solid #555;border
 .video-thumb img{width:100%;height:100%;object-fit:cover;display:block;opacity:.55}
 .video-thumb:hover,.video-thumb.active{border-color:#ffd700;background:transparent}
 .video-thumb:hover img,.video-thumb.active img{opacity:.9}
-
 .checkout{display:none;min-height:100vh;padding:28px 16px 60px;overflow-y:auto;background:#050505}
 .checkout.show{display:block}
 .checkout-inner{max-width:640px;margin:0 auto}
@@ -72,10 +66,9 @@ label input{display:block;width:100%;margin-top:5px;padding:12px;border:1px soli
 .qr img{width:100%;display:block}
 .qr div{color:#000;font-weight:800;margin-top:4px;font-size:13px}
 .place-btn{width:100%;border:0;border-radius:10px;padding:16px;background:#e6c200;color:#000;font-size:18px;font-weight:900;cursor:pointer;margin-top:8px}
-
 @media(max-width:768px){
 .left{padding:18px 12px 30px}
-.brand{font-size:clamp(24px,7vw,38px);letter-spacing:.12em;margin-bottom:20px}
+.brand{margin-bottom:20px}
 .product-top{flex-direction:column}
 .product-image{flex:none;width:100%}
 .cart{margin-top:18px}
@@ -88,14 +81,11 @@ label input{display:block;width:100%;margin-top:5px;padding:12px;border:1px soli
 </style>
 </head>
 <body>
-
 <main id="shop" class="page">
-
 <section class="left">
-
-<div class="brand">MRBHNCO</div>
-
-<!-- BIKINI -->
+<div class="brand">
+  <img src="eLzdZ.jpg" alt="MRBHNCO">
+</div>
 <div class="product-card">
 <div class="product-top">
 <div class="product-image">
@@ -122,8 +112,6 @@ label input{display:block;width:100%;margin-top:5px;padding:12px;border:1px soli
 </div>
 </div>
 </div>
-
-<!-- TRACKSUIT -->
 <div class="product-card">
 <div class="product-top">
 <div class="product-image">
@@ -146,14 +134,11 @@ label input{display:block;width:100%;margin-top:5px;padding:12px;border:1px soli
 </div>
 </div>
 </div>
-
 <div class="cart">
 <div class="subtotal-row"><span>Subtotal</span><span id="subtotal">$0.00</span></div>
 <button id="pay" class="pay-btn" disabled>PAY / CHECKOUT</button>
 </div>
-
 </section>
-
 <section class="video-side">
 <div class="main-video-wrap">
 <video id="siteVideo" autoplay muted loop playsinline preload="auto">
@@ -169,13 +154,10 @@ label input{display:block;width:100%;margin-top:5px;padding:12px;border:1px soli
 </div>
 </div>
 </section>
-
 </main>
-
 <section id="checkout" class="checkout">
 <div class="checkout-inner">
 <button type="button" id="back" class="back-btn">← BACK</button>
-
 <div class="card">
 <h2>Order</h2>
 <div id="orderItems"></div>
@@ -187,7 +169,6 @@ label input{display:block;width:100%;margin-top:5px;padding:12px;border:1px soli
 <div class="row"><span>Shipping</span><span id="shippingCost">$5.99</span></div>
 <div class="row bold"><span>Total</span><span id="checkoutTotal">$0.00</span></div>
 </div>
-
 <div class="card">
 <h2>Customer Information</h2>
 <form id="shippingForm">
@@ -200,7 +181,6 @@ label input{display:block;width:100%;margin-top:5px;padding:12px;border:1px soli
 <label>ZIP code<input id="zip" required autocomplete="postal-code"></label>
 </form>
 </div>
-
 <div class="card">
 <h2>Payment Method</h2>
 <div class="pay-opt active" data-method="card">
@@ -218,7 +198,6 @@ label input{display:block;width:100%;margin-top:5px;padding:12px;border:1px soli
 </div>
 </div>
 </section>
-
 <script>
 const bikiniImage = document.getElementById('bikiniImage');
 const tracksuitImage = document.getElementById('tracksuitImage');
@@ -239,12 +218,10 @@ const siteVideo = document.getElementById('siteVideo');
 const videoThumbs = document.querySelectorAll('.video-thumb');
 const shipOptions = document.querySelectorAll('.ship');
 const payOpts = document.querySelectorAll('.pay-opt');
-
 let cartTotal = 0;
 let shippingCost = 5.99;
 let selected = false;
 let cartItems = [];
-
 colorThumbs.forEach(thumb => {
   thumb.addEventListener('click', () => {
     const target = thumb.dataset.target;
@@ -255,7 +232,6 @@ colorThumbs.forEach(thumb => {
     if (target === 'tracksuit') tracksuitImage.src = img;
   });
 });
-
 addBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     const product = btn.dataset.product;
@@ -272,7 +248,6 @@ addBtns.forEach(btn => {
     pay.disabled = false;
   });
 });
-
 shipOptions.forEach(opt => {
   opt.addEventListener('click', () => {
     shipOptions.forEach(o => o.classList.remove('active'));
@@ -282,18 +257,15 @@ shipOptions.forEach(opt => {
     updateTotal();
   });
 });
-
 payOpts.forEach(opt => {
   opt.addEventListener('click', () => {
     payOpts.forEach(o => o.classList.remove('active'));
     opt.classList.add('active');
   });
 });
-
 function updateTotal() {
   checkoutTotal.textContent = '$' + (cartTotal + shippingCost).toFixed(2);
 }
-
 videoThumbs.forEach(thumb => {
   thumb.addEventListener('click', () => {
     const newSrc = thumb.dataset.src;
@@ -307,7 +279,6 @@ videoThumbs.forEach(thumb => {
     if (p && p.catch) p.catch(() => {});
   });
 });
-
 const startVideo = () => {
   const p = siteVideo.play();
   if (p && p.catch) p.catch(() => {});
@@ -324,7 +295,6 @@ siteVideo.addEventListener('canplay', startVideo, {once: true});
 ['click','touchstart','pointerdown','keydown'].forEach(event =>
   document.addEventListener(event, enableSound, {once: true, passive: true})
 );
-
 pay.addEventListener('click', () => {
   if (!selected) return;
   orderItems.innerHTML = '';
@@ -340,18 +310,15 @@ pay.addEventListener('click', () => {
   checkout.classList.add('show');
   document.body.style.overflow = 'auto';
 });
-
 back.addEventListener('click', () => {
   checkout.classList.remove('show');
   shop.style.display = 'flex';
   document.body.style.overflow = 'hidden';
 });
-
 placeOrder.addEventListener('click', () => {
   if (!form.checkValidity()) { form.reportValidity(); return; }
   alert('Practice order placed. No payment was processed.');
 });
 </script>
-
 </body>
 </html>
