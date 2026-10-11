@@ -37,7 +37,7 @@ select,input[type="number"]{width:100%;padding:10px;border:1px solid #555;border
 
 .video-side{height:100vh;width:min(42vw,70vh);flex:none;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;overflow:hidden;padding:8px}
 .main-video-wrap{width:100%;flex:1;display:flex;align-items:center;justify-content:center;background:#000;border-radius:8px;overflow:hidden}
-.main-video-wrap video{display:block;width:100%;height:100%;object-fit:cover;object-position:center;background:#000}
+.main-video-wrap video{display:block;width:100%;height:100%;object-fit:contain;object-position:center;background:#000}
 .video-thumbs{width:100%;display:flex;gap:8px;padding:8px 4px 4px;overflow-x:auto;justify-content:center;flex-shrink:0}
 .video-thumb{flex:0 0 110px;height:72px;border:2px solid #333;border-radius:6px;overflow:hidden;cursor:pointer;background:#111;position:relative}
 .video-thumb img{width:100%;height:100%;object-fit:cover;display:block}
@@ -116,8 +116,8 @@ select,input[type="number"]{width:100%;padding:10px;border:1px solid #555;border
       <div class="price">$50.00</div>
       <div class="field-label">Choose Color</div>
       <div class="color-grid two">
-        <div class="color-thumb active" data-img="tracksuit-black-front.jpg" data-target="tracksuit"><img src="tracksuit-thumb-black.jpg" alt=""><span>Black</span></div>
-        <div class="color-thumb" data-img="tracksuit-grey-front.jpg" data-target="tracksuit"><img src="tracksuit-thumb-grey.jpg" alt=""><span>Grey</span></div>
+        <div class="color-thumb active" data-img="tracksuit-black-front.jpg" data-target="tracksuit"><img src="tracksuit-black-front.jpg" alt="Black"><span>Black</span></div>
+        <div class="color-thumb" data-img="tracksuit-grey-front.jpg" data-target="tracksuit"><img src="tracksuit-grey-front.jpg" alt="Grey"><span>Grey</span></div>
       </div>
       <div class="field-label">Size</div>
       <select class="size" data-product="tracksuit"><option value="">Select size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select>
@@ -192,7 +192,6 @@ const videoThumbs = document.querySelectorAll('.video-thumb');
 let cartTotal = 0;
 let selected = false;
 
-// Color switcher for both products
 colorThumbs.forEach(thumb => {
   thumb.addEventListener('click', () => {
     const target = thumb.dataset.target;
@@ -204,7 +203,6 @@ colorThumbs.forEach(thumb => {
   });
 });
 
-// Add to order (works for both products)
 addBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     const product = btn.dataset.product;
@@ -220,7 +218,6 @@ addBtns.forEach(btn => {
   });
 });
 
-// Video switcher
 videoThumbs.forEach(thumb => {
   thumb.addEventListener('click', () => {
     const newSrc = thumb.dataset.src;
