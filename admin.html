@@ -27,6 +27,10 @@ body{margin:0;background:#0a0612;color:#e4c56a;font-family:Arial,Helvetica,sans-
 .product-image img{width:100%;height:auto;display:block}
 .product-details h2{margin:0 0 4px;font-size:18px}
 .price{color:#ffd700;font-weight:700;font-size:18px}
+.video-preview{margin-top:16px;padding:12px;border:1px dashed #444;border-radius:8px;text-align:center;background:#111}
+.video-preview video{max-width:100%;max-height:180px;border-radius:6px}
+.thumbs{display:flex;gap:8px;justify-content:center;margin-top:8px}
+.thumbs img{width:80px;height:50px;object-fit:cover;border:2px solid #ffd700;border-radius:4px}
 .editor{width:380px;background:#100b19;padding:20px;overflow-y:auto;border-left:1px solid #333}
 .editor h2{margin:0 0 12px;font-size:18px}
 .field{margin:12px 0}
@@ -74,17 +78,25 @@ body{margin:0;background:#0a0612;color:#e4c56a;font-family:Arial,Helvetica,sans-
       <div class="clickable" data-section="shipping" style="text-align:center;padding:12px;border:1px dashed #444;border-radius:8px;margin-top:8px">
         Shipping: Standard $<span id="prevShipStd">5.99</span> · Priority $<span id="prevShipPri">10.99</span>
       </div>
+      <div class="video-preview clickable" data-section="video" id="prevVideo">
+        <strong>Home Page Video</strong>
+        <div style="margin:8px 0;font-size:13px">Main video: <span id="prevVideoSrc">/video5.mp4</span></div>
+        <div class="thumbs">
+          <img id="prevThumb1" src="https://via.placeholder.com/80x50/111/ffd700?text=Thumb1" alt="">
+          <img id="prevThumb2" src="https://via.placeholder.com/80x50/111/ffd700?text=Thumb2" alt="">
+        </div>
+        <div style="font-size:11px;margin-top:6px">Click to upload new video + thumbnails</div>
+      </div>
     </div>
   </div>
   <div class="editor">
     <h2>How to edit</h2>
-    <p class="notice">Click any yellow-outlined section on the left (logo, Bikini, Tracksuit, Shipping). A menu will open so you can change text, price, stock, or upload a new image.</p>
-    <p class="notice">When finished, click <strong>Download Updated Storefront</strong> and replace your live index.html with the downloaded file. Upload any new images next to it.</p>
+    <p class="notice">Click any section on the left (logo, Bikini, Tracksuit, Shipping, or Video). A menu opens to change text, prices, stock, images, or upload a new video and thumbnails.</p>
+    <p class="notice">When finished, click <strong>Download Updated Storefront</strong> and replace your live index.html. Upload any new video/image files next to it if using filenames.</p>
     <div id="status" class="notice" style="margin-top:20px"></div>
   </div>
 </div>
 
-<!-- Edit Modal -->
 <div class="modal-bg" id="modalBg">
   <div class="modal">
     <span class="close" id="modalClose">&times;</span>
@@ -102,7 +114,14 @@ const data = {
   logo: { text: 'MRBHNCO', image: '' },
   bikini: { name: 'Bikini', price: '50.00', stock: '42', image: '' },
   tracksuit: { name: 'Tracksuit', price: '50.00', stock: '28', image: '' },
-  shipping: { std: '5.99', pri: '10.99' }
+  shipping: { std: '5.99', pri: '10.99' },
+  video: {
+    main: '/video5.mp4',
+    thumb1: 'r4r.png',
+    thumb1Src: '/video5.mp4',
+    thumb2: 'mark.png',
+    thumb2Src: 'vid.mp4'
+  }
 };
 
 let currentSection = null;
@@ -124,6 +143,9 @@ function updatePreview() {
   if (data.tracksuit.image) document.getElementById('prevTrackImg').src = data.tracksuit.image;
   document.getElementById('prevShipStd').textContent = data.shipping.std;
   document.getElementById('prevShipPri').textContent = data.shipping.pri;
+  document.getElementById('prevVideoSrc').textContent = data.video.main || '(none)';
+  if (data.video.thumb1 && data.video.thumb1.startsWith('data:')) document.getElementById('prevThumb1').src = data.video.thumb1;
+  if (data.video.thumb2 && data.video.thumb2.startsWith('data:')) document.getElementById('prevThumb2').src = data.video.thumb2;
 }
 
 function openModal(section) {
@@ -161,6 +183,17 @@ function openModal(section) {
     body.innerHTML = `
       <div class="field"><label>Standard price</label><input id="fStd" type="number" step="0.01" value="${data.shipping.std}"></div>
       <div class="field"><label>Priority price</label><input id="fPri" type="number" step="0.01" value="${data.shipping.pri}"></div>
+    `;
+  } else if (section === 'video') {
+    title.textContent = 'Edit Home Page Video';
+    body.innerHTML = `
+      <div class="field"><label>Main video file or URL</label><input id="fMain" value="${data.video.main}" placeholder="/video5.mp4 or data URL"></div>
+      <div class="field"><label>Upload main video</label><input type="file" id="fMainFile" accept="video/*"></div>
+      <div class="field"><label>Thumbnail 1 image</label><input type="file" id="fThumb1" accept="image/*"></div>
+      <div class="field"><label>Thumbnail 1 video source</label><input id="fThumb1Src" value="${data.video.thumb1Src}"></div>
+      <div class="field"><label>Thumbnail 2 image</label><input type="file" id="fThumb2" accept="image/*"></div>
+      <div class="field"><label>Thumbnail 2 video source</label><input id="fThumb2Src" value="${data.video.thumb2Src}"></div>
+      <div class="notice">Upload video/images to embed them, or enter filenames (upload the files to your host).</div>
     `;
   }
   modal.classList.add('show');
@@ -205,6 +238,28 @@ function saveModal() {
   } else if (section === 'shipping') {
     data.shipping.std = document.getElementById('fStd').value;
     data.shipping.pri = document.getElementById('fPri').value;
+  } else if (section === 'video') {
+    data.video.main = document.getElementById('fMain').value || data.video.main;
+    data.video.thumb1Src = document.getElementById('fThumb1Src').value || data.video.thumb1Src;
+    data.video.thumb2Src = document.getElementById('fThumb2Src').value || data.video.thumb2Src;
+    const mainFile = document.getElementById('fMainFile')?.files[0];
+    if (mainFile) {
+      const reader = new FileReader();
+      reader.onload = e => { data.video.main = e.target.result; updatePreview(); };
+      reader.readAsDataURL(mainFile);
+    }
+    const t1 = document.getElementById('fThumb1')?.files[0];
+    if (t1) {
+      const reader = new FileReader();
+      reader.onload = e => { data.video.thumb1 = e.target.result; updatePreview(); };
+      reader.readAsDataURL(t1);
+    }
+    const t2 = document.getElementById('fThumb2')?.files[0];
+    if (t2) {
+      const reader = new FileReader();
+      reader.onload = e => { data.video.thumb2 = e.target.result; updatePreview(); };
+      reader.readAsDataURL(t2);
+    }
   }
   updatePreview();
   closeModal();
@@ -226,6 +281,11 @@ document.getElementById('downloadBtn').addEventListener('click', () => {
 
   const bikiniImg = data.bikini.image || 'bikini-model-black-yellow.jpg';
   const trackImg = data.tracksuit.image || 'tracksuit-black-front.jpg';
+  const videoSrc = data.video.main || '/video5.mp4';
+  const thumb1 = data.video.thumb1 || 'r4r.png';
+  const thumb2 = data.video.thumb2 || 'mark.png';
+  const thumb1Src = data.video.thumb1Src || '/video5.mp4';
+  const thumb2Src = data.video.thumb2Src || 'vid.mp4';
 
   const html = `<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MRBHNCO</title>
@@ -234,7 +294,7 @@ document.getElementById('downloadBtn').addEventListener('click', () => {
 <div class="product-card"><div class="product-top"><div class="product-image"><img id="bikiniImage" src="${bikiniImg}" alt="${data.bikini.name}"></div><div class="product-details"><h2>${data.bikini.name}</h2><div class="price">$${data.bikini.price}</div><div class="field-label">Choose Color</div><div class="color-grid"><div class="color-thumb active" data-img="bikini-model-black-yellow.jpg" data-target="bikini"><img src="bikini-black-yellow.jpg"><span>Black / Yellow</span></div><div class="color-thumb" data-img="bikini-model-white-black.jpg" data-target="bikini"><img src="bikini-white-black.jpg"><span>White / Black</span></div><div class="color-thumb" data-img="bikini-model-red-white.jpg" data-target="bikini"><img src="bikini-red-white.jpg"><span>Red / White</span></div><div class="color-thumb" data-img="bikini-model-royal-blue.jpg" data-target="bikini"><img src="bikini-royal-blue.jpg"><span>Royal Blue</span></div><div class="color-thumb" data-img="bikini-model-pink-black.jpg" data-target="bikini"><img src="bikini-pink-black.jpg"><span>Pink / Black</span></div><div class="color-thumb" data-img="bikini-model-purple-white.jpg" data-target="bikini"><img src="bikini-purple-white.jpg"><span>Purple / White</span></div></div><div class="field-label">Size</div><select class="size" data-product="bikini"><option value="">Select size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select><div class="field-label">Quantity</div><input type="number" class="qty" data-product="bikini" value="1" min="1"><div class="stock">In stock: ${data.bikini.stock}</div><button class="add-btn" data-product="bikini" data-price="${data.bikini.price}">ADD TO ORDER</button></div></div></div>
 <div class="product-card"><div class="product-top"><div class="product-image"><img id="tracksuitImage" src="${trackImg}" alt="${data.tracksuit.name}"></div><div class="product-details"><h2>${data.tracksuit.name}</h2><div class="price">$${data.tracksuit.price}</div><div class="field-label">Choose Color</div><div class="color-grid two"><div class="color-thumb active" data-img="tracksuit-black-front.jpg" data-target="tracksuit"><img src="tracksuit-black-front.jpg"><span>Black</span></div><div class="color-thumb" data-img="tracksuit-grey-front.jpg" data-target="tracksuit"><img src="tracksuit-grey-front.jpg"><span>Grey</span></div></div><div class="field-label">Size</div><select class="size" data-product="tracksuit"><option value="">Select size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select><div class="field-label">Quantity</div><input type="number" class="qty" data-product="tracksuit" value="1" min="1"><div class="stock">In stock: ${data.tracksuit.stock}</div><button class="add-btn" data-product="tracksuit" data-price="${data.tracksuit.price}">ADD TO ORDER</button></div></div></div>
 <div class="cart"><div class="subtotal-row"><span>Subtotal</span><span id="subtotal">$0.00</span></div><button id="pay" class="pay-btn" disabled>PAY / CHECKOUT</button></div></section>
-<section class="video-side"><div class="main-video-wrap"><video id="siteVideo" autoplay muted loop playsinline><source src="/video5.mp4" type="video/mp4"></video></div><div class="video-thumbs"><div class="video-thumb active" data-src="/video5.mp4"><img src="r4r.png" alt="R4R"></div><div class="video-thumb" data-src="vid.mp4"><img src="mark.png" alt="Mark"></div></div></section></main>
+<section class="video-side"><div class="main-video-wrap"><video id="siteVideo" autoplay muted loop playsinline><source src="${videoSrc}" type="video/mp4"></video></div><div class="video-thumbs"><div class="video-thumb active" data-src="${thumb1Src}"><img src="${thumb1}" alt="Thumb 1"></div><div class="video-thumb" data-src="${thumb2Src}"><img src="${thumb2}" alt="Thumb 2"></div></div></section></main>
 <section id="checkout" class="checkout"><div class="checkout-inner"><button type="button" id="back" class="back-btn">← BACK</button><div class="card"><h2>Order</h2><div id="orderItems"></div><div class="row bold"><span>Subtotal</span><span id="checkoutSubtotal">$0.00</span></div><div class="ship-row"><div class="ship active" data-cost="${data.shipping.std}"><strong>Standard — $${data.shipping.std}</strong><span>3–5 business days</span></div><div class="ship" data-cost="${data.shipping.pri}"><strong>Priority — $${data.shipping.pri}</strong><span>1–2 business days</span></div></div><div class="row"><span>Shipping</span><span id="shippingCost">$${data.shipping.std}</span></div><div class="row bold"><span>Total</span><span id="checkoutTotal">$0.00</span></div></div><div class="card"><h2>Customer Information</h2><form id="shippingForm"><label>Full name<input id="name" required></label><label>Email<input id="email" type="email" required></label><label>Phone<input id="phone" type="tel"></label><label>Street address<input id="address" required></label><label>City<input id="city" required></label><label>State<input id="state" required></label><label>ZIP<input id="zip" required></label></form></div><div class="card"><h2>Payment Method</h2><div class="pay-opt active">Credit Card</div><div class="pay-opt">Pay with PayPal</div><div class="pay-opt">Pay with Venmo or Zelle</div><p class="note">Practice mode.</p><button type="button" id="placeOrder" class="place-btn">Place Practice Order</button></div></div></section>
 <script>
 const bikiniImage=document.getElementById('bikiniImage'),tracksuitImage=document.getElementById('tracksuitImage');
@@ -246,6 +306,8 @@ function updateTotal(){document.getElementById('checkoutTotal').textContent='$'+
 document.getElementById('pay').addEventListener('click',()=>{if(!selected)return;document.getElementById('orderItems').innerHTML='';cartItems.forEach(item=>{const d=document.createElement('div');d.className='row';d.innerHTML='<span>'+item.name+' × '+item.qty+'</span><span>$'+(item.price*item.qty).toFixed(2)+'</span>';document.getElementById('orderItems').appendChild(d);});document.getElementById('checkoutSubtotal').textContent='$'+cartTotal.toFixed(2);updateTotal();document.getElementById('shop').style.display='none';document.getElementById('checkout').classList.add('show');});
 document.getElementById('back').addEventListener('click',()=>{document.getElementById('checkout').classList.remove('show');document.getElementById('shop').style.display='flex';});
 document.getElementById('placeOrder').addEventListener('click',()=>{if(!document.getElementById('shippingForm').checkValidity()){document.getElementById('shippingForm').reportValidity();return;}alert('Practice order placed.');});
+const siteVideo=document.getElementById('siteVideo');
+document.querySelectorAll('.video-thumb').forEach(thumb=>thumb.addEventListener('click',()=>{const newSrc=thumb.dataset.src;if(!newSrc)return;document.querySelectorAll('.video-thumb').forEach(t=>t.classList.remove('active'));thumb.classList.add('active');siteVideo.pause();siteVideo.src=newSrc;siteVideo.load();const p=siteVideo.play();if(p&&p.catch)p.catch(()=>{});}));
 <\/script></body></html>`;
 
   const blob = new Blob([html], { type: 'text/html' });
