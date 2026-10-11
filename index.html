@@ -232,14 +232,31 @@ document.getElementById('placeOrder').addEventListener('click', () => {
   alert('Practice order placed.');
 });
 const siteVideo = document.getElementById('siteVideo');
-function forcePlay() {
-  siteVideo.muted = true;
+
+// Browsers block unmuted autoplay. Start silently so the video begins
+// immediately, then enable audio on the first user interaction.
+siteVideo.muted = true;
+siteVideo.volume = 1;
+
+function startVideo() {
   const p = siteVideo.play();
   if (p && p.catch) p.catch(() => {});
 }
-forcePlay();
-siteVideo.addEventListener('loadeddata', forcePlay);
-document.addEventListener('click', () => { siteVideo.muted = false; }, {once: true});
+
+function enableSound() {
+  siteVideo.muted = false;
+  siteVideo.volume = 1;
+  startVideo();
+  document.removeEventListener('pointerdown', enableSound);
+  document.removeEventListener('touchstart', enableSound);
+  document.removeEventListener('keydown', enableSound);
+}
+
+startVideo();
+siteVideo.addEventListener('loadeddata', startVideo);
+document.addEventListener('pointerdown', enableSound, {once: true, passive: true});
+document.addEventListener('touchstart', enableSound, {once: true, passive: true});
+document.addEventListener('keydown', enableSound, {once: true});
 document.querySelectorAll('.video-thumb').forEach(thumb => {
   thumb.addEventListener('click', () => {
     const newSrc = thumb.dataset.src;
