@@ -144,12 +144,12 @@ select,input[type="number"]{width:100%;padding:10px;border:1px solid #555;border
   </div>
   <div class="video-thumbs">
     <div class="video-thumb active" data-src="/video5.mp4">
-      <img src="https://via.placeholder.com/110x72/111/fff?text=Video+5" alt="Video 5">
-      <span>Video 5</span>
+      <img src="r4r.png" alt="R4R">
+      <span>R4R</span>
     </div>
     <div class="video-thumb" data-src="vid.mp4">
-      <img src="video-thumb-ja3r4real.jpg" alt="vid.mp4">
-      <span>vid.mp4</span>
+      <img src="mark.png" alt="Mark">
+      <span>Mark</span>
     </div>
   </div>
 </section>
@@ -197,7 +197,6 @@ colorThumbs.forEach(thumb => {
   thumb.addEventListener('click', () => {
     const target = thumb.dataset.target;
     const img = thumb.dataset.img;
-    // Remove active only within the same product
     document.querySelectorAll(`.color-thumb[data-target="${target}"]`).forEach(t => t.classList.remove('active'));
     thumb.classList.add('active');
     if (target === 'bikini') bikiniImage.src = img;
