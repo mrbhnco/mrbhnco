@@ -44,31 +44,31 @@ select,input[type="number"]{width:100%;padding:10px;border:1px solid #555;border
 .video-thumb:hover,.video-thumb.active{border-color:#ffd700}
 .video-thumb span{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.7);font-size:9px;text-align:center;padding:2px 0;color:#fff}
 
-.checkout{display:none;min-height:100vh;padding:28px;overflow-y:auto;background:#0a0a0a}
+.checkout{display:none;min-height:100vh;padding:28px 16px;overflow-y:auto;background:#050505}
 .checkout.show{display:block}
-.checkout-inner{max-width:680px;margin:0 auto}
-.checkout h1,.checkout h2{color:#ffd700;margin:0 0 16px;font-size:clamp(26px,4vw,36px)}
-.section{background:#111;border:1px solid #333;border-radius:12px;padding:20px;margin-bottom:20px}
-.order-row{display:flex;justify-content:space-between;margin:8px 0;font-size:15px}
-.order-row.bold{font-weight:800;font-size:17px}
-.shipping-options{display:flex;gap:10px;margin:14px 0}
-.ship-option{flex:1;border:1px solid #555;border-radius:8px;padding:12px;cursor:pointer;text-align:center;background:#1a1a1a}
-.ship-option.active{background:#d4a017;color:#000;border-color:#d4a017}
-.ship-option strong{display:block;margin-bottom:4px}
-.form-group{margin-bottom:14px}
-.form-group label{display:block;margin-bottom:6px;font-weight:700;font-size:14px}
-.form-group input,.form-group select{width:100%;padding:12px;border:1px solid #555;border-radius:7px;background:#1a1a1a;color:#fff;font-size:15px}
-.payment-option{border:1px solid #555;border-radius:8px;padding:14px;margin-bottom:10px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:#1a1a1a}
-.payment-option.active{border-color:#ffd700}
-.card-logos{display:flex;gap:6px}
-.card-logos span{background:#fff;color:#000;font-size:10px;font-weight:800;padding:3px 6px;border-radius:4px}
-.qr-row{display:flex;gap:16px;justify-content:center;margin:16px 0}
-.qr-box{background:#fff;border-radius:8px;padding:10px;text-align:center;width:140px}
-.qr-box img{width:100%;height:auto;display:block}
-.qr-box div{color:#000;font-weight:800;margin-top:6px;font-size:14px}
-.place-order{width:100%;border:0;border-radius:8px;padding:16px;background:#d4a017;color:#000;font-size:18px;font-weight:900;cursor:pointer;margin-top:10px}
-.back-btn{display:inline-block;margin-bottom:16px;padding:10px 18px;border:1px solid #555;border-radius:7px;background:#111;color:#fff;font-weight:800;cursor:pointer}
-.note{font-size:13px;color:#aaa;margin:8px 0}
+.checkout-inner{max-width:640px;margin:0 auto}
+.back-btn{background:#111;color:#fff;border:1px solid #444;border-radius:8px;padding:10px 16px;font-weight:800;cursor:pointer;margin-bottom:16px}
+.card{background:#111;border:1px solid #2a2a2a;border-radius:14px;padding:20px;margin-bottom:18px}
+.card h2{color:#e6c200;margin:0 0 14px;font-size:26px}
+.row{display:flex;justify-content:space-between;margin:8px 0;font-size:15px}
+.row.bold{font-weight:800;font-size:17px}
+.ship-row{display:flex;gap:10px;margin:12px 0}
+.ship{flex:1;border:1px solid #444;border-radius:10px;padding:12px;text-align:center;cursor:pointer;background:#1a1a1a}
+.ship.active{background:#e6c200;color:#000;border-color:#e6c200}
+.ship strong{display:block;margin-bottom:3px}
+.ship span{font-size:13px}
+label{display:block;margin-bottom:12px;font-size:14px;font-weight:700}
+label input{display:block;width:100%;margin-top:5px;padding:12px;border:1px solid #444;border-radius:8px;background:#1a1a1a;color:#fff;font-size:15px}
+.pay-opt{border:1px solid #444;border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:#1a1a1a}
+.pay-opt.active{border-color:#e6c200}
+.logos{display:flex;gap:5px}
+.logos span{background:#fff;color:#000;font-size:9px;font-weight:800;padding:3px 6px;border-radius:3px}
+.note{font-size:13px;color:#999;margin:10px 0}
+.qr-row{display:flex;gap:14px;justify-content:center;margin:14px 0}
+.qr{background:#fff;border-radius:10px;padding:8px;text-align:center;width:130px}
+.qr img{width:100%;display:block}
+.qr div{color:#000;font-weight:800;margin-top:4px;font-size:13px}
+.place-btn{width:100%;border:0;border-radius:10px;padding:16px;background:#e6c200;color:#000;font-size:18px;font-weight:900;cursor:pointer;margin-top:8px}
 
 @media(max-width:768px){
 .left{padding:18px 12px 30px}
@@ -80,7 +80,7 @@ select,input[type="number"]{width:100%;padding:10px;border:1px solid #555;border
 .video-side{width:min(56.25vh,50vw)}
 .video-thumb{flex:0 0 80px;height:56px}
 .checkout{padding:20px 14px}
-.shipping-options{flex-direction:column}
+.ship-row{flex-direction:column}
 }
 </style>
 </head>
@@ -173,65 +173,48 @@ select,input[type="number"]{width:100%;padding:10px;border:1px solid #555;border
 
 <section id="checkout" class="checkout">
 <div class="checkout-inner">
-<button type="button" id="back" class="back-btn">← BACK TO SHOP</button>
+  <button type="button" id="back" class="back-btn">← BACK</button>
 
-<div class="section">
-  <h2>Order</h2>
-  <div id="orderItems"></div>
-  <div class="order-row bold"><span>Subtotal</span><span id="checkoutSubtotal">$0.00</span></div>
-  <div class="shipping-options">
-    <div class="ship-option active" data-cost="5.99">
-      <strong>Standard — $5.99</strong>
-      3–5 business days
+  <div class="card">
+    <h2>Order</h2>
+    <div id="orderItems"></div>
+    <div class="row bold"><span>Subtotal</span><span id="checkoutSubtotal">$0.00</span></div>
+    <div class="ship-row">
+      <div class="ship active" data-cost="5.99"><strong>Standard — $5.99</strong><span>3–5 business days</span></div>
+      <div class="ship" data-cost="10.99"><strong>Priority — $10.99</strong><span>1–2 business days</span></div>
     </div>
-    <div class="ship-option" data-cost="10.99">
-      <strong>Priority — $10.99</strong>
-      1–2 business days
-    </div>
+    <div class="row"><span>Shipping</span><span id="shippingCost">$5.99</span></div>
+    <div class="row bold"><span>Total</span><span id="checkoutTotal">$0.00</span></div>
   </div>
-  <div class="order-row"><span>Shipping</span><span id="shippingCost">$5.99</span></div>
-  <div class="order-row bold"><span>Total</span><span id="checkoutTotal">$0.00</span></div>
-</div>
 
-<div class="section">
-  <h2>Customer Information</h2>
-  <form id="shippingForm">
-    <div class="form-group"><label for="name">Full name</label><input id="name" required autocomplete="name"></div>
-    <div class="form-group"><label for="email">Email</label><input id="email" type="email" required autocomplete="email"></div>
-    <div class="form-group"><label for="phone">Phone number</label><input id="phone" type="tel" autocomplete="tel"></div>
-    <div class="form-group"><label for="address">Street address</label><input id="address" required autocomplete="street-address"></div>
-    <div class="form-group"><label for="city">City</label><input id="city" required autocomplete="address-level2"></div>
-    <div class="form-group"><label for="state">State</label><input id="state" required autocomplete="address-level1"></div>
-    <div class="form-group"><label for="zip">ZIP code</label><input id="zip" required autocomplete="postal-code"></div>
-  </form>
-</div>
+  <div class="card">
+    <h2>Customer Information</h2>
+    <form id="shippingForm">
+      <label>Full name<input id="name" required autocomplete="name"></label>
+      <label>Email<input id="email" type="email" required autocomplete="email"></label>
+      <label>Phone number<input id="phone" type="tel" autocomplete="tel"></label>
+      <label>Street address<input id="address" required autocomplete="street-address"></label>
+      <label>City<input id="city" required autocomplete="address-level2"></label>
+      <label>State<input id="state" required autocomplete="address-level1"></label>
+      <label>ZIP code<input id="zip" required autocomplete="postal-code"></label>
+    </form>
+  </div>
 
-<div class="section">
-  <h2>Payment Method</h2>
-  <div class="payment-option active" data-method="card">
-    <span>Credit Card</span>
-    <div class="card-logos"><span>VISA</span><span>MC</span><span>AMEX</span></div>
-  </div>
-  <div class="payment-option" data-method="paypal">
-    <span>Pay with PayPal</span>
-  </div>
-  <div class="payment-option" data-method="venmo">
-    <span>Pay with Venmo or Zelle</span>
-  </div>
-  <div class="note">Practice mode: selecting Credit Card does not collect or charge card information.</div>
-  <div class="qr-row">
-    <div class="qr-box">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=venmo://paycharge?txn=pay&recipients=JK&amount=0" alt="Venmo QR">
-      <div>venmo</div>
+  <div class="card">
+    <h2>Payment Method</h2>
+    <div class="pay-opt active" data-method="card">
+      <span>Credit Card</span>
+      <div class="logos"><span>VISA</span><span>MC</span><span>AMEX</span></div>
     </div>
-    <div class="qr-box">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=zelle://pay?amount=0" alt="Zelle QR">
-      <div>Zelle</div>
+    <div class="pay-opt" data-method="paypal"><span>Pay with PayPal</span></div>
+    <div class="pay-opt" data-method="venmo"><span>Pay with Venmo or Zelle</span></div>
+    <p class="note">Practice mode: selecting Credit Card does not collect or charge card information.</p>
+    <div class="qr-row">
+      <div class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=venmo" alt=""><div>venmo</div></div>
+      <div class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=zelle" alt=""><div>Zelle</div></div>
     </div>
+    <button type="button" id="placeOrder" class="place-btn">Place Practice Order</button>
   </div>
-  <button type="button" id="placeOrder" class="place-order">Place Practice Order</button>
-</div>
-
 </div>
 </section>
 
@@ -253,8 +236,8 @@ const form = document.getElementById('shippingForm');
 const placeOrder = document.getElementById('placeOrder');
 const siteVideo = document.getElementById('siteVideo');
 const videoThumbs = document.querySelectorAll('.video-thumb');
-const shipOptions = document.querySelectorAll('.ship-option');
-const paymentOptions = document.querySelectorAll('.payment-option');
+const shipOptions = document.querySelectorAll('.ship');
+const payOpts = document.querySelectorAll('.pay-opt');
 
 let cartTotal = 0;
 let shippingCost = 5.99;
@@ -295,20 +278,19 @@ shipOptions.forEach(opt => {
     opt.classList.add('active');
     shippingCost = parseFloat(opt.dataset.cost);
     shippingCostEl.textContent = '$' + shippingCost.toFixed(2);
-    updateCheckoutTotal();
+    updateTotal();
   });
 });
 
-paymentOptions.forEach(opt => {
+payOpts.forEach(opt => {
   opt.addEventListener('click', () => {
-    paymentOptions.forEach(o => o.classList.remove('active'));
+    payOpts.forEach(o => o.classList.remove('active'));
     opt.classList.add('active');
   });
 });
 
-function updateCheckoutTotal() {
-  const total = cartTotal + shippingCost;
-  checkoutTotal.textContent = '$' + total.toFixed(2);
+function updateTotal() {
+  checkoutTotal.textContent = '$' + (cartTotal + shippingCost).toFixed(2);
 }
 
 videoThumbs.forEach(thumb => {
@@ -346,13 +328,13 @@ pay.addEventListener('click', () => {
   if (!selected) return;
   orderItems.innerHTML = '';
   cartItems.forEach(item => {
-    const row = document.createElement('div');
-    row.className = 'order-row';
-    row.innerHTML = `<span>${item.name} × ${item.qty}</span><span>$${(item.price * item.qty).toFixed(2)}</span>`;
-    orderItems.appendChild(row);
+    const div = document.createElement('div');
+    div.className = 'row';
+    div.innerHTML = `<span>${item.name} × ${item.qty}</span><span>$${(item.price * item.qty).toFixed(2)}</span>`;
+    orderItems.appendChild(div);
   });
   checkoutSubtotal.textContent = '$' + cartTotal.toFixed(2);
-  updateCheckoutTotal();
+  updateTotal();
   shop.style.display = 'none';
   checkout.classList.add('show');
 });
@@ -363,10 +345,7 @@ back.addEventListener('click', () => {
 });
 
 placeOrder.addEventListener('click', () => {
-  if (!form.checkValidity()) {
-    form.reportValidity();
-    return;
-  }
+  if (!form.checkValidity()) { form.reportValidity(); return; }
   alert('Practice order placed. No payment was processed.');
 });
 </script>
