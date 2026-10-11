@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'video5.MOV'
+      - 'index.html'
       - '.github/workflows/convert-video.yml'
 
 permissions:
