@@ -1,0 +1,28 @@
+name: Convert video5 MOV to MP4
+
+on:
+  push:
+    paths:
+      - 'video5.MOV'
+      - '.github/workflows/convert-video.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Convert MOV container to MP4
+        run: ffmpeg -y -i video5.MOV -c copy -movflags +faststart video5.mp4
+
+      - name: Commit MP4
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add video5.mp4
+          git diff --cached --quiet || git commit -m "Add browser-compatible video5.mp4"
+          git push
