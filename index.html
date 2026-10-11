@@ -10,15 +10,17 @@ html,body{margin:0;width:100%;height:100%;background:#000;color:#fff;font-family
 .page{width:100vw;height:100vh;display:flex;justify-content:space-between}
 .left{height:100vh;flex:1;overflow-y:auto;padding:24px 28px 40px}
 .brand{text-align:center;color:#00a651;font-size:clamp(32px,5vw,52px);font-weight:900;letter-spacing:.18em;margin:0 0 28px}
-.product-card{background:#111;border:1px solid #333;border-radius:12px;padding:16px;max-width:680px;margin:0 auto}
+
+.product-card{background:#111;border:1px solid #333;border-radius:12px;padding:16px;max-width:680px;margin:0 auto 28px}
 .product-top{display:flex;gap:16px}
-.product-image{flex:0 0 320px;background:#fff;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.product-image{flex:0 0 300px;background:#fff;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .product-image img{width:100%;height:auto;display:block;object-fit:contain}
 .product-details{flex:1;display:flex;flex-direction:column;gap:8px}
 .product-details h2{margin:0;font-size:22px;font-weight:800}
 .price{font-size:20px;font-weight:700;color:#ffd700}
 .field-label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin:6px 0 4px}
 .color-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.color-grid.two{grid-template-columns:repeat(2,1fr)}
 .color-thumb{border:2px solid #444;border-radius:6px;overflow:hidden;cursor:pointer;background:#fff;aspect-ratio:1}
 .color-thumb img{width:100%;height:100%;object-fit:contain;display:block}
 .color-thumb:hover,.color-thumb.active{border-color:#ffd700}
@@ -27,6 +29,7 @@ select,input[type="number"]{width:100%;padding:10px;border:1px solid #555;border
 .stock{font-size:13px;color:#aaa;margin:2px 0}
 .add-btn{width:100%;border:0;border-radius:8px;padding:14px;background:#d4a017;color:#000;font-size:16px;font-weight:900;cursor:pointer;margin-top:6px}
 .add-btn:hover{background:#e6b422}
+
 .cart{max-width:680px;margin:26px auto 0;padding-top:20px;border-top:1px solid #333}
 .subtotal-row{display:flex;justify-content:space-between;align-items:center;font-size:22px;font-weight:800;margin-bottom:14px}
 .pay-btn{width:100%;border:0;border-radius:8px;padding:15px;background:#ff0000;color:#fff;font-size:18px;font-weight:900;cursor:pointer}
@@ -67,37 +70,70 @@ select,input[type="number"]{width:100%;padding:10px;border:1px solid #555;border
 </style>
 </head>
 <body>
+
 <main id="shop" class="page">
+
 <section class="left">
+
 <div class="brand">MRBHNCO</div>
+
+<!-- BIKINI -->
 <div class="product-card">
   <div class="product-top">
-    <div class="product-image"><img id="bikiniImage" src="bikini-model-black-yellow.jpg" alt="Bikini"></div>
+    <div class="product-image">
+      <img id="bikiniImage" src="bikini-model-black-yellow.jpg" alt="Bikini">
+    </div>
     <div class="product-details">
       <h2>Bikini</h2>
       <div class="price">$50.00</div>
       <div class="field-label">Choose Color</div>
       <div class="color-grid">
-        <div class="color-thumb active" data-img="bikini-model-black-yellow.jpg"><img src="bikini-black-yellow.jpg" alt=""><span>Black / Yellow</span></div>
-        <div class="color-thumb" data-img="bikini-model-white-black.jpg"><img src="bikini-white-black.jpg" alt=""><span>White / Black</span></div>
-        <div class="color-thumb" data-img="bikini-model-red-white.jpg"><img src="bikini-red-white.jpg" alt=""><span>Red / White</span></div>
-        <div class="color-thumb" data-img="bikini-model-royal-blue.jpg"><img src="bikini-royal-blue.jpg" alt=""><span>Royal Blue</span></div>
-        <div class="color-thumb" data-img="bikini-model-pink-black.jpg"><img src="bikini-pink-black.jpg" alt=""><span>Pink / Black</span></div>
-        <div class="color-thumb" data-img="bikini-model-purple-white.jpg"><img src="bikini-purple-white.jpg" alt=""><span>Purple / White</span></div>
+        <div class="color-thumb active" data-img="bikini-model-black-yellow.jpg" data-target="bikini"><img src="bikini-black-yellow.jpg" alt=""><span>Black / Yellow</span></div>
+        <div class="color-thumb" data-img="bikini-model-white-black.jpg" data-target="bikini"><img src="bikini-white-black.jpg" alt=""><span>White / Black</span></div>
+        <div class="color-thumb" data-img="bikini-model-red-white.jpg" data-target="bikini"><img src="bikini-red-white.jpg" alt=""><span>Red / White</span></div>
+        <div class="color-thumb" data-img="bikini-model-royal-blue.jpg" data-target="bikini"><img src="bikini-royal-blue.jpg" alt=""><span>Royal Blue</span></div>
+        <div class="color-thumb" data-img="bikini-model-pink-black.jpg" data-target="bikini"><img src="bikini-pink-black.jpg" alt=""><span>Pink / Black</span></div>
+        <div class="color-thumb" data-img="bikini-model-purple-white.jpg" data-target="bikini"><img src="bikini-purple-white.jpg" alt=""><span>Purple / White</span></div>
       </div>
       <div class="field-label">Size</div>
-      <select id="size"><option value="">Select size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select>
+      <select class="size" data-product="bikini"><option value="">Select size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select>
       <div class="field-label">Quantity</div>
-      <input type="number" id="quantity" value="1" min="1" max="50">
-      <div class="stock">In stock: <span>42</span></div>
-      <button id="addToOrder" class="add-btn">ADD TO ORDER</button>
+      <input type="number" class="qty" data-product="bikini" value="1" min="1" max="50">
+      <div class="stock">In stock: 42</div>
+      <button class="add-btn" data-product="bikini" data-price="50">ADD TO ORDER</button>
     </div>
   </div>
 </div>
+
+<!-- TRACKSUIT -->
+<div class="product-card">
+  <div class="product-top">
+    <div class="product-image">
+      <img id="tracksuitImage" src="tracksuit-black-front.jpg" alt="Tracksuit">
+    </div>
+    <div class="product-details">
+      <h2>Tracksuit</h2>
+      <div class="price">$50.00</div>
+      <div class="field-label">Choose Color</div>
+      <div class="color-grid two">
+        <div class="color-thumb active" data-img="tracksuit-black-front.jpg" data-target="tracksuit"><img src="tracksuit-thumb-black.jpg" alt=""><span>Black</span></div>
+        <div class="color-thumb" data-img="tracksuit-grey-front.jpg" data-target="tracksuit"><img src="tracksuit-thumb-grey.jpg" alt=""><span>Grey</span></div>
+      </div>
+      <div class="field-label">Size</div>
+      <select class="size" data-product="tracksuit"><option value="">Select size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select>
+      <div class="field-label">Quantity</div>
+      <input type="number" class="qty" data-product="tracksuit" value="1" min="1" max="50">
+      <div class="stock">In stock: 28</div>
+      <button class="add-btn" data-product="tracksuit" data-price="50">ADD TO ORDER</button>
+    </div>
+  </div>
+</div>
+
 <div class="cart">
 <div class="subtotal-row"><span>Subtotal</span><span id="subtotal">$0.00</span></div>
 <button id="pay" class="pay-btn" disabled>PAY / CHECKOUT</button>
 </div>
+
 </section>
 
 <section class="video-side">
@@ -111,12 +147,13 @@ select,input[type="number"]{width:100%;padding:10px;border:1px solid #555;border
       <img src="https://via.placeholder.com/110x72/111/fff?text=Video+5" alt="Video 5">
       <span>Video 5</span>
     </div>
-    <div class="video-thumb" data-src="ja3r4real.mp4">
-      <img src="video-thumb-ja3r4real.jpg" alt="JA3R4REAL">
-      <span>JA3R4REAL</span>
+    <div class="video-thumb" data-src="vid.mp4">
+      <img src="video-thumb-ja3r4real.jpg" alt="vid.mp4">
+      <span>vid.mp4</span>
     </div>
   </div>
 </section>
+
 </main>
 
 <section id="checkout" class="checkout">
@@ -138,61 +175,98 @@ select,input[type="number"]{width:100%;padding:10px;border:1px solid #555;border
 </section>
 
 <script>
-const bikiniImage=document.getElementById('bikiniImage');
-const colorThumbs=document.querySelectorAll('.color-thumb');
-const sizeSelect=document.getElementById('size');
-const quantityInput=document.getElementById('quantity');
-const addToOrder=document.getElementById('addToOrder');
-const subtotal=document.getElementById('subtotal');
-const pay=document.getElementById('pay');
-const shop=document.getElementById('shop');
-const checkout=document.getElementById('checkout');
-const checkoutTotal=document.getElementById('checkoutTotal');
-const back=document.getElementById('back');
-const form=document.getElementById('shippingForm');
-const siteVideo=document.getElementById('siteVideo');
-const videoThumbs=document.querySelectorAll('.video-thumb');
-const PRICE=50; let selected=false;
+const bikiniImage = document.getElementById('bikiniImage');
+const tracksuitImage = document.getElementById('tracksuitImage');
+const colorThumbs = document.querySelectorAll('.color-thumb');
+const addBtns = document.querySelectorAll('.add-btn');
+const subtotal = document.getElementById('subtotal');
+const pay = document.getElementById('pay');
+const shop = document.getElementById('shop');
+const checkout = document.getElementById('checkout');
+const checkoutTotal = document.getElementById('checkoutTotal');
+const back = document.getElementById('back');
+const form = document.getElementById('shippingForm');
+const siteVideo = document.getElementById('siteVideo');
+const videoThumbs = document.querySelectorAll('.video-thumb');
 
-colorThumbs.forEach(thumb=>{
-  thumb.addEventListener('click',()=>{
-    colorThumbs.forEach(t=>t.classList.remove('active'));
+let cartTotal = 0;
+let selected = false;
+
+// Color switcher for both products
+colorThumbs.forEach(thumb => {
+  thumb.addEventListener('click', () => {
+    const target = thumb.dataset.target;
+    const img = thumb.dataset.img;
+    // Remove active only within the same product
+    document.querySelectorAll(`.color-thumb[data-target="${target}"]`).forEach(t => t.classList.remove('active'));
     thumb.classList.add('active');
-    bikiniImage.src=thumb.dataset.img;
+    if (target === 'bikini') bikiniImage.src = img;
+    if (target === 'tracksuit') tracksuitImage.src = img;
   });
 });
 
-videoThumbs.forEach(thumb=>{
-  thumb.addEventListener('click',()=>{
-    const newSrc=thumb.dataset.src;
-    if(!newSrc)return;
-    videoThumbs.forEach(t=>t.classList.remove('active'));
+// Add to order (works for both products)
+addBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const product = btn.dataset.product;
+    const price = parseFloat(btn.dataset.price) || 50;
+    const sizeEl = document.querySelector(`.size[data-product="${product}"]`);
+    const qtyEl = document.querySelector(`.qty[data-product="${product}"]`);
+    if (!sizeEl.value) { alert('Please select a size.'); return; }
+    const qty = parseInt(qtyEl.value, 10) || 1;
+    cartTotal += price * qty;
+    subtotal.textContent = '$' + cartTotal.toFixed(2);
+    selected = true;
+    pay.disabled = false;
+  });
+});
+
+// Video switcher
+videoThumbs.forEach(thumb => {
+  thumb.addEventListener('click', () => {
+    const newSrc = thumb.dataset.src;
+    if (!newSrc) return;
+    videoThumbs.forEach(t => t.classList.remove('active'));
     thumb.classList.add('active');
     siteVideo.pause();
-    siteVideo.src=newSrc;
+    siteVideo.src = newSrc;
     siteVideo.load();
-    const p=siteVideo.play();
-    if(p&&p.catch)p.catch(()=>{});
+    const p = siteVideo.play();
+    if (p && p.catch) p.catch(() => {});
   });
 });
 
-addToOrder.addEventListener('click',()=>{
-  if(!sizeSelect.value){alert('Please select a size.');return;}
-  const qty=parseInt(quantityInput.value,10)||1;
-  subtotal.textContent='$'+(PRICE*qty).toFixed(2);
-  selected=true; pay.disabled=false;
-});
-
-const startVideo=()=>{const p=siteVideo.play();if(p&&p.catch)p.catch(()=>{});};
-const enableSound=()=>{siteVideo.muted=false;siteVideo.volume=1;const p=siteVideo.play();if(p&&p.catch)p.catch(()=>{});};
+const startVideo = () => {
+  const p = siteVideo.play();
+  if (p && p.catch) p.catch(() => {});
+};
+const enableSound = () => {
+  siteVideo.muted = false;
+  siteVideo.volume = 1;
+  const p = siteVideo.play();
+  if (p && p.catch) p.catch(() => {});
+};
 startVideo();
-siteVideo.addEventListener('loadeddata',startVideo,{once:true});
-siteVideo.addEventListener('canplay',startVideo,{once:true});
-['click','touchstart','pointerdown','keydown'].forEach(e=>document.addEventListener(e,enableSound,{once:true,passive:true}));
+siteVideo.addEventListener('loadeddata', startVideo, {once: true});
+siteVideo.addEventListener('canplay', startVideo, {once: true});
+['click','touchstart','pointerdown','keydown'].forEach(event =>
+  document.addEventListener(event, enableSound, {once: true, passive: true})
+);
 
-pay.addEventListener('click',()=>{if(!selected)return;checkoutTotal.textContent=subtotal.textContent;shop.style.display='none';checkout.classList.add('show');});
-back.addEventListener('click',()=>{checkout.classList.remove('show');shop.style.display='flex';});
-form.addEventListener('submit',e=>{e.preventDefault();alert('Shipping information saved. Payment processing will be connected next.');});
+pay.addEventListener('click', () => {
+  if (!selected) return;
+  checkoutTotal.textContent = subtotal.textContent;
+  shop.style.display = 'none';
+  checkout.classList.add('show');
+});
+back.addEventListener('click', () => {
+  checkout.classList.remove('show');
+  shop.style.display = 'flex';
+});
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  alert('Shipping information saved. Payment processing will be connected next.');
+});
 </script>
 </body>
 </html>
