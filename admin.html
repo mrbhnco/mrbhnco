@@ -18,8 +18,6 @@ body{margin:0;background:#0a0612;color:#e4c56a;font-family:Arial,Helvetica,sans-
 .preview-inner{max-width:900px;margin:0 auto;background:#000;color:#fff;border:1px dashed #444;padding:12px}
 .clickable{cursor:pointer;outline:2px dashed transparent;position:relative}
 .clickable:hover{outline:2px dashed #e4c56a}
-.clickable::after{content:'✎';position:absolute;top:2px;right:2px;background:#e4c56a;color:#000;font-size:10px;padding:1px 4px;border-radius:3px;opacity:0}
-.clickable:hover::after{opacity:1}
 .brand{text-align:center;margin:0 0 12px;min-height:50px;display:flex;align-items:center;justify-content:center;background:#111;border-radius:8px}
 .product-card{background:#111;border:1px solid #333;border-radius:10px;padding:10px;margin:0 auto 12px;max-width:600px;position:relative}
 .product-top{display:flex;gap:10px}
@@ -72,7 +70,7 @@ body{margin:0;background:#0a0612;color:#e4c56a;font-family:Arial,Helvetica,sans-
     </div>
   </div>
   <div class="editor">
-    <p class="notice" style="margin-top:0">Click any section to edit. Use + Add Product Tile for new items. Token is saved on this computer.</p>
+    <p class="notice" style="margin-top:0">Click any section to edit. Logo and video thumbnails stay as you set them. Token is saved on this computer.</p>
     <div id="status" class="notice"></div>
   </div>
 </div>
@@ -93,8 +91,8 @@ body{margin:0;background:#0a0612;color:#e4c56a;font-family:Arial,Helvetica,sans-
 const data = {
   logo: { text: 'MRBHNCO', image: '' },
   products: [
-    { id: 'bikini', name: 'Bikini', price: '50.00', stock: '42', image: '', colors: ['Black/Yellow','White/Black','Red/White','Royal Blue','Pink/Black','Purple/White'] },
-    { id: 'tracksuit', name: 'Tracksuit', price: '50.00', stock: '28', image: '', colors: ['Black','Grey'] }
+    { id: 'bikini', name: 'Bikini', price: '50.00', stock: '42', image: '' },
+    { id: 'tracksuit', name: 'Tracksuit', price: '50.00', stock: '28', image: '' }
   ],
   shipping: { std: '5.99', pri: '10.99' },
   video: { main: '/video5.mp4', thumb1: 'r4r.png', thumb1Src: '/video5.mp4', thumb2: 'mark.png', thumb2Src: 'vid.mp4' }
@@ -177,7 +175,7 @@ function openModal(section, productId) {
   body.innerHTML = '';
   if (section === 'logo') {
     title.textContent = 'Edit Logo';
-    body.innerHTML = `<div class="field"><label>Text</label><input id="fText" value="${data.logo.text}"></div><div class="field"><label>Upload image</label><input type="file" id="fFile" accept="image/*"></div>`;
+    body.innerHTML = `<div class="field"><label>Text (if no image)</label><input id="fText" value="${data.logo.text}"></div><div class="field"><label>Upload logo image</label><input type="file" id="fFile" accept="image/*"></div>`;
   } else if (section === 'product') {
     const p = data.products.find(x => x.id === productId) || { name:'', price:'50.00', stock:'10', image:'' };
     title.textContent = productId ? 'Edit Product' : 'Add Product';
@@ -187,7 +185,7 @@ function openModal(section, productId) {
     body.innerHTML = `<div class="field"><label>Standard</label><input id="fStd" type="number" step="0.01" value="${data.shipping.std}"></div><div class="field"><label>Priority</label><input id="fPri" type="number" step="0.01" value="${data.shipping.pri}"></div>`;
   } else if (section === 'video') {
     title.textContent = 'Edit Video';
-    body.innerHTML = `<div class="field"><label>Main video</label><input id="fMain" value="${data.video.main}"></div><div class="field"><label>Thumb 1 image</label><input id="fThumb1" value="${data.video.thumb1}"></div><div class="field"><label>Thumb 1 video</label><input id="fThumb1Src" value="${data.video.thumb1Src}"></div><div class="field"><label>Thumb 2 image</label><input id="fThumb2" value="${data.video.thumb2}"></div><div class="field"><label>Thumb 2 video</label><input id="fThumb2Src" value="${data.video.thumb2Src}"></div>`;
+    body.innerHTML = `<div class="field"><label>Main video filename</label><input id="fMain" value="${data.video.main}"></div><div class="field"><label>Thumb 1 image</label><input id="fThumb1" value="${data.video.thumb1}"></div><div class="field"><label>Thumb 1 video</label><input id="fThumb1Src" value="${data.video.thumb1Src}"></div><div class="field"><label>Thumb 2 image</label><input id="fThumb2" value="${data.video.thumb2}"></div><div class="field"><label>Thumb 2 video</label><input id="fThumb2Src" value="${data.video.thumb2Src}"></div>`;
   }
   document.getElementById('modalBg').classList.add('show');
 }
@@ -212,7 +210,7 @@ function saveModal() {
       if (f) { const r = new FileReader(); r.onload = e => { p.image = e.target.result; updatePreview(); }; r.readAsDataURL(f); }
     } else {
       const id = 'prod_' + Date.now();
-      const newP = { id, name, price, stock, image: '', colors: [] };
+      const newP = { id, name, price, stock, image: '' };
       data.products.push(newP);
       if (f) { const r = new FileReader(); r.onload = e => { newP.image = e.target.result; updatePreview(); }; r.readAsDataURL(f); }
     }
