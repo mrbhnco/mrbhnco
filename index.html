@@ -33,14 +33,12 @@ select,input[type="number"]{width:100%;padding:10px;border:1px solid #555;border
 .subtotal-row{display:flex;justify-content:space-between;align-items:center;font-size:22px;font-weight:800;margin-bottom:14px}
 .pay-btn{width:100%;border:0;border-radius:8px;padding:15px;background:#ff0000;color:#fff;font-size:18px;font-weight:900;cursor:pointer}
 .pay-btn:disabled{opacity:.4;cursor:not-allowed}
-.video-side{height:100vh;width:min(42vw,70vh);flex:none;background:#000;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;overflow:hidden;padding:0;position:relative}
-.main-video-wrap{width:100%;height:100%;position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:stretch;justify-content:center;background:#000;overflow:hidden}
-.main-video-wrap video{display:block;width:100%;height:100%;object-fit:cover;object-position:center;background:#000}
-.video-thumbs{position:absolute;top:0;left:0;right:0;width:100%;display:flex;gap:8px;padding:8px 4px 8px;overflow-x:auto;justify-content:center;flex-shrink:0;background:transparent;z-index:2;pointer-events:none}
-.video-thumb{flex:0 0 110px;height:72px;border:2px solid rgba(255,215,0,.6);border-radius:6px;overflow:hidden;cursor:pointer;background:transparent;position:relative;pointer-events:auto}
-.video-thumb img{width:100%;height:100%;object-fit:cover;display:block;opacity:.55}
-.video-thumb:hover,.video-thumb.active{border-color:#ffd700;background:transparent}
-.video-thumb:hover img,.video-thumb.active img{opacity:.9}
+.video-side{height:100vh;width:min(42vw,70vh);flex:none;background:#000;position:relative}
+.main-video-wrap{width:100%;height:100%;position:absolute;top:0;left:0;right:0;bottom:0}
+.main-video-wrap video{display:block;width:100%;height:100%;object-fit:cover}
+.video-thumbs{position:absolute;top:0;left:0;right:0;display:flex;gap:8px;padding:8px;z-index:2}
+.video-thumb{flex:0 0 110px;height:72px;border:2px solid #ffd700;border-radius:6px;overflow:hidden;cursor:pointer}
+.video-thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .checkout{display:none;min-height:100vh;padding:28px 16px 60px;overflow-y:auto;background:#050505}
 .checkout.show{display:block}
 .checkout-inner{max-width:640px;margin:0 auto}
@@ -58,25 +56,11 @@ label{display:block;margin-bottom:12px;font-size:14px;font-weight:700}
 label input{display:block;width:100%;margin-top:5px;padding:12px;border:1px solid #444;border-radius:8px;background:#1a1a1a;color:#fff;font-size:15px}
 .pay-opt{border:1px solid #444;border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:#1a1a1a}
 .pay-opt.active{border-color:#e6c200}
-.logos{display:flex;gap:5px}
-.logos span{background:#fff;color:#000;font-size:9px;font-weight:800;padding:3px 6px;border-radius:3px}
 .note{font-size:13px;color:#999;margin:10px 0}
-.qr-row{display:flex;gap:14px;justify-content:center;margin:14px 0}
-.qr{background:#fff;border-radius:10px;padding:8px;text-align:center;width:130px}
-.qr img{width:100%;display:block}
-.qr div{color:#000;font-weight:800;margin-top:4px;font-size:13px}
 .place-btn{width:100%;border:0;border-radius:10px;padding:16px;background:#e6c200;color:#000;font-size:18px;font-weight:900;cursor:pointer;margin-top:8px}
 @media(max-width:768px){
-.left{padding:18px 12px 30px}
-.brand{margin-bottom:20px}
 .product-top{flex-direction:column}
 .product-image{flex:none;width:100%}
-.cart{margin-top:18px}
-.subtotal-row{font-size:18px}
-.video-side{width:min(56.25vh,50vw)}
-.video-thumb{flex:0 0 80px;height:56px}
-.checkout{padding:20px 14px 40px}
-.ship-row{flex-direction:column}
 }
 </style>
 </head>
@@ -115,15 +99,15 @@ label input{display:block;width:100%;margin-top:5px;padding:12px;border:1px soli
 <div class="product-card">
 <div class="product-top">
 <div class="product-image">
-<img id="tracksuitImage" src="tracksuit-black-front.jpg" alt="Tracksuit">
+<img id="tracksuitImage" src="tracksuit-black-front (1).jpg" alt="Tracksuit">
 </div>
 <div class="product-details">
 <h2>Tracksuit</h2>
 <div class="price">$50.00</div>
 <div class="field-label">Choose Color</div>
 <div class="color-grid two">
-<div class="color-thumb active" data-img="tracksuit-black-front.jpg" data-target="tracksuit"><img src="tracksuit-black-front.jpg" alt="Black"><span>Black</span></div>
-<div class="color-thumb" data-img="tracksuit-grey-front.jpg" data-target="tracksuit"><img src="tracksuit-grey-front.jpg" alt="Grey"><span>Grey</span></div>
+<div class="color-thumb active" data-img="tracksuit-black-front (1).jpg" data-target="tracksuit"><img src="tracksuit-black-front (1).jpg" alt="Black"><span>Black</span></div>
+<div class="color-thumb" data-img="tracksuit-grey-front (1).jpg" data-target="tracksuit"><img src="tracksuit-grey-front (1).jpg" alt="Grey"><span>Grey</span></div>
 </div>
 <div class="field-label">Size</div>
 <select class="size" data-product="tracksuit"><option value="">Select size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select>
@@ -141,17 +125,13 @@ label input{display:block;width:100%;margin-top:5px;padding:12px;border:1px soli
 </section>
 <section class="video-side">
 <div class="main-video-wrap">
-<video id="siteVideo" autoplay muted loop playsinline preload="auto">
+<video id="siteVideo" autoplay muted loop playsinline>
 <source src="/video5.mp4" type="video/mp4">
 </video>
 </div>
 <div class="video-thumbs">
-<div class="video-thumb active" data-src="/video5.mp4">
-<img src="r4r.png" alt="R4R">
-</div>
-<div class="video-thumb" data-src="vid.mp4">
-<img src="mark.png" alt="Mark">
-</div>
+<div class="video-thumb active" data-src="/video5.mp4"><img src="r4r.png" alt="R4R"></div>
+<div class="video-thumb" data-src="vid.mp4"><img src="mark.png" alt="Mark"></div>
 </div>
 </section>
 </main>
@@ -172,28 +152,21 @@ label input{display:block;width:100%;margin-top:5px;padding:12px;border:1px soli
 <div class="card">
 <h2>Customer Information</h2>
 <form id="shippingForm">
-<label>Full name<input id="name" required autocomplete="name"></label>
-<label>Email<input id="email" type="email" required autocomplete="email"></label>
-<label>Phone number<input id="phone" type="tel" autocomplete="tel"></label>
-<label>Street address<input id="address" required autocomplete="street-address"></label>
-<label>City<input id="city" required autocomplete="address-level2"></label>
-<label>State<input id="state" required autocomplete="address-level1"></label>
-<label>ZIP code<input id="zip" required autocomplete="postal-code"></label>
+<label>Full name<input id="name" required></label>
+<label>Email<input id="email" type="email" required></label>
+<label>Phone<input id="phone" type="tel"></label>
+<label>Street address<input id="address" required></label>
+<label>City<input id="city" required></label>
+<label>State<input id="state" required></label>
+<label>ZIP<input id="zip" required></label>
 </form>
 </div>
 <div class="card">
 <h2>Payment Method</h2>
-<div class="pay-opt active" data-method="card">
-<span>Credit Card</span>
-<div class="logos"><span>VISA</span><span>MC</span><span>AMEX</span></div>
-</div>
-<div class="pay-opt" data-method="paypal"><span>Pay with PayPal</span></div>
-<div class="pay-opt" data-method="venmo"><span>Pay with Venmo or Zelle</span></div>
-<p class="note">Practice mode: selecting Credit Card does not collect or charge card information.</p>
-<div class="qr-row">
-<div class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=venmo" alt=""><div>venmo</div></div>
-<div class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=zelle" alt=""><div>Zelle</div></div>
-</div>
+<div class="pay-opt active">Credit Card</div>
+<div class="pay-opt">Pay with PayPal</div>
+<div class="pay-opt">Pay with Venmo or Zelle</div>
+<p class="note">Practice mode.</p>
 <button type="button" id="placeOrder" class="place-btn">Place Practice Order</button>
 </div>
 </div>
@@ -201,28 +174,7 @@ label input{display:block;width:100%;margin-top:5px;padding:12px;border:1px soli
 <script>
 const bikiniImage = document.getElementById('bikiniImage');
 const tracksuitImage = document.getElementById('tracksuitImage');
-const colorThumbs = document.querySelectorAll('.color-thumb');
-const addBtns = document.querySelectorAll('.add-btn');
-const subtotal = document.getElementById('subtotal');
-const pay = document.getElementById('pay');
-const shop = document.getElementById('shop');
-const checkout = document.getElementById('checkout');
-const checkoutSubtotal = document.getElementById('checkoutSubtotal');
-const checkoutTotal = document.getElementById('checkoutTotal');
-const shippingCostEl = document.getElementById('shippingCost');
-const orderItems = document.getElementById('orderItems');
-const back = document.getElementById('back');
-const form = document.getElementById('shippingForm');
-const placeOrder = document.getElementById('placeOrder');
-const siteVideo = document.getElementById('siteVideo');
-const videoThumbs = document.querySelectorAll('.video-thumb');
-const shipOptions = document.querySelectorAll('.ship');
-const payOpts = document.querySelectorAll('.pay-opt');
-let cartTotal = 0;
-let shippingCost = 5.99;
-let selected = false;
-let cartItems = [];
-colorThumbs.forEach(thumb => {
+document.querySelectorAll('.color-thumb').forEach(thumb => {
   thumb.addEventListener('click', () => {
     const target = thumb.dataset.target;
     const img = thumb.dataset.img;
@@ -232,7 +184,8 @@ colorThumbs.forEach(thumb => {
     if (target === 'tracksuit') tracksuitImage.src = img;
   });
 });
-addBtns.forEach(btn => {
+let cartTotal = 0, shippingCost = 5.99, selected = false, cartItems = [];
+document.querySelectorAll('.add-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const product = btn.dataset.product;
     const price = parseFloat(btn.dataset.price) || 50;
@@ -243,60 +196,23 @@ addBtns.forEach(btn => {
     const name = product === 'bikini' ? 'Bikini' : 'Tracksuit';
     cartItems.push({ name, qty, price });
     cartTotal += price * qty;
-    subtotal.textContent = '$' + cartTotal.toFixed(2);
+    document.getElementById('subtotal').textContent = '$' + cartTotal.toFixed(2);
     selected = true;
-    pay.disabled = false;
+    document.getElementById('pay').disabled = false;
   });
 });
-shipOptions.forEach(opt => {
+document.querySelectorAll('.ship').forEach(opt => {
   opt.addEventListener('click', () => {
-    shipOptions.forEach(o => o.classList.remove('active'));
+    document.querySelectorAll('.ship').forEach(o => o.classList.remove('active'));
     opt.classList.add('active');
     shippingCost = parseFloat(opt.dataset.cost);
-    shippingCostEl.textContent = '$' + shippingCost.toFixed(2);
-    updateTotal();
+    document.getElementById('shippingCost').textContent = '$' + shippingCost.toFixed(2);
+    document.getElementById('checkoutTotal').textContent = '$' + (cartTotal + shippingCost).toFixed(2);
   });
 });
-payOpts.forEach(opt => {
-  opt.addEventListener('click', () => {
-    payOpts.forEach(o => o.classList.remove('active'));
-    opt.classList.add('active');
-  });
-});
-function updateTotal() {
-  checkoutTotal.textContent = '$' + (cartTotal + shippingCost).toFixed(2);
-}
-videoThumbs.forEach(thumb => {
-  thumb.addEventListener('click', () => {
-    const newSrc = thumb.dataset.src;
-    if (!newSrc) return;
-    videoThumbs.forEach(t => t.classList.remove('active'));
-    thumb.classList.add('active');
-    siteVideo.pause();
-    siteVideo.src = newSrc;
-    siteVideo.load();
-    const p = siteVideo.play();
-    if (p && p.catch) p.catch(() => {});
-  });
-});
-const startVideo = () => {
-  const p = siteVideo.play();
-  if (p && p.catch) p.catch(() => {});
-};
-const enableSound = () => {
-  siteVideo.muted = false;
-  siteVideo.volume = 1;
-  const p = siteVideo.play();
-  if (p && p.catch) p.catch(() => {});
-};
-startVideo();
-siteVideo.addEventListener('loadeddata', startVideo, {once: true});
-siteVideo.addEventListener('canplay', startVideo, {once: true});
-['click','touchstart','pointerdown','keydown'].forEach(event =>
-  document.addEventListener(event, enableSound, {once: true, passive: true})
-);
-pay.addEventListener('click', () => {
+document.getElementById('pay').addEventListener('click', () => {
   if (!selected) return;
+  const orderItems = document.getElementById('orderItems');
   orderItems.innerHTML = '';
   cartItems.forEach(item => {
     const div = document.createElement('div');
@@ -304,20 +220,34 @@ pay.addEventListener('click', () => {
     div.innerHTML = `<span>${item.name} × ${item.qty}</span><span>$${(item.price * item.qty).toFixed(2)}</span>`;
     orderItems.appendChild(div);
   });
-  checkoutSubtotal.textContent = '$' + cartTotal.toFixed(2);
-  updateTotal();
-  shop.style.display = 'none';
-  checkout.classList.add('show');
-  document.body.style.overflow = 'auto';
+  document.getElementById('checkoutSubtotal').textContent = '$' + cartTotal.toFixed(2);
+  document.getElementById('checkoutTotal').textContent = '$' + (cartTotal + shippingCost).toFixed(2);
+  document.getElementById('shop').style.display = 'none';
+  document.getElementById('checkout').classList.add('show');
 });
-back.addEventListener('click', () => {
-  checkout.classList.remove('show');
-  shop.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
+document.getElementById('back').addEventListener('click', () => {
+  document.getElementById('checkout').classList.remove('show');
+  document.getElementById('shop').style.display = 'flex';
 });
-placeOrder.addEventListener('click', () => {
-  if (!form.checkValidity()) { form.reportValidity(); return; }
-  alert('Practice order placed. No payment was processed.');
+document.getElementById('placeOrder').addEventListener('click', () => {
+  if (!document.getElementById('shippingForm').checkValidity()) {
+    document.getElementById('shippingForm').reportValidity();
+    return;
+  }
+  alert('Practice order placed.');
+});
+const siteVideo = document.getElementById('siteVideo');
+document.querySelectorAll('.video-thumb').forEach(thumb => {
+  thumb.addEventListener('click', () => {
+    const newSrc = thumb.dataset.src;
+    if (!newSrc) return;
+    document.querySelectorAll('.video-thumb').forEach(t => t.classList.remove('active'));
+    thumb.classList.add('active');
+    siteVideo.pause();
+    siteVideo.src = newSrc;
+    siteVideo.load();
+    siteVideo.play().catch(() => {});
+  });
 });
 </script>
 </body>
