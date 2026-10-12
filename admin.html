@@ -2,94 +2,396 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>MRBHNCO Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Real 4 Real Admin</title>
 <style>
-*{box-sizing:border-box}html,body{margin:0;background:#0a0612;color:#fff;font-family:Arial,Helvetica,sans-serif}
-.settings{background:#100b19;padding:9px 12px;border-bottom:1px solid #333;font-size:13px;display:flex;flex-wrap:wrap;gap:5px;align-items:center}
-.settings input{padding:6px;border:1px solid #6b5a2c;border-radius:4px;background:#07040f;color:#fff;width:145px}.settings .path{width:170px}.settings .branch{width:100px}
-.header{background:#100b19;padding:12px 20px;border-bottom:1px solid #e4c56a;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}.header h1{margin:0;font-size:18px;color:#e4c56a}
-.btn{border:1px solid #e4c56a;background:#181126;color:#e4c56a;padding:8px 13px;border-radius:8px;cursor:pointer;font-weight:700}.btn.primary{background:#e4c56a;color:#000}.btn.small{padding:6px 10px;font-size:12px}
-.main{padding:18px;max-width:1100px;margin:auto}.preview{background:#000;border:1px dashed #444;border-radius:8px;padding:12px}
-.brand{text-align:center;margin:0 0 12px;min-height:54px;display:flex;align-items:center;justify-content:center;background:#111;border-radius:8px;overflow:hidden}.brand img{max-width:100%;max-height:110px}
-.clickable{cursor:pointer;outline:2px dashed transparent;position:relative}.clickable:hover{outline:2px dashed #e4c56a}.clickable::after{content:'✎';position:absolute;top:2px;right:2px;background:#e4c56a;color:#000;font-size:10px;padding:1px 4px;border-radius:3px;opacity:0}.clickable:hover::after{opacity:1}
-.product-card{background:#111;border:1px solid #333;border-radius:10px;padding:10px;margin:0 auto 12px;max-width:720px}.product-top{display:flex;gap:14px}.product-image{width:190px;height:190px;background:#fff;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center}.product-image img{width:100%;height:100%;object-fit:contain;display:block}.product-info{flex:1;padding-top:5px}.product-info h2{margin:0 0 6px;font-size:20px}.price{color:#ffd700;font-size:18px;font-weight:700}.stock{font-size:13px;color:#ddd;margin-top:5px}
-.section-row{padding:8px;border:1px dashed #444;border-radius:6px;margin-top:8px;text-align:center;font-size:13px}.add-section{text-align:center;margin:16px 0}
-.status{min-height:20px;margin-top:10px;color:#e4c56a;font-size:12px}.note{color:#cbb89a;font-size:12px}
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:100;align-items:center;justify-content:center}.modal-bg.show{display:flex}.modal{background:#100b19;border:1px solid #e4c56a;border-radius:12px;padding:16px;width:420px;max-width:95vw}.close{float:right;cursor:pointer;font-size:20px}.field{margin:10px 0}.field label{display:block;font-size:12px;font-weight:700;margin-bottom:4px}.field input{width:100%;padding:8px;border:1px solid #6b5a2c;border-radius:6px;background:#07040f;color:#fff}.actions{text-align:right;margin-top:14px}
-.loading{opacity:.6;pointer-events:none}@media(max-width:650px){.settings input{width:100%}.product-top{flex-direction:column}.product-image{width:100%;height:auto}.product-image img{height:auto;max-height:360px}}
+*{box-sizing:border-box}
+body{margin:0;background:#0a0612;color:#e4c56a;font-family:Arial,Helvetica,sans-serif}
+.header{background:#100b19;padding:16px 24px;border-bottom:1px solid #e4c56a;display:flex;justify-content:space-between;align-items:center}
+.header h1{margin:0;font-size:22px}
+.btn{border:1px solid #e4c56a;background:#181126;color:#e4c56a;padding:8px 14px;border-radius:8px;cursor:pointer;font-weight:700}
+.btn.primary{background:#e4c56a;color:#000}
+.btn.small{padding:4px 8px;font-size:12px}
+.main{padding:20px;max-width:1200px;margin:0 auto}
+.card{background:#111;border:1px solid #333;border-radius:12px;padding:16px;margin-bottom:16px}
+.card h2{margin:0 0 12px;font-size:18px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.inv-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #222;font-size:14px}
+.inv-row input{width:70px;padding:6px;border-radius:6px;border:1px solid #6b5a2c;background:#07040f;color:#fff;text-align:center}
+.restock{background:#1a4d1a;color:#8f8;border:1px solid #3a8;padding:4px 8px;border-radius:6px;cursor:pointer;font-size:11px}
+.delete-inv{background:#4a1515;color:#ffb8b8;border:1px solid #a44;padding:4px 9px;border-radius:6px;cursor:pointer;font-size:14px;font-weight:700;line-height:1}
+.store-preview{background:#000;border:2px dashed #444;border-radius:12px;padding:16px;margin-top:20px;position:relative}
+.store-preview h3{margin:0 0 12px;color:#e4c56a}
+.preview-page{display:flex;min-height:480px;background:#000;color:#fff}
+.preview-left{flex:2;padding:12px}
+.preview-right{flex:1;background:#111;border-left:1px solid #333;position:relative;min-height:480px}
+.preview-brand{text-align:center;margin-bottom:12px;cursor:pointer;padding:6px;border-radius:6px}
+.preview-brand:hover{outline:2px dashed #e4c56a}
+.preview-brand img{max-width:220px}
+.preview-card{background:#111;border:1px solid #333;border-radius:10px;padding:12px;margin-bottom:12px;cursor:pointer}
+.preview-card:hover{outline:2px dashed #e4c56a}
+.preview-top{display:flex;gap:10px}
+.preview-img{flex:0 0 180px;background:#fff;border-radius:6px;min-height:140px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.preview-img img{max-width:100%;max-height:200px;object-fit:contain}
+.preview-details h4{margin:0;font-size:16px}
+.preview-price{color:#ffd700;font-weight:700;cursor:pointer}
+.preview-colors{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:8px}
+.preview-color{border:1px solid #444;border-radius:4px;overflow:hidden;cursor:pointer;background:#fff;font-size:9px;text-align:center}
+.preview-color img{width:100%;height:40px;object-fit:contain}
+.preview-color:hover{border-color:#e4c56a}
+.video-placeholder{position:absolute;inset:0;background:#000;display:flex;align-items:center;justify-content:center;color:#666;cursor:pointer}
+.video-placeholder:hover{outline:2px dashed #e4c56a}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;align-items:center;justify-content:center}
+.modal-bg.show{display:flex}
+.modal{background:#100b19;border:1px solid #e4c56a;border-radius:12px;padding:18px;width:440px;max-width:95vw}
+.modal h3{margin:0 0 12px}
+.field{margin:10px 0}
+.field label{display:block;font-size:12px;margin-bottom:3px;font-weight:700}
+.field input{width:100%;padding:8px;border-radius:6px;border:1px solid #6b5a2c;background:#07040f;color:#fff}
+.close{float:right;cursor:pointer;font-size:20px}
+.status{font-size:12px;color:#cbb89a;margin-top:8px}
+.media-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:14px}
+.media-item{background:#09070e;border:1px solid #3a3047;border-radius:10px;padding:12px;min-width:0}
+.media-item h3{font-size:15px;margin:0 0 10px;color:#e4c56a}
+.media-item video{width:100%;max-height:220px;background:#000;border-radius:7px;display:block;margin-bottom:10px}
+.media-item .field{margin:9px 0}
+.media-item .field label{display:block;font-size:12px;margin-bottom:4px;font-weight:700}
+.media-item .field input[type=text],.media-item .field input:not([type]){width:100%;padding:8px;border-radius:6px;border:1px solid #6b5a2c;background:#07040f;color:#fff}
+.media-item .thumb-preview{width:100%;height:100px;object-fit:contain;background:#15121b;border-radius:6px;margin:6px 0}
+.media-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.media-note{font-size:12px;color:#cbb89a;line-height:1.5}
+.submit-bar{position:sticky;bottom:0;background:#100b19;padding:12px;text-align:center;border-top:1px solid #e4c56a;margin-top:16px}
+@media(max-width:900px){.grid-2{grid-template-columns:1fr}}
+@media(max-width:600px){.inv-row{flex-wrap:wrap}.media-list{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<div class="settings"><strong>GitHub</strong>
-<input id="ghToken" type="password" placeholder="ghp_..."><input id="ghOwner" value="mrbhnco"><input id="ghRepo" value="mrbhnco">
-<input id="ghPath" class="path" value="index.html"><input id="ghBranch" class="branch" value="main"><button class="btn small" id="saveSettings">Save</button></div>
-<div class="header"><h1>MRBHNCO Admin</h1><button class="btn primary" id="submitBtn">Submit Changes</button></div>
-<main class="main" id="adminMain">
-<div class="preview" id="preview">
-<div class="brand clickable" id="prevLogo"></div><div id="productsContainer"></div>
-<div class="add-section"><button class="btn" id="addProductBtn">+ Add Product Tile</button></div>
-<div class="section-row clickable" id="prevShipping">Shipping: Standard $<span id="prevShipStd"></span> · Priority $<span id="prevShipPri"></span></div>
-<div class="section-row clickable" id="prevVideo">Video: <span id="prevVideoSrc"></span></div>
-<p class="note">This admin loads the current index.html from GitHub. Saving prices patches only the matching product fields in that current file, so the rest of the storefront is preserved.</p>
-<div class="status" id="status"></div>
-</div></main>
-<div class="modal-bg" id="modalBg"><div class="modal"><span class="close" id="modalClose">&times;</span><h3 id="modalTitle">Edit</h3><div id="modalBody"></div><div class="actions"><button class="btn" id="modalCancel">Cancel</button> <button class="btn primary" id="modalSave">Save</button></div></div></div>
+<div class="header">
+  <h1>Real 4 Real Admin</h1>
+  <button class="btn" onclick="window.open('real4real-store.html','_blank')">Open Live Store ↗</button>
+</div>
+
+<div class="main">
+  <div class="grid-2">
+    <div class="card">
+      <h2>Inventory</h2>
+      <p class="status">Click Order More to restock any color.</p>
+      <div id="inventoryList"></div>
+      <button class="btn primary" style="width:100%;margin-top:12px" id="addItemBtn">+ Add New Item</button>
+      <button class="btn" style="width:100%;margin-top:8px" id="saveInv">Save Inventory</button>
+    </div>
+    <div class="card">
+      <h2>Store Overview</h2>
+      <div style="display:flex;gap:12px">
+        <div style="flex:1;background:#0a0612;border:1px solid #333;border-radius:8px;padding:12px;text-align:center">Products<br><strong id="prodCount">2</strong></div>
+        <div style="flex:1;background:#0a0612;border:1px solid #333;border-radius:8px;padding:12px;text-align:center">Units in stock<br><strong id="stockCount">70</strong></div>
+        <div style="flex:1;background:#0a0612;border:1px solid #333;border-radius:8px;padding:12px;text-align:center">Units sold*<br><strong>0</strong></div>
+      </div>
+      <p class="status">*Sold totals are demo values until real orders are connected.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Customer Orders</h2>
+    <div style="display:flex;gap:8px;margin-bottom:10px">
+      <input id="orderSearch" style="flex:1;padding:8px;border-radius:6px;border:1px solid #6b5a2c;background:#07040f;color:#fff" placeholder="Search test order or customer">
+      <select id="statusFilter" style="padding:8px;border-radius:6px;border:1px solid #6b5a2c;background:#07040f;color:#fff"><option>All statuses</option><option>Pending</option><option>Processing</option><option>Shipped</option><option>Completed</option><option>Cancelled</option></select>
+      <button class="btn primary" id="addTestOrder">+ Test Order</button>
+    </div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <thead><tr style="border-bottom:1px solid #333"><th style="text-align:left;padding:6px">ORDER / CUSTOMER</th><th>DATE</th><th>TOTAL</th><th>STATUS</th><th>TRACKING</th><th>ACTIONS</th></tr></thead>
+      <tbody id="ordersBody"></tbody>
+    </table>
+    <p class="status">TEST MODE — orders and edits are saved only in this browser. No payments, emails, or real customer records are connected.</p>
+  </div>
+
+  <div class="card" id="mediaManager">
+    <h2>Videos &amp; Thumbnails</h2>
+    <p class="media-note">Current video files from the site are listed below. Edit file paths, attach a thumbnail, or add another video entry. Save stores these settings in this browser for testing; uploading files here does not publish them to the website.</p>
+    <div id="mediaList" class="media-list"></div>
+    <button class="btn primary" type="button" id="addMediaBtn" style="margin-top:14px">+ Add Video</button>
+    <button class="btn" type="button" id="saveMediaBtn" style="margin-top:14px">Save Videos &amp; Thumbnails</button>
+    <p class="status" id="mediaStatus">Current site video: /video5.mp4. Additional repository video: /vid.mp4.</p>
+  </div>
+
+  <div class="submit-bar">
+    <button class="btn primary" id="submitAll" style="font-size:16px;padding:12px 32px">Submit Changes</button>
+    <div class="status" id="submitStatus">Changes stay local until you commit to GitHub.</div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <span class="close" id="modalClose">&times;</span>
+    <h3 id="modalTitle">Edit</h3>
+    <div id="modalBody"></div>
+    <div style="margin-top:14px;text-align:right">
+      <button class="btn" id="modalCancel">Cancel</button>
+      <button class="btn primary" id="modalSave">Apply</button>
+    </div>
+  </div>
+</div>
+
 <script>
-let data={logo:{text:'MRBHNCO',image:'',imageChanged:false},products:[],shipping:{std:'5.99',pri:'10.99'},video:{main:'/video5.mp4',thumb1:'r4r.png',thumb1Src:'/video5.mp4',thumb2:'mark.png',thumb2Src:'vid.mp4'}};
-let section=null,productId=null;
-const $=id=>document.getElementById(id);
-function settings(){['token','owner','repo','path','branch'].forEach(k=>{const v=localStorage.getItem('mrbhnco_'+k);if(v)$('gh'+k[0].toUpperCase()+k.slice(1)).value=v})}
-function saveSettings(){['token','owner','repo','path','branch'].forEach(k=>localStorage.setItem('mrbhnco_'+k,$('gh'+k[0].toUpperCase()+k.slice(1)).value.trim()));$('status').textContent='Settings saved.'}
-$('saveSettings').onclick=saveSettings;$('ghToken').onchange=saveSettings;
-function api(){const o=encodeURIComponent($('ghOwner').value.trim()),r=encodeURIComponent($('ghRepo').value.trim()),p=$('ghPath').value.trim()||'index.html',b=encodeURIComponent($('ghBranch').value.trim()||'main');return 'https://api.github.com/repos/'+o+'/'+r+'/contents/'+p+'?ref='+b}
-function dec(s){return decodeURIComponent(escape(atob(s.replace(/\s/g,''))))}function enc(s){return btoa(unescape(encodeURIComponent(s)))}
-function url(s){try{return new URL(s,location.href).href}catch{return s}}
-function readIndex(html){
- const d=new DOMParser().parseFromString(html,'text/html'),logo=d.querySelector('.brand img');data.logo.image=logo?.src||'';data.logo.text=logo?.alt||'MRBHNCO';
- data.products=[...d.querySelectorAll('.product-card')].map((c,i)=>{const b=c.querySelector('.add-btn'),img=c.querySelector('.product-image img');return{id:b?.dataset.product||img?.id?.replace(/Image$/,'')||'product'+i,name:c.querySelector('.product-details h2')?.textContent.trim()||'',price:(c.querySelector('.price')?.textContent||'').replace(/[^0-9.]/g,''),stock:(c.querySelector('.stock')?.textContent||'').replace(/[^0-9.]/g,''),image:img?.getAttribute('src')||''}})
- const ships=d.querySelectorAll('.ship');data.shipping.std=ships[0]?.dataset.cost||data.shipping.std;data.shipping.pri=ships[1]?.dataset.cost||data.shipping.pri;
- data.video.main=d.querySelector('#siteVideo source')?.getAttribute('src')||data.video.main;const t=d.querySelectorAll('.video-thumb');if(t[0]){data.video.thumb1=t[0].querySelector('img')?.getAttribute('src')||'';data.video.thumb1Src=t[0].dataset.src||''}if(t[1]){data.video.thumb2=t[1].querySelector('img')?.getAttribute('src')||'';data.video.thumb2Src=t[1].dataset.src||''}
+let inventory = JSON.parse(localStorage.getItem("r4r_test_inventory") || "null") || [
+  {name:"Bikini — Black / Yellow", price:50, stock:7},
+  {name:"Bikini — White / Black", price:50, stock:7},
+  {name:"Bikini — Red / White", price:50, stock:7},
+  {name:"Bikini — Royal Blue", price:50, stock:7},
+  {name:"Bikini — Pink / Black", price:50, stock:7},
+  {name:"Bikini — Purple / White", price:50, stock:7},
+  {name:"Tracksuit — Black", price:50, stock:14},
+  {name:"Tracksuit — Grey", price:50, stock:14}
+];
+let currentEdit = null;
+let testOrders = JSON.parse(localStorage.getItem("r4r_test_orders") || "null") || [];
+function saveTestData(){localStorage.setItem("r4r_test_inventory",JSON.stringify(inventory));localStorage.setItem("r4r_test_orders",JSON.stringify(testOrders));}
+function renderOrders(){
+  const q=(document.getElementById("orderSearch").value||"").toLowerCase();
+  const status=document.getElementById("statusFilter").value;
+  const body=document.getElementById("ordersBody");
+  const rows=testOrders.filter(o=>(status==="All statuses"||o.status===status)&&[o.id,o.customer,o.tracking,o.status].join(" ").toLowerCase().includes(q));
+  body.innerHTML=rows.map((o,i)=>`<tr style="border-bottom:1px solid #222">
+    <td style="padding:6px"><strong>${o.customer} (TEST)</strong><br>${o.id}</td><td>${o.date}</td><td>${Number(o.total).toFixed(2)}</td>
+    <td><select data-order="${o.id}" data-field="status" style="padding:5px;background:#07040f;color:#fff;border:1px solid #6b5a2c;border-radius:5px">${["Pending","Processing","Shipped","Completed","Cancelled"].map(s=>`<option ${o.status===s?"selected":""}>${s}</option>`).join("")}</select></td>
+    <td><input data-order="${o.id}" data-field="tracking" placeholder="Tracking #" value="${o.tracking||""}" style="width:110px;padding:5px;background:#07040f;color:#fff;border:1px solid #6b5a2c;border-radius:5px"></td>
+    <td><button class="btn small danger" data-delete-order="${o.id}">Delete</button></td></tr>`).join("") || '<tr><td colspan="6" style="padding:14px;color:#cbb89a">No test orders match. Use + Test Order to create one.</td></tr>';
+  body.querySelectorAll("[data-order]").forEach(el=>el.onchange=()=>{const o=testOrders.find(x=>x.id===el.dataset.order);if(o){o[el.dataset.field]=el.value;saveTestData();renderOrders();}});
+  body.querySelectorAll("[data-delete-order]").forEach(el=>el.onclick=()=>{testOrders=testOrders.filter(o=>o.id!==el.dataset.deleteOrder);saveTestData();renderOrders();});
 }
-function render(){
- $('prevLogo').innerHTML=data.logo.image?'<img src="'+url(data.logo.image)+'" alt="MRBHNCO">':'<b style="font-size:24px;letter-spacing:.1em">'+data.logo.text+'</b>';
- $('prevShipStd').textContent=data.shipping.std;$('prevShipPri').textContent=data.shipping.pri;$('prevVideoSrc').textContent=data.video.main;
- $('productsContainer').innerHTML='';data.products.forEach(p=>{const c=document.createElement('div');c.className='product-card clickable';c.innerHTML='<div class="product-top"><div class="product-image"><img src="'+url(p.image)+'" alt="'+p.name+'"></div><div class="product-info"><h2>'+p.name+'</h2><div class="price">$'+p.price+'</div><div class="stock">In stock: '+p.stock+'</div></div></div>';c.onclick=()=>open('product',p.id);$('productsContainer').appendChild(c)})
+document.getElementById("orderSearch").addEventListener("input",renderOrders);
+document.getElementById("statusFilter").addEventListener("change",renderOrders);
+document.getElementById("addTestOrder").onclick=()=>{const n=testOrders.length+1001;testOrders.unshift({id:"TEST-"+n,customer:"Sample Customer "+n,date:new Date().toLocaleDateString(),total:50,status:"Pending",tracking:""});saveTestData();renderOrders();};
+
+const defaultMediaItems = [
+  {id:"media-1",title:"Main Store Video",src:"/video5.mp4",thumbnail:""},
+  {id:"media-2",title:"Additional Video",src:"/vid.mp4",thumbnail:""}
+];
+let mediaItems = JSON.parse(localStorage.getItem("r4r_test_media") || "null") || defaultMediaItems;
+function escapeMediaText(value) {
+  return String(value == null ? "" : value).replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
 }
-async function load(){const t=$('ghToken').value.trim();if(!t){$('status').textContent='Enter your GitHub token, then click Save.';return} $('status').textContent='Loading current index.html...';const r=await fetch(api(),{headers:{Authorization:'Bearer '+t,Accept:'application/vnd.github+json'}});if(!r.ok){$('status').textContent='GitHub error: '+(await r.json()).message;return}const j=await r.json();readIndex(dec(j.content));render();$('status').textContent='Loaded current index.html.'}
-function open(s,id){section=s;productId=id||null;const b=$('modalBody');b.innerHTML='';
- if(s==='product'){const p=data.products.find(x=>x.id===id);$('modalTitle').textContent='Edit Product';b.innerHTML='<div class="field"><label>Name</label><input id="fName" value="'+p.name.replace(/"/g,'&quot;')+'"></div><div class="field"><label>Price</label><input id="fPrice" type="number" step="0.01" value="'+p.price+'"></div><div class="field"><label>Stock</label><input id="fStock" type="number" value="'+p.stock+'"></div><div class="field"><label>Image</label><input id="fFile" type="file" accept="image/*"></div>'}
- if(s==='logo'){ $('modalTitle').textContent='Edit Logo';b.innerHTML='<div class="field"><label>Text</label><input id="fText" value="'+data.logo.text+'"></div><div class="field"><label>Upload image</label><input id="fFile" type="file" accept="image/*"></div>'}
- if(s==='shipping'){ $('modalTitle').textContent='Edit Shipping';b.innerHTML='<div class="field"><label>Standard</label><input id="fStd" type="number" step="0.01" value="'+data.shipping.std+'"></div><div class="field"><label>Priority</label><input id="fPri" type="number" step="0.01" value="'+data.shipping.pri+'"></div>'}
- if(s==='video'){ $('modalTitle').textContent='Edit Video';b.innerHTML='<div class="field"><label>Main video</label><input id="fMain" value="'+data.video.main+'"></div><div class="field"><label>Thumb 1 image</label><input id="fThumb1" value="'+data.video.thumb1+'"></div><div class="field"><label>Thumb 1 video</label><input id="fThumb1Src" value="'+data.video.thumb1Src+'"></div><div class="field"><label>Thumb 2 image</label><input id="fThumb2" value="'+data.video.thumb2+'"></div><div class="field"><label>Thumb 2 video</label><input id="fThumb2Src" value="'+data.video.thumb2Src+'"></div>'}
- $('modalBg').classList.add('show')}
-function close(){ $('modalBg').classList.remove('show');section=null;productId=null}
-$('modalClose').onclick=close;$('modalCancel').onclick=close;$('modalBg').onclick=e=>{if(e.target.id==='modalBg')close()};
-$('modalSave').onclick=()=>{if(section==='product'){const p=data.products.find(x=>x.id===productId);p.name=$('fName').value||p.name;p.price=$('fPrice').value||p.price;p.stock=$('fStock').value||p.stock;const f=$('fFile')?.files[0];if(f){const r=new FileReader();r.onload=e=>{p.image=e.target.result;p.imageChanged=true;render()};r.readAsDataURL(f)}render()}
-if(section==='logo'){data.logo.text=$('fText').value||data.logo.text;const f=$('fFile')?.files[0];if(f){const r=new FileReader();r.onload=e=>{data.logo.image=e.target.result;data.logo.imageChanged=true;render()};r.readAsDataURL(f)}}
-if(section==='shipping'){data.shipping.std=$('fStd').value;data.shipping.pri=$('fPri').value}
-if(section==='video'){data.video.main=$('fMain').value||data.video.main;data.video.thumb1=$('fThumb1').value||data.video.thumb1;data.video.thumb1Src=$('fThumb1Src').value||data.video.thumb1Src;data.video.thumb2=$('fThumb2').value||data.video.thumb2;data.video.thumb2Src=$('fThumb2Src').value||data.video.thumb2Src}
-close();$('status').textContent='Change ready. Click Submit Changes.'};
-$('prevLogo').onclick=()=>open('logo');$('prevShipping').onclick=()=>open('shipping');$('prevVideo').onclick=()=>open('video');
-$('addProductBtn').onclick=()=>alert('This safe admin edits the products already on the current storefront. It does not rebuild index.html.');
-function patchProduct(html,p){
- const marker='data-product="'+p.id+'"',pos=html.indexOf(marker);if(pos<0)return html;let start=html.lastIndexOf('<div class="product-card">',pos);if(start<0)return html;let next=html.indexOf('<div class="product-card">',pos+marker.length);let end=next>0?next:html.indexOf('<div class="cart">',pos);if(end<0)end=html.length;let b=html.slice(start,end);
- b=b.replace(/(<h2>)[^<]*(<\/h2>)/,'$1'+p.name+'$2').replace(/(<div class="price">)\$[^<]*(<\/div>)/,'$1$'+p.price+'$2').replace(/(<div class="stock">)In stock:\s*[^<]*(<\/div>)/,'$1In stock: '+p.stock+'$2').replace(/(data-price=")[^"]*(")/,'$1'+p.price+'$2');
- if(p.imageChanged)b=b.replace(new RegExp('(<img[^>]*id="'+p.id+'Image"[^>]*src=")[^"]*(")'),'$1'+p.image+'$2');
- return html.slice(0,start)+b+html.slice(end)
+function saveMediaItems(showMessage = true) {
+  localStorage.setItem("r4r_test_media", JSON.stringify(mediaItems));
+  if (showMessage) document.getElementById("mediaStatus").textContent = "Video and thumbnail settings saved in this browser only. To publish them, the actual files and store code must be updated in GitHub.";
 }
-$('submitBtn').onclick=async()=>{
- const t=$('ghToken').value.trim();if(!t){alert('Paste the GitHub token first.');return}$('adminMain').classList.add('loading');$('status').textContent='Fetching the latest index.html before saving...';
- try{
-  const r=await fetch(api(),{headers:{Authorization:'Bearer '+t,Accept:'application/vnd.github+json'}});if(!r.ok)throw new Error((await r.json()).message);const j=await r.json();let html=dec(j.content);
-  data.products.forEach(p=>{html=patchProduct(html,p)});
-  if(data.video.main){html=html.replace(/(<source src=")[^"]*(" type="video\/mp4">)/,'$1'+data.video.main+'$2')}
-  const putUrl='https://api.github.com/repos/'+encodeURIComponent($('ghOwner').value.trim())+'/'+encodeURIComponent($('ghRepo').value.trim())+'/contents/'+($('ghPath').value.trim()||'index.html');
-  const put=await fetch(putUrl,{method:'PUT',headers:{Authorization:'Bearer '+t,Accept:'application/vnd.github+json','Content-Type':'application/json'},body:JSON.stringify({message:'Update storefront from admin safely',content:enc(html),sha:j.sha,branch:$('ghBranch').value.trim()||'main'})});
-  if(!put.ok)throw new Error((await put.json()).message);$('status').textContent='Saved. Only the requested fields were patched into the latest index.html.';readIndex(html);render();
- }catch(e){$('status').textContent='Error: '+e.message}finally{$('adminMain').classList.remove('loading')}
+function renderMediaItems() {
+  const list = document.getElementById("mediaList");
+  if (!list) return;
+  list.innerHTML = mediaItems.map((item, index) => `
+    <div class="media-item" data-media-index="${index}">
+      <h3>${escapeMediaText(item.title || "Video " + (index + 1))}</h3>
+      <video controls playsinline preload="metadata" src="${escapeMediaText(item.src)}"></video>
+      <div class="field"><label>Video title</label><input type="text" data-media-field="title" value="${escapeMediaText(item.title)}"></div>
+      <div class="field"><label>Video file path or URL</label><input type="text" data-media-field="src" value="${escapeMediaText(item.src)}" placeholder="/video5.mp4"></div>
+      <div class="field"><label>Thumbnail file path or URL</label><input type="text" data-media-field="thumbnail" value="${escapeMediaText(item.thumbnail)}" placeholder="/thumbnail.jpg"></div>
+      <img class="thumb-preview" src="${escapeMediaText(item.thumbnail)}" alt="Thumbnail preview" style="display:${item.thumbnail ? "block" : "none"}" onerror="this.style.opacity='.25';this.alt='Thumbnail preview unavailable — check the file path';">
+      <div class="field"><label>Choose a thumbnail to preview locally</label><input type="file" accept="image/*" data-local-thumb></div>
+      <div class="field"><label>Choose a video to preview locally</label><input type="file" accept="video/*" data-local-video></div>
+      <div class="media-actions"><button type="button" class="btn small" data-save-one>Save Entry</button><button type="button" class="btn small" data-remove-media>Remove Entry</button></div>
+    </div>`).join("");
+  list.querySelectorAll(".media-item").forEach(card => {
+    const index = Number(card.dataset.mediaIndex);
+    card.querySelectorAll("[data-media-field]").forEach(input => {
+      input.addEventListener("change", () => {
+        mediaItems[index][input.dataset.mediaField] = input.value.trim();
+        const video = card.querySelector("video");
+        const thumb = card.querySelector(".thumb-preview");
+        if (input.dataset.mediaField === "src") video.src = input.value.trim();
+        if (input.dataset.mediaField === "thumbnail") { thumb.src = input.value.trim(); thumb.style.display = input.value.trim() ? "block" : "none"; }
+        const heading = card.querySelector("h3");
+        if (input.dataset.mediaField === "title") heading.textContent = input.value.trim() || "Video " + (index + 1);
+      });
+    });
+    card.querySelector("[data-local-thumb]").addEventListener("change", event => {
+      const file = event.target.files && event.target.files[0];
+      if (file) {
+        const url = URL.createObjectURL(file);
+        card.querySelector(".thumb-preview").src = url;
+        document.getElementById("mediaStatus").textContent = "Local thumbnail preview only. To publish it, upload the image file to GitHub and enter its site path.";
+      }
+    });
+    card.querySelector("[data-local-video]").addEventListener("change", event => {
+      const file = event.target.files && event.target.files[0];
+      if (file) {
+        card.querySelector("video").src = URL.createObjectURL(file);
+        document.getElementById("mediaStatus").textContent = "Local video preview only. To publish it, upload the video file to GitHub and enter its site path.";
+      }
+    });
+    card.querySelector("[data-save-one]").addEventListener("click", () => {
+      card.querySelectorAll("[data-media-field]").forEach(input => mediaItems[index][input.dataset.mediaField] = input.value.trim());
+      saveMediaItems();
+    });
+    card.querySelector("[data-remove-media]").addEventListener("click", () => {
+      if (confirm("Remove this video entry from the test list?")) {
+        mediaItems.splice(index, 1);
+        saveMediaItems(false);
+        renderMediaItems();
+        document.getElementById("mediaStatus").textContent = "Video entry removed from this browser's test list.";
+      }
+    });
+  });
+}
+document.getElementById("addMediaBtn").addEventListener("click", () => {
+  mediaItems.push({id:"media-" + Date.now(),title:"New Video",src:"/new-video.mp4",thumbnail:"/new-thumbnail.jpg"});
+  renderMediaItems();
+  document.getElementById("mediaStatus").textContent = "New video entry added. Enter the file paths and click Save Videos & Thumbnails.";
+});
+document.getElementById("saveMediaBtn").addEventListener("click", () => saveMediaItems());
+
+function renderInventory() {
+  const list = document.getElementById("inventoryList");
+  list.innerHTML = "";
+  let totalStock = 0;
+  inventory.forEach((item, i) => {
+    totalStock += Number(item.stock) || 0;
+    const row = document.createElement("div");
+    row.className = "inv-row";
+    row.innerHTML = `
+      <span style="flex:1;min-width:120px">${item.name}</span>
+      <label style="font-size:11px;display:flex;align-items:center;gap:4px">Price $
+        <input aria-label="Price for ${item.name}" type="number" min="0" step="0.01" value="${Number(item.price || 0).toFixed(2)}" data-i="${i}" data-field="price">
+      </label>
+      <label style="font-size:11px;display:flex;align-items:center;gap:4px">Stock
+        <input aria-label="Stock for ${item.name}" type="number" min="0" step="1" value="${Number(item.stock || 0)}" data-i="${i}" data-field="stock">
+      </label>
+      <button class="restock" data-i="${i}">Order More</button>
+      <button class="delete-inv" data-delete-i="${i}" aria-label="Delete ${item.name}" title="Delete item">&times;</button>
+    `;
+    list.appendChild(row);
+  });
+  document.getElementById("stockCount").textContent = totalStock;
+  document.getElementById("prodCount").textContent = inventory.length;
+  list.querySelectorAll("input").forEach(inp => {
+    inp.onchange = () => {
+      const i = Number(inp.dataset.i);
+      const field = inp.dataset.field;
+      const value = Number(inp.value);
+      if (!Number.isFinite(value) || value < 0) {
+        alert("Enter a valid non-negative " + (field === "price" ? "price" : "stock quantity") + ".");
+        inp.value = Number(inventory[i][field] || 0);
+        return;
+      }
+      inventory[i][field] = field === "price" ? Math.round(value * 100) / 100 : Math.floor(value);
+      inp.value = field === "price" ? Number(inventory[i][field]).toFixed(2) : inventory[i][field];
+      saveTestData();
+      updatePreviewPrices();
+      document.getElementById("submitStatus").textContent = "Inventory change saved in this browser only. Click Submit Changes when ready.";
+      if (field === "stock") {
+        document.getElementById("stockCount").textContent = inventory.reduce((sum, item) => sum + (Number(item.stock) || 0), 0);
+      }
+    };
+  });
+  list.querySelectorAll(".restock").forEach(btn => {
+    btn.onclick = () => {
+      const i = Number(btn.dataset.i);
+      const add = prompt("How many to add?", "10");
+      if (add !== null && add.trim() !== "" && Number.isFinite(Number(add)) && Number(add) > 0) {
+        inventory[i].stock = (Number(inventory[i].stock) || 0) + Math.floor(Number(add));
+        saveTestData();
+        renderInventory();
+      }
+    };
+  });
+  list.querySelectorAll("[data-delete-i]").forEach(btn => {
+    btn.onclick = () => {
+      const i = Number(btn.dataset.deleteI);
+      if (!inventory[i]) return;
+      if (!confirm('Delete "' + inventory[i].name + '" from inventory?')) return;
+      inventory.splice(i, 1);
+      saveTestData();
+      renderInventory();
+      updatePreviewPrices();
+      document.getElementById("submitStatus").textContent = "Inventory item deleted in this browser only.";
+    };
+  });
+}
+function updatePreviewPrices() {
+  const bikini = inventory.find(item => /^Bikini\s*[—-]/i.test(item.name));
+  const tracksuit = inventory.find(item => /^Tracksuit\s*[—-]/i.test(item.name));
+  const bikiniPrice = document.querySelector('[data-edit="bikini-price"]');
+  const tracksuitPrice = document.querySelector('[data-edit="tracksuit-price"]');
+  if (bikiniPrice && bikini) bikiniPrice.textContent = "$" + Number(bikini.price || 0).toFixed(2);
+  if (tracksuitPrice && tracksuit) tracksuitPrice.textContent = "$" + Number(tracksuit.price || 0).toFixed(2);
+}
+
+function openModal(title, bodyHtml) {
+  document.getElementById("modalTitle").textContent = title;
+  document.getElementById("modalBody").innerHTML = bodyHtml;
+  document.getElementById("modalBg").classList.add("show");
+}
+
+document.getElementById("addItemBtn").onclick = () => {
+  currentEdit = "new-item";
+  openModal("Add New Item", `
+    <div class="field"><label>Item name</label><input id="newName" placeholder="e.g. Hoodie — Black"></div>
+    <div class="field"><label>Price</label><input id="newPrice" type="number" step="0.01" value="50"></div>
+    <div class="field"><label>Starting stock</label><input id="newStock" type="number" value="10"></div>
+    <div class="field"><label>Image</label><input type="file" id="newImg" accept="image/*"></div>
+  `);
 };
-settings();load();
+
+document.querySelectorAll("[data-edit]").forEach(el => {
+  el.onclick = (e) => {
+    e.stopPropagation();
+    const type = el.dataset.edit;
+    currentEdit = type;
+    if (type.includes("price")) {
+      const productKey = type.startsWith("bikini") ? "Bikini" : "Tracksuit";
+      const currentProduct = inventory.find(item => item.name.toLowerCase().startsWith(productKey.toLowerCase()));
+      openModal("Change " + productKey + " Price", `<div class="field"><label>New price ($)</label><input id="editValue" type="number" min="0" step="0.01" value="${currentProduct ? Number(currentProduct.price || 0).toFixed(2) : "50.00"}"></div>`);
+    } else if (type === "video") {
+      openModal("Change Video", `
+        <div class="field"><label>Main video file</label><input id="editValue" value="/video5.mp4"></div>
+        <div class="field"><label>Or upload new video</label><input type="file" id="editFile" accept="video/*"></div>
+      `);
+    } else {
+      openModal("Upload / Change Image", `
+        <div class="field"><label>Current filename or new name</label><input id="editValue" placeholder="image.jpg"></div>
+        <div class="field"><label>Upload new picture</label><input type="file" id="editFile" accept="image/*"></div>
+      `);
+    }
+  };
+});
+
+document.getElementById("modalClose").onclick = () => document.getElementById("modalBg").classList.remove("show");
+document.getElementById("modalCancel").onclick = () => document.getElementById("modalBg").classList.remove("show");
+document.getElementById("modalBg").onclick = e => { if (e.target.id === "modalBg") document.getElementById("modalBg").classList.remove("show"); };
+
+document.getElementById("modalSave").onclick = () => {
+  const val = document.getElementById("editValue")?.value;
+  if (currentEdit === "new-item") {
+    const name = document.getElementById("newName").value.trim();
+    if (!name) return alert("Enter a name");
+    inventory.push({name, price: Number(document.getElementById("newPrice").value || 50), stock: Number(document.getElementById("newStock").value || 10)});
+    renderInventory();
+  } else if (currentEdit && currentEdit.includes("price")) {
+    const price = Number(val);
+    if (val === "" || !Number.isFinite(price) || price < 0) return alert("Enter a valid price of $0 or more.");
+    const productKey = currentEdit.startsWith("bikini") ? "Bikini" : "Tracksuit";
+    inventory.forEach(item => {
+      if (item.name.toLowerCase().startsWith(productKey.toLowerCase())) item.price = Math.round(price * 100) / 100;
+    });
+    updatePreviewPrices();
+    renderInventory();
+    saveTestData();
+  }
+  document.getElementById("modalBg").classList.remove("show");
+  document.getElementById("submitStatus").textContent = "Change applied locally. Click Submit Changes when ready.";
+};
+
+document.getElementById("submitAll").onclick = () => {
+  saveTestData();
+  updatePreviewPrices();
+  document.getElementById("submitStatus").textContent = "Test changes saved in this browser only. Nothing was sent to a server.";
+  alert("Saved for testing in this browser only.");
+};
+
+document.getElementById("saveInv").onclick = () => {saveTestData();alert("Inventory saved in this browser only.");};
+renderInventory();
+updatePreviewPrices();
+renderOrders();
+renderMediaItems();
 </script>
 </body>
 </html>
