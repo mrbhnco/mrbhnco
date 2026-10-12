@@ -81,7 +81,6 @@
 <div class="checkout-card"><h2>Payment Method</h2><div class="pay-opt">Credit Card — demo only</div><div class="pay-opt">PayPal — demo only</div><div class="pay-opt">Venmo or Zelle — demo only</div><p class="note">Practice mode. No payment will be taken and no order will be sent.</p><button type="button" id="placeOrder" class="place-btn">Place Practice Order</button></div></div></section>
 <script>
 (function(){
-if(sessionStorage.getItem("r4r-store_ok")!=="1"){location.replace("index.html");return;}
 const bikiniImage=document.getElementById("bikiniImage"),tracksuitImage=document.getElementById("tracksuitImage"),newTracksuitImage=document.getElementById("newTracksuitImage");
 const colors={bikini:"Black / Yellow",tracksuit:"Black",newtrack:"Black"};
 document.querySelectorAll(".color-thumb").forEach(function(t){t.addEventListener("click",function(){const target=t.dataset.target;document.querySelectorAll('.color-thumb[data-target="'+target+'"]').forEach(x=>x.classList.remove("active"));t.classList.add("active");colors[target]=t.dataset.color; if(target==="bikini")bikiniImage.src=t.dataset.img;else if(target==="tracksuit")tracksuitImage.src=t.dataset.img;else newTracksuitImage.src=t.dataset.img;});});
