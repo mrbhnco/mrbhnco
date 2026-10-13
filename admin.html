@@ -116,7 +116,8 @@ body{margin:0;background:#0a0612;color:#e4c56a;font-family:Arial,Helvetica,sans-
 
   <div class="submit-bar">
     <button class="btn primary" id="submitAll" style="font-size:16px;padding:12px 32px">Submit Changes</button>
-    <div class="status" id="submitStatus">Changes stay local until you commit to GitHub.</div>
+    <button class="btn" id="connectLiveSync" type="button">Connect Live Sync</button>
+    <div class="status" id="submitStatus">Local demo mode. Add database settings in Vercel to enable shared sync.</div>
   </div>
 </div>
 
@@ -156,7 +157,43 @@ inventory = inventory.map((item, i) => ({
   image: item.image || ""
 }));
 let testOrders = JSON.parse(localStorage.getItem("r4r_test_orders") || "null") || [];
-function saveTestData(){localStorage.setItem("r4r_test_inventory",JSON.stringify(inventory));localStorage.setItem("r4r_test_orders",JSON.stringify(testOrders));}
+let liveSyncBusy = false;
+function saveTestData(){
+  localStorage.setItem("r4r_test_inventory",JSON.stringify(inventory));
+  localStorage.setItem("r4r_test_orders",JSON.stringify(testOrders));
+  queueLiveSync();
+}
+function livePayload(){return {inventory,orders:testOrders,media:typeof mediaItems!=="undefined"?mediaItems:[]};}
+function queueLiveSync(){
+  const token=sessionStorage.getItem("r4r_admin_sync_token");
+  if(!token||liveSyncBusy)return;
+  liveSyncBusy=true;
+  fetch("/api/catalog",{method:"PUT",headers:{"Content-Type":"application/json","x-admin-token":token},body:JSON.stringify({data:livePayload()})})
+    .then(async r=>{const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||"Sync unavailable");document.getElementById("submitStatus").textContent="Saved locally and synced to the shared catalog.";})
+    .catch(e=>{document.getElementById("submitStatus").textContent="Saved locally. Live sync not active yet: "+e.message;})
+    .finally(()=>{liveSyncBusy=false;});
+}
+document.getElementById("connectLiveSync").addEventListener("click",()=>{
+  const current=sessionStorage.getItem("r4r_admin_sync_token")||"";
+  const token=prompt("Enter the ADMIN_SYNC_TOKEN configured in Vercel. Leave blank to disconnect.",current);
+  if(token===null)return;
+  if(!token.trim()){sessionStorage.removeItem("r4r_admin_sync_token");document.getElementById("submitStatus").textContent="Disconnected from live sync. Local demo mode remains available.";return;}
+  sessionStorage.setItem("r4r_admin_sync_token",token.trim());
+  document.getElementById("submitStatus").textContent="Testing live sync connection…";
+  queueLiveSync();
+});
+async function loadLiveState(){
+  try{
+    const r=await fetch("/api/catalog",{cache:"no-store"});
+    const d=await r.json();
+    if(!r.ok||!d.configured||!d.data)return;
+    if(Array.isArray(d.data.inventory)){inventory=d.data.inventory;localStorage.setItem("r4r_test_inventory",JSON.stringify(inventory));}
+    if(Array.isArray(d.data.orders)){testOrders=d.data.orders;localStorage.setItem("r4r_test_orders",JSON.stringify(testOrders));}
+    if(Array.isArray(d.data.media)&&typeof mediaItems!=="undefined"){mediaItems=d.data.media;localStorage.setItem("r4r_test_media",JSON.stringify(mediaItems));}
+    renderInventory();renderOrders();updatePreviewPrices();
+    document.getElementById("submitStatus").textContent="Loaded shared catalog from the live database.";
+  }catch(_){/* Keep local demo usable while backend is unconfigured. */}
+}
 function renderOrders(){
   const q=(document.getElementById("orderSearch").value||"").toLowerCase();
   const status=document.getElementById("statusFilter").value;
@@ -468,6 +505,7 @@ renderInventory();
 updatePreviewPrices();
 renderOrders();
 renderMediaItems();
+loadLiveState();
 </script>
 <style>body.passcode-locked{visibility:hidden}#passcodeGate{position:fixed;inset:0;z-index:999999;background:#050505;color:#fff;display:flex;align-items:center;justify-content:center;font-family:Arial,sans-serif;visibility:visible}#passcodeGate .gate-card{width:min(90%,380px);padding:28px;background:#111;border:1px solid #d4a017;border-radius:12px;text-align:center}#passcodeGate h2{margin:0 0 16px;color:#d4a017}#passcodeGate input{width:100%;padding:12px;background:#222;color:#fff;border:1px solid #555;border-radius:7px;font-size:16px;margin-bottom:12px}#passcodeGate button{width:100%;padding:12px;background:#d4a017;color:#000;border:0;border-radius:7px;font-weight:bold;cursor:pointer}#passcodeError{color:#ff6b6b;font-size:13px;min-height:18px}</style>
 <div id="passcodeGate"><div class="gate-card"><h2>Real 4 Real Admin</h2><p>Enter passcode to continue</p><form id="passcodeForm"><input id="passcodeInput" type="password" placeholder="Passcode" autocomplete="current-password" required><button type="submit">UNLOCK</button><div id="passcodeError" role="alert"></div></form></div></div>
