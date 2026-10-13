@@ -10,7 +10,40 @@
       "image": "bikini-model-black-yellow.jpg",
       "color": "Black / Yellow",
       "sizes": "XS, S, M, L, XL, XXL",
-      "active": true
+      "description": "",
+      "active": true,
+      "variants": [
+        {
+          "color": "Black / Yellow",
+          "image": "bikini-model-black-yellow.jpg",
+          "stock": 7
+        },
+        {
+          "color": "White / Black",
+          "image": "bikini-model-white-black.jpg",
+          "stock": 7
+        },
+        {
+          "color": "Red / White",
+          "image": "bikini-model-red-white.jpg",
+          "stock": 7
+        },
+        {
+          "color": "Royal Blue",
+          "image": "bikini-model-royal-blue.jpg",
+          "stock": 7
+        },
+        {
+          "color": "Pink / Black",
+          "image": "bikini-model-pink-black.jpg",
+          "stock": 7
+        },
+        {
+          "color": "Purple / White",
+          "image": "bikini-model-purple-white.jpg",
+          "stock": 7
+        }
+      ]
     },
     {
       "id": "tracksuit",
@@ -22,7 +55,40 @@
       "image": "tracksuit-black-front (1).jpg",
       "color": "Black",
       "sizes": "XS, S, M, L, XL, XXL",
-      "active": true
+      "description": "",
+      "active": true,
+      "variants": [
+        {
+          "color": "Black",
+          "image": "tracksuit-black-front (1).jpg",
+          "stock": 5
+        },
+        {
+          "color": "Red",
+          "image": "MQmUP.jpg",
+          "stock": 5
+        },
+        {
+          "color": "Yellow",
+          "image": "DWPqo.jpg",
+          "stock": 5
+        },
+        {
+          "color": "Green",
+          "image": "ijtHJ.jpg",
+          "stock": 5
+        },
+        {
+          "color": "Blue",
+          "image": "CAyNi.jpg",
+          "stock": 4
+        },
+        {
+          "color": "Grey / White",
+          "image": "YW3MF.jpg",
+          "stock": 4
+        }
+      ]
     },
     {
       "id": "newtrack",
@@ -34,7 +100,40 @@
       "image": "blacknew.jpeg",
       "color": "Black",
       "sizes": "XS, S, M, L, XL, XXL",
-      "active": true
+      "description": "",
+      "active": true,
+      "variants": [
+        {
+          "color": "Black",
+          "image": "blacknew.jpeg",
+          "stock": 4
+        },
+        {
+          "color": "Red",
+          "image": "nJjxr.jpg",
+          "stock": 4
+        },
+        {
+          "color": "Green",
+          "image": "AFO8J.jpg",
+          "stock": 3
+        },
+        {
+          "color": "Yellow",
+          "image": "g6R3t.jpg",
+          "stock": 3
+        },
+        {
+          "color": "Blue",
+          "image": "qjBuO.jpg",
+          "stock": 3
+        },
+        {
+          "color": "Grey / White",
+          "image": "LZPk0.jpg",
+          "stock": 3
+        }
+      ]
     },
     {
       "id": "authsuit",
@@ -46,7 +145,40 @@
       "image": "Igpd8.jpg",
       "color": "Red",
       "sizes": "XS, S, M, L, XL, XXL",
-      "active": true
+      "description": "",
+      "active": true,
+      "variants": [
+        {
+          "color": "Red",
+          "image": "Igpd8.jpg",
+          "stock": 4
+        },
+        {
+          "color": "Yellow",
+          "image": "NXEKj.jpg",
+          "stock": 4
+        },
+        {
+          "color": "Blue",
+          "image": "XSP6Q.jpg",
+          "stock": 3
+        },
+        {
+          "color": "Grey",
+          "image": "tracksuit-thumb-grey.jpg",
+          "stock": 3
+        },
+        {
+          "color": "Green",
+          "image": "FbDYc (1).jpg",
+          "stock": 3
+        },
+        {
+          "color": "Grey / White",
+          "image": "kN3et.jpg",
+          "stock": 3
+        }
+      ]
     },
     {
       "id": "tile5",
@@ -58,7 +190,40 @@
       "image": "graynew.jpeg",
       "color": "Grey",
       "sizes": "XS, S, M, L, XL, XXL",
-      "active": true
+      "description": "",
+      "active": true,
+      "variants": [
+        {
+          "color": "Grey",
+          "image": "graynew.jpeg",
+          "stock": 4
+        },
+        {
+          "color": "Red",
+          "image": "jZRYy (2).jpg",
+          "stock": 4
+        },
+        {
+          "color": "Yellow",
+          "image": "Hqxxw.jpg",
+          "stock": 3
+        },
+        {
+          "color": "Green",
+          "image": "KBUwC.jpg",
+          "stock": 3
+        },
+        {
+          "color": "Blue",
+          "image": "1neSq.jpg",
+          "stock": 3
+        },
+        {
+          "color": "Grey / White",
+          "image": "ArZTJ.jpg",
+          "stock": 3
+        }
+      ]
     },
     {
       "id": "track6",
@@ -70,7 +235,40 @@
       "image": "1.jpg",
       "color": "Black / Yellow",
       "sizes": "S, M, L, XL, 2XL",
-      "active": true
+      "description": "",
+      "active": true,
+      "variants": [
+        {
+          "color": "Black / Yellow",
+          "image": "1.jpg",
+          "stock": 2
+        },
+        {
+          "color": "Black / White",
+          "image": "2.jpg",
+          "stock": 2
+        },
+        {
+          "color": "Black / Red",
+          "image": "3.jpg",
+          "stock": 2
+        },
+        {
+          "color": "Black / Green",
+          "image": "4.jpg",
+          "stock": 2
+        },
+        {
+          "color": "Black / Blue",
+          "image": "5.jpg",
+          "stock": 1
+        },
+        {
+          "color": "Black / Gray",
+          "image": "6.jpg",
+          "stock": 1
+        }
+      ]
     },
     {
       "id": "track7",
@@ -82,12 +280,51 @@
       "image": "7.jpg",
       "color": "Gray / Yellow",
       "sizes": "S, M, L, XL, 2XL",
-      "active": true
+      "description": "",
+      "active": true,
+      "variants": [
+        {
+          "color": "Gray / Yellow",
+          "image": "7.jpg",
+          "stock": 2
+        },
+        {
+          "color": "Gray / White",
+          "image": "8.jpg",
+          "stock": 2
+        },
+        {
+          "color": "Gray / Red",
+          "image": "9.jpg",
+          "stock": 2
+        },
+        {
+          "color": "Gray / Green",
+          "image": "10.jpg",
+          "stock": 2
+        },
+        {
+          "color": "Gray / Blue",
+          "image": "11.jpg",
+          "stock": 1
+        },
+        {
+          "color": "Gray / Gray",
+          "image": "12.jpg",
+          "stock": 1
+        }
+      ]
     }
   ],
   "orders": [],
-  "settings": {},
-  "coupons": [],
   "media": [],
-  "updatedAt": ""
+  "settings": {
+    "videoUrl": "video5.mp4",
+    "standardShipping": 8.95,
+    "priorityShipping": 16.95,
+    "freeShippingMinimum": 100,
+    "lowStockThreshold": 5
+  },
+  "coupons": [],
+  "updatedAt": "2026-10-13T23:20:54.309Z"
 }
