@@ -8,7 +8,7 @@ export default async function handler(req, res) {
       return res.status(503).json({ ok: false, configured: false, error: "Shared database is not configured yet." });
     }
     try {
-      const r = await fetch(process.env.SUPABASE_URL + "/rest/v1/store_state?id=eq=main&select=data", {
+      const r = await fetch(process.env.SUPABASE_URL + "/rest/v1/store_state?id=eq.main&select=data", {
         headers: { apikey: process.env.SUPABASE_SERVICE_ROLE_KEY, Authorization: "Bearer " + process.env.SUPABASE_SERVICE_ROLE_KEY }
       });
       if (!r.ok) return res.status(502).json({ ok: false, error: "Database read failed." });
