@@ -172,9 +172,11 @@ products=products.map((p,i)=>normalizeProduct(p,i));
 // any saved price, stock, image, or other edits for products that already exist.
 function mergeStoreProducts(saved){
  const list=(Array.isArray(saved)?saved:[]).map((p,i)=>normalizeProduct(p,i));
- const ids=new Set(list.map(p=>String(p.id).toLowerCase()));
- defaults.forEach((p,i)=>{if(!ids.has(String(p.id).toLowerCase()))list.push(normalizeProduct(p,list.length+i))});
- return list;
+ // The storefront has exactly seven product tiles. Keep saved edits for those
+ // seven IDs, remove duplicate/legacy extras, and restore any missing tile.
+ const byId=new Map();
+ list.forEach(p=>{const id=String(p.id||"").toLowerCase();if(id&&!byId.has(id))byId.set(id,p)});
+ return defaults.map((d,i)=>normalizeProduct(byId.get(String(d.id).toLowerCase())||d,i));
 }
 products=mergeStoreProducts(products);
 let orders=read(KEYS.orders,[]);
