@@ -205,6 +205,14 @@ document.querySelectorAll(".video-thumb").forEach(function(t){t.addEventListener
   e.preventDefault();
   if(document.getElementById("passcodeInput").value===PASSCODE){
    gate.remove();document.body.classList.remove("passcode-locked");
+   // Start playback directly from the successful unlock gesture for browser audio policies.
+   const media=document.getElementById("siteVideo");
+   if(media){
+    media.autoplay=true;media.loop=true;media.playsInline=true;media.muted=false;media.defaultMuted=false;media.volume=1;
+    const startMedia=()=>{const playPromise=media.play();if(playPromise&&playPromise.catch)playPromise.catch(()=>{});};
+    startMedia();
+    media.addEventListener("canplay",startMedia,{once:true});
+   }
   }else{
    document.getElementById("passcodeError").textContent="Incorrect passcode. Try again.";
    document.getElementById("passcodeInput").value="";
