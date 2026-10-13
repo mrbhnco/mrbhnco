@@ -229,4 +229,49 @@ document.querySelectorAll(".video-thumb").forEach(function(t){t.addEventListener
   }
  });
 })();
-</script></body></html>
+</script>
+<script id="r4r-live-catalog">
+/* Pull the shared catalog on refresh. Requires the server-side /api/catalog + Supabase setup. */
+(async function(){
+  try {
+    const response = await fetch("/api/catalog",{cache:"no-store"});
+    if(!response.ok) return;
+    const payload = await response.json();
+    const data = payload && payload.data;
+    if(!data || !Array.isArray(data.inventory)) return;
+    const catalog = data.inventory;
+    const byId = new Map(catalog.map(p=>[String(p.id||p.sku||"").toLowerCase(),p]));
+    const findProduct = id => {
+      const key=String(id||"").toLowerCase();
+      if(byId.has(key)) return byId.get(key);
+      const labels={bikini:/bikini/i,tracksuit:/^tracksuit$/i,newtrack:/premium|newtrack/i,authsuit:/authentic sweatsuit/i,tile5:/grey edition|auth-grey/i,track6:/black edition|track-black/i,track7:/gray edition|grey tracksuit|track-grey/i};
+      const re=labels[key];
+      return re?catalog.find(p=>re.test(String(p.name||"")+" "+String(p.sku||""))):null;
+    };
+    document.querySelectorAll(".add-btn[data-product]").forEach(button=>{
+      const id=button.dataset.product, p=findProduct(id);
+      if(!p || p.active===false) return;
+      const price=Number(p.price);
+      if(Number.isFinite(price)){button.dataset.price=String(price);const details=button.closest(".product-details");const priceEl=details&&details.querySelector(".price");if(priceEl)priceEl.textContent=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(price);}
+      const card=button.closest(".product-card");
+      const qty=card&&card.querySelector('.qty[data-product="'+id+'"]');
+      if(qty && Number.isFinite(Number(p.stock))){qty.max=String(Math.max(0,Number(p.stock)));if(Number(qty.value)>Number(qty.max))qty.value=qty.max;}
+      const stock=card&&card.querySelector(".stock");
+      if(stock && Number.isFinite(Number(p.stock)))stock.textContent="In stock: "+Number(p.stock);
+      if(card && p.image){const img=card.querySelector(".product-image img");if(img)img.src=p.image;}
+      if(card){card.dataset.catalogActive="true";card.style.display="";}
+    });
+    catalog.forEach(p=>{
+      if(p.active===false){
+        const key=String(p.id||p.sku||"").toLowerCase();
+        const btn=document.querySelector('.add-btn[data-product="'+CSS.escape(key)+'"]');
+        if(btn){const card=btn.closest(".product-card");if(card)card.style.display="none";}
+      }
+    });
+    const videoUrl=data.settings && data.settings.videoUrl;
+    if(videoUrl){const video=document.querySelector("video");if(video && video.getAttribute("src")!==videoUrl){video.src=videoUrl;video.load();}}
+  } catch (error) { console.warn("Shared catalog unavailable; showing storefront defaults.",error); }
+})();
+</script>
+
+</body></html>
