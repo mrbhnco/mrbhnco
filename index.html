@@ -62,6 +62,20 @@
 <button class="add-btn" data-product="newtrack" data-price="65">ADD TO ORDER<div class="popup">Added to cart</div></button>
 </div></div></div>
 
+<!-- Newly uploaded authentic sweatsuit images -->
+<div class="product-card"><div class="product-top">
+<div class="product-image"><img id="authSweatsuitImage" src="Igpd8.jpg" alt="Authentic Sweatsuit"></div>
+<div class="product-details"><h2>Authentic Sweatsuit</h2><div class="price">$65.00</div>
+<div class="field-label">Choose Design</div>
+<div class="color-grid">
+<div class="color-thumb active" data-img="Igpd8.jpg" data-target="authsuit" data-color="Design 1"><img src="Igpd8.jpg" alt="Design 1"><span>Design 1</span></div>
+<div class="color-thumb" data-img="NXEKj.jpg" data-target="authsuit" data-color="Design 2"><img src="NXEKj.jpg" alt="Design 2"><span>Design 2</span></div>
+<div class="color-thumb" data-img="XSP6Q.jpg" data-target="authsuit" data-color="Design 3"><img src="XSP6Q.jpg" alt="Design 3"><span>Design 3</span></div>
+</div>
+<div class="field-label">Size</div><select class="size" data-product="authsuit"><option value="">Select size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select>
+<div class="field-label">Quantity</div><input type="number" class="qty" data-product="authsuit" value="1" min="1" max="20"><div class="stock">In stock: 20</div>
+<button class="add-btn" data-product="authsuit" data-price="65">ADD TO ORDER<div class="popup">Added to cart</div></button></div></div></div>
+
 <div class="cart">
 <div class="cart-list" id="mainCartList"></div>
 <div class="subtotal-row"><span>Subtotal</span><span id="subtotal">$0.00</span></div>
@@ -81,9 +95,9 @@
 <div class="checkout-card"><h2>Payment Method</h2><div class="pay-opt">Credit Card — demo only</div><div class="pay-opt">PayPal — demo only</div><div class="pay-opt">Venmo or Zelle — demo only</div><p class="note">Practice mode. No payment will be taken and no order will be sent.</p><button type="button" id="placeOrder" class="place-btn">Place Practice Order</button></div></div></section>
 <script>
 (function(){
-const bikiniImage=document.getElementById("bikiniImage"),tracksuitImage=document.getElementById("tracksuitImage"),newTracksuitImage=document.getElementById("newTracksuitImage");
-const colors={bikini:"Black / Yellow",tracksuit:"Black",newtrack:"Black"};
-document.querySelectorAll(".color-thumb").forEach(function(t){t.addEventListener("click",function(){const target=t.dataset.target;document.querySelectorAll('.color-thumb[data-target="'+target+'"]').forEach(x=>x.classList.remove("active"));t.classList.add("active");colors[target]=t.dataset.color; if(target==="bikini")bikiniImage.src=t.dataset.img;else if(target==="tracksuit")tracksuitImage.src=t.dataset.img;else newTracksuitImage.src=t.dataset.img;});});
+const bikiniImage=document.getElementById("bikiniImage"),tracksuitImage=document.getElementById("tracksuitImage"),newTracksuitImage=document.getElementById("newTracksuitImage"),authSweatsuitImage=document.getElementById("authSweatsuitImage");
+const colors={bikini:"Black / Yellow",tracksuit:"Black",newtrack:"Black",authsuit:"Design 1"};
+document.querySelectorAll(".color-thumb").forEach(function(t){t.addEventListener("click",function(){const target=t.dataset.target;document.querySelectorAll('.color-thumb[data-target="'+target+'"]').forEach(x=>x.classList.remove("active"));t.classList.add("active");colors[target]=t.dataset.color; if(target==="bikini")bikiniImage.src=t.dataset.img;else if(target==="tracksuit")tracksuitImage.src=t.dataset.img;else if(target==="newtrack")newTracksuitImage.src=t.dataset.img;else if(target==="authsuit")authSweatsuitImage.src=t.dataset.img;});});
 let cartTotal=0,shippingCost=5.99,cartItems=[];
 function renderMainCart(){
   const list=document.getElementById("mainCartList");
@@ -111,7 +125,7 @@ document.querySelectorAll(".add-btn").forEach(function(btn){btn.addEventListener
   const qtyEl=document.querySelector('.qty[data-product="'+product+'"]');
   const qty=Math.max(1,Math.min(Number(qtyEl.max)||99,parseInt(qtyEl.value,10)||1));
   if(!size){alert("Please select a size.");return;}
-  const name=product==="bikini"?"Bikini":"Tracksuit";
+  const name=product==="bikini"?"Bikini":product==="authsuit"?"Authentic Sweatsuit":"Tracksuit";
   cartItems.push({name,color:colors[product],size,qty,price});
   cartTotal+=price*qty;
   document.getElementById("subtotal").textContent="$"+cartTotal.toFixed(2);
