@@ -2,527 +2,260 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Real 4 Real Admin</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080808">
+<title>Real 4 Real | Admin Control Center</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#0a0612;color:#e4c56a;font-family:Arial,Helvetica,sans-serif}
-.header{background:#100b19;padding:16px 24px;border-bottom:1px solid #e4c56a;display:flex;justify-content:space-between;align-items:center}
-.header h1{margin:0;font-size:22px}
-.btn{border:1px solid #e4c56a;background:#181126;color:#e4c56a;padding:8px 14px;border-radius:8px;cursor:pointer;font-weight:700}
-.btn.primary{background:#e4c56a;color:#000}
-.btn.small{padding:4px 8px;font-size:12px}
-.main{padding:20px;max-width:1200px;margin:0 auto}
-.card{background:#111;border:1px solid #333;border-radius:12px;padding:16px;margin-bottom:16px}
-.card h2{margin:0 0 12px;font-size:18px}
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.inv-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #222;font-size:14px}
-.inv-row input{width:70px;padding:6px;border-radius:6px;border:1px solid #6b5a2c;background:#07040f;color:#fff;text-align:center}
-.restock{background:#1a4d1a;color:#8f8;border:1px solid #3a8;padding:4px 8px;border-radius:6px;cursor:pointer;font-size:11px}
-.delete-inv{background:#4a1515;color:#ffb8b8;border:1px solid #a44;padding:4px 9px;border-radius:6px;cursor:pointer;font-size:14px;font-weight:700;line-height:1}
-.store-preview{background:#000;border:2px dashed #444;border-radius:12px;padding:16px;margin-top:20px;position:relative}
-.store-preview h3{margin:0 0 12px;color:#e4c56a}
-.preview-page{display:flex;min-height:480px;background:#000;color:#fff}
-.preview-left{flex:2;padding:12px}
-.preview-right{flex:1;background:#111;border-left:1px solid #333;position:relative;min-height:480px}
-.preview-brand{text-align:center;margin-bottom:12px;cursor:pointer;padding:6px;border-radius:6px}
-.preview-brand:hover{outline:2px dashed #e4c56a}
-.preview-brand img{max-width:220px}
-.preview-card{background:#111;border:1px solid #333;border-radius:10px;padding:12px;margin-bottom:12px;cursor:pointer}
-.preview-card:hover{outline:2px dashed #e4c56a}
-.preview-top{display:flex;gap:10px}
-.preview-img{flex:0 0 180px;background:#fff;border-radius:6px;min-height:140px;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.preview-img img{max-width:100%;max-height:200px;object-fit:contain}
-.preview-details h4{margin:0;font-size:16px}
-.preview-price{color:#ffd700;font-weight:700;cursor:pointer}
-.preview-colors{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:8px}
-.preview-color{border:1px solid #444;border-radius:4px;overflow:hidden;cursor:pointer;background:#fff;font-size:9px;text-align:center}
-.preview-color img{width:100%;height:40px;object-fit:contain}
-.preview-color:hover{border-color:#e4c56a}
-.video-placeholder{position:absolute;inset:0;background:#000;display:flex;align-items:center;justify-content:center;color:#666;cursor:pointer}
-.video-placeholder:hover{outline:2px dashed #e4c56a}
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;align-items:center;justify-content:center}
-.modal-bg.show{display:flex}
-.modal{background:#100b19;border:1px solid #e4c56a;border-radius:12px;padding:18px;width:440px;max-width:95vw}
-.modal h3{margin:0 0 12px}
-.field{margin:10px 0}
-.field label{display:block;font-size:12px;margin-bottom:3px;font-weight:700}
-.field input{width:100%;padding:8px;border-radius:6px;border:1px solid #6b5a2c;background:#07040f;color:#fff}
-.close{float:right;cursor:pointer;font-size:20px}
-.status{font-size:12px;color:#cbb89a;margin-top:8px}
-.media-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:14px}
-.media-item{background:#09070e;border:1px solid #3a3047;border-radius:10px;padding:12px;min-width:0}
-.media-item h3{font-size:15px;margin:0 0 10px;color:#e4c56a}
-.media-item video{width:100%;max-height:220px;background:#000;border-radius:7px;display:block;margin-bottom:10px}
-.media-item .field{margin:9px 0}
-.media-item .field label{display:block;font-size:12px;margin-bottom:4px;font-weight:700}
-.media-item .field input[type=text],.media-item .field input:not([type]){width:100%;padding:8px;border-radius:6px;border:1px solid #6b5a2c;background:#07040f;color:#fff}
-.media-item .thumb-preview{width:100%;height:100px;object-fit:contain;background:#15121b;border-radius:6px;margin:6px 0}
-.media-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.media-note{font-size:12px;color:#cbb89a;line-height:1.5}
-.submit-bar{position:sticky;bottom:0;background:#100b19;padding:12px;text-align:center;border-top:1px solid #e4c56a;margin-top:16px}
-@media(max-width:900px){.grid-2{grid-template-columns:1fr}}
-@media(max-width:600px){.inv-row{flex-wrap:wrap}.media-list{grid-template-columns:1fr}}
+:root{--bg:#080808;--panel:#121212;--panel2:#191919;--line:#2d2b24;--gold:#e4c56a;--text:#f4f1e7;--muted:#aaa69a;--red:#ff6b6b;--green:#83d6a2}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 Inter,Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}.hidden{display:none!important}a{color:var(--gold)}.gold{color:var(--gold)}.muted{color:var(--muted)}.wrap{max-width:1500px;margin:auto;padding:22px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px}.brand{display:flex;align-items:center;gap:12px}.mark{width:42px;height:42px;border-radius:12px;background:var(--gold);color:#090909;display:grid;place-items:center;font-weight:900;font-size:13px}.brand h1{font-size:19px;letter-spacing:.08em;margin:0}.brand p{margin:2px 0 0;color:var(--muted);font-size:12px}.btn{border:1px solid #454033;background:#222;color:var(--text);padding:10px 14px;border-radius:9px;font-weight:700}.btn:hover{border-color:var(--gold)}.btn.goldbtn{background:var(--gold);border-color:var(--gold);color:#090909}.btn.danger{border-color:#673535;color:#ffaaaa}.btn.small{padding:6px 9px;font-size:12px}.statusline{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px}.dot{width:8px;height:8px;border-radius:50%;background:#9b927c;display:inline-block}.dot.ok{background:var(--green)}.dot.bad{background:var(--red)}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:20px}.metric,.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px}.metric{padding:18px}.metric .label{color:var(--muted);font-size:12px}.metric .value{font-size:28px;font-weight:800;margin-top:8px}.metric .foot{font-size:11px;color:var(--muted);margin-top:4px}.layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:18px}.sidebar{padding:10px;height:max-content;position:sticky;top:14px}.navbtn{width:100%;text-align:left;padding:12px;border:0;background:transparent;color:var(--muted);border-radius:9px;margin:2px 0}.navbtn.active,.navbtn:hover{background:#252218;color:var(--gold)}.navbtn span{display:inline-block;width:26px}.panel{padding:20px;margin-bottom:18px;min-width:0}.panelhead{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}.panel h2{font-size:17px;margin:0}.panel h3{font-size:14px;margin:0 0 12px}.section{display:none}.section.active{display:block}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label{color:var(--muted);font-size:12px}.field input,.field select,.field textarea,.search{width:100%;padding:10px 11px;border:1px solid #39372f;border-radius:8px;background:#090909;color:var(--text);outline:none}.field input:focus,.field select:focus,.field textarea:focus,.search:focus{border-color:var(--gold)}.field textarea{min-height:78px;resize:vertical}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:720px}th,td{text-align:left;padding:12px 10px;border-bottom:1px solid #2b2923;vertical-align:middle}th{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}td{font-size:13px}.prodcell{display:flex;align-items:center;gap:11px;min-width:210px}.thumb{width:48px;height:56px;border-radius:7px;object-fit:cover;background:#222;border:1px solid #38352c}.thumb.placeholder{display:grid;place-items:center;color:#777;font-size:10px}.pill{display:inline-block;border:1px solid #464133;border-radius:999px;padding:3px 8px;font-size:11px;color:var(--gold)}.pill.low{color:#ffb0a8;border-color:#71433c}.empty{padding:30px;text-align:center;color:var(--muted)}.notice{padding:12px 14px;border:1px solid #4c4327;background:#1b1911;border-radius:9px;color:#d8cda7;margin-bottom:14px;font-size:12px}.notice.error{border-color:#633535;background:#211313;color:#ffc1c1}.notice.success{border-color:#315a40;background:#101d14;color:#b7efc7}.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.reportnum{font-size:22px;font-weight:800}.login{min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(ellipse at top,#211d10 0,transparent 55%),var(--bg)}.loginbox{width:min(100%,400px);padding:28px;background:var(--panel);border:1px solid #514629;border-radius:16px}.loginbox h1{font-size:21px;margin:0 0 4px}.loginbox p{color:var(--muted);margin:0 0 20px}.loginbox .field{margin:14px 0}.loginbox .btn{width:100%}.smallnote{font-size:11px;color:var(--muted);margin-top:12px}.tag{font-size:11px;color:var(--muted)}.checkrow{display:flex;align-items:center;gap:9px;color:var(--muted)}.checkrow input{accent-color:var(--gold)}.divider{height:1px;background:#2b2923;margin:18px 0}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{position:static;display:flex;overflow:auto;gap:4px;padding:6px}.navbtn{white-space:nowrap;width:auto;margin:0}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.two{grid-template-columns:1fr}}
+@media(max-width:560px){.wrap{padding:12px}.topbar{align-items:flex-start}.brand h1{font-size:16px}.metrics{gap:8px}.metric{padding:13px}.metric .value{font-size:23px}.panel{padding:14px}.formgrid,.three{grid-template-columns:1fr}.topbar .btn{padding:8px 10px}}
 </style>
 </head>
 <body>
-<div class="header">
-  <h1>Real 4 Real Admin</h1>
-  <button class="btn" onclick="window.open('real4real-store.html','_blank')">Open Live Store ↗</button>
+<div id="loginScreen" class="login">
+  <form class="loginbox" id="loginForm">
+    <div class="brand"><div class="mark">R4R</div><div><h1>ADMIN CONTROL CENTER</h1><p>Real 4 Real Store</p></div></div>
+    <div class="divider"></div>
+    <h2 style="font-size:18px;margin:0 0 4px">Owner sign in</h2><p>Log in to manage products, orders and store settings.</p>
+    <div class="field"><label for="loginPassword">Admin password</label><input id="loginPassword" type="password" autocomplete="current-password" required placeholder="Enter admin password"></div>
+    <button class="btn goldbtn" type="submit">Log in</button>
+    <div id="loginError" class="smallnote" role="alert"></div>
+    <div class="smallnote">First setup password is <b>MRBHNCO2026!</b>. Change it in Website Settings after signing in. This page-level password is a convenience lock, not secure server authentication.</div>
+  </form>
 </div>
-
-<div class="main">
-  <div class="grid-2">
-    <div class="card">
-      <h2>Inventory</h2>
-      <p class="status">Click Order More to restock any color.</p>
-      <div id="inventoryList"></div>
-      <button class="btn primary" style="width:100%;margin-top:12px" id="addItemBtn">+ Add New Item</button>
-      <button class="btn" style="width:100%;margin-top:8px" id="saveInv">Save Inventory</button>
-    </div>
-    <div class="card">
-      <h2>Store Overview</h2>
-      <div style="display:flex;gap:12px">
-        <div style="flex:1;background:#0a0612;border:1px solid #333;border-radius:8px;padding:12px;text-align:center">Products<br><strong id="prodCount">2</strong></div>
-        <div style="flex:1;background:#0a0612;border:1px solid #333;border-radius:8px;padding:12px;text-align:center">Units in stock<br><strong id="stockCount">70</strong></div>
-        <div style="flex:1;background:#0a0612;border:1px solid #333;border-radius:8px;padding:12px;text-align:center">Units sold*<br><strong>0</strong></div>
-      </div>
-      <p class="status">*Sold totals are demo values until real orders are connected.</p>
-    </div>
+<div id="app" class="hidden">
+<div class="wrap">
+  <header class="topbar">
+    <div class="brand"><div class="mark">R4R</div><div><h1>STORE CONTROL CENTER</h1><p>Products · Orders · Reports · Settings</p></div></div>
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><div class="statusline"><span id="syncDot" class="dot"></span><span id="syncStatus">Local browser storage</span></div><button class="btn" id="refreshBtn">Refresh data</button><button class="btn danger" id="logoutBtn">Log out</button></div>
+  </header>
+  <div class="metrics">
+    <div class="metric"><div class="label">TOTAL PRODUCTS</div><div class="value" id="metricProducts">0</div><div class="foot">Products in your catalog</div></div>
+    <div class="metric"><div class="label">TOTAL ORDERS</div><div class="value" id="metricOrders">0</div><div class="foot">Stored order records</div></div>
+    <div class="metric"><div class="label">CONFIRMED SALES</div><div class="value" id="metricSales">$0.00</div><div class="foot">Paid / confirmed orders only</div></div>
+    <div class="metric"><div class="label">LOW-STOCK ITEMS</div><div class="value" id="metricLow">0</div><div class="foot">At or below alert threshold</div></div>
   </div>
-
-  <div class="card">
-    <h2>Customer Orders</h2>
-    <div style="display:flex;gap:8px;margin-bottom:10px">
-      <input id="orderSearch" style="flex:1;padding:8px;border-radius:6px;border:1px solid #6b5a2c;background:#07040f;color:#fff" placeholder="Search test order or customer">
-      <select id="statusFilter" style="padding:8px;border-radius:6px;border:1px solid #6b5a2c;background:#07040f;color:#fff"><option>All statuses</option><option>Pending</option><option>Processing</option><option>Shipped</option><option>Completed</option><option>Cancelled</option></select>
-      <button class="btn primary" id="addTestOrder">+ Test Order</button>
-    </div>
-    <table style="width:100%;border-collapse:collapse;font-size:13px">
-      <thead><tr style="border-bottom:1px solid #333"><th style="text-align:left;padding:6px">ORDER / CUSTOMER</th><th>DATE</th><th>TOTAL</th><th>STATUS</th><th>TRACKING</th><th>ACTIONS</th></tr></thead>
-      <tbody id="ordersBody"></tbody>
-    </table>
-    <p class="status">TEST MODE — orders and edits are saved only in this browser. No payments, emails, or real customer records are connected.</p>
-  </div>
-
-  <div class="card" id="mediaManager">
-    <h2>Videos &amp; Thumbnails</h2>
-    <p class="media-note">Current video files from the site are listed below. Edit file paths, attach a thumbnail, or add another video entry. Save stores these settings in this browser for testing; uploading files here does not publish them to the website.</p>
-    <div id="mediaList" class="media-list"></div>
-    <button class="btn primary" type="button" id="addMediaBtn" style="margin-top:14px">+ Add Video</button>
-    <button class="btn" type="button" id="saveMediaBtn" style="margin-top:14px">Save Videos &amp; Thumbnails</button>
-    <p class="status" id="mediaStatus">Current site video: /video5.mp4. Additional repository video: /vid.mp4.</p>
-  </div>
-
-  <div class="submit-bar">
-    <button class="btn primary" id="submitAll" style="font-size:16px;padding:12px 32px">Submit Changes</button>
-    <button class="btn" id="connectLiveSync" type="button">Connect Live Sync</button>
-    <div class="status" id="submitStatus">Local demo mode. Add database settings in Vercel to enable shared sync.</div>
-  </div>
-</div>
-
-<div class="modal-bg" id="modalBg">
-  <div class="modal">
-    <span class="close" id="modalClose">&times;</span>
-    <h3 id="modalTitle">Edit</h3>
-    <div id="modalBody"></div>
-    <div style="margin-top:14px;text-align:right">
-      <button class="btn" id="modalCancel">Cancel</button>
-      <button class="btn primary" id="modalSave">Apply</button>
-    </div>
-  </div>
-</div>
-
-<script>
-let inventory = JSON.parse(localStorage.getItem("r4r_test_inventory") || "null") || [
-  {name:"Bikini — Black / Yellow", price:50, stock:7},
-  {name:"Bikini — White / Black", price:50, stock:7},
-  {name:"Bikini — Red / White", price:50, stock:7},
-  {name:"Bikini — Royal Blue", price:50, stock:7},
-  {name:"Bikini — Pink / Black", price:50, stock:7},
-  {name:"Bikini — Purple / White", price:50, stock:7},
-  {name:"Tracksuit — Black", price:50, stock:14},
-  {name:"Tracksuit — Grey", price:50, stock:14}
-];
-let currentEdit = null;
-let editingInventoryIndex = null;
-// Add structured variant fields to older inventory records without deleting existing data.
-inventory = inventory.map((item, i) => ({
-  ...item,
-  sku: item.sku || ("R4R-" + String(i + 1).padStart(4, "0")),
-  category: item.category || (String(item.name).split(/[—-]/)[0].trim() || "Apparel"),
-  garmentColor: item.garmentColor || "",
-  size: item.size || "One Size",
-  logoColor: item.logoColor || "",
-  image: item.image || ""
-}));
-let testOrders = JSON.parse(localStorage.getItem("r4r_test_orders") || "null") || [];
-let liveSyncBusy = false;
-function saveTestData(){
-  localStorage.setItem("r4r_test_inventory",JSON.stringify(inventory));
-  localStorage.setItem("r4r_test_orders",JSON.stringify(testOrders));
-  queueLiveSync();
-}
-function livePayload(){return {inventory,orders:testOrders,media:typeof mediaItems!=="undefined"?mediaItems:[]};}
-function queueLiveSync(){
-  const token=sessionStorage.getItem("r4r_admin_sync_token");
-  if(!token||liveSyncBusy)return;
-  liveSyncBusy=true;
-  fetch("/api/catalog",{method:"PUT",headers:{"Content-Type":"application/json","x-admin-token":token},body:JSON.stringify({data:livePayload()})})
-    .then(async r=>{const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||"Sync unavailable");document.getElementById("submitStatus").textContent="Saved locally and synced to the shared catalog.";})
-    .catch(e=>{document.getElementById("submitStatus").textContent="Saved locally. Live sync not active yet: "+e.message;})
-    .finally(()=>{liveSyncBusy=false;});
-}
-document.getElementById("connectLiveSync").addEventListener("click",()=>{
-  const current=sessionStorage.getItem("r4r_admin_sync_token")||"";
-  const token=prompt("Enter the ADMIN_SYNC_TOKEN configured in Vercel. Leave blank to disconnect.",current);
-  if(token===null)return;
-  if(!token.trim()){sessionStorage.removeItem("r4r_admin_sync_token");document.getElementById("submitStatus").textContent="Disconnected from live sync. Local demo mode remains available.";return;}
-  sessionStorage.setItem("r4r_admin_sync_token",token.trim());
-  document.getElementById("submitStatus").textContent="Testing live sync connection…";
-  queueLiveSync();
-});
-async function loadLiveState(){
-  try{
-    const r=await fetch("/api/catalog",{cache:"no-store"});
-    const d=await r.json();
-    if(!r.ok||!d.configured||!d.data)return;
-    if(Array.isArray(d.data.inventory)){inventory=d.data.inventory;localStorage.setItem("r4r_test_inventory",JSON.stringify(inventory));}
-    if(Array.isArray(d.data.orders)){testOrders=d.data.orders;localStorage.setItem("r4r_test_orders",JSON.stringify(testOrders));}
-    if(Array.isArray(d.data.media)&&typeof mediaItems!=="undefined"){mediaItems=d.data.media;localStorage.setItem("r4r_test_media",JSON.stringify(mediaItems));}
-    renderInventory();renderOrders();updatePreviewPrices();
-    document.getElementById("submitStatus").textContent="Loaded shared catalog from the live database.";
-  }catch(_){/* Keep local demo usable while backend is unconfigured. */}
-}
-function renderOrders(){
-  const q=(document.getElementById("orderSearch").value||"").toLowerCase();
-  const status=document.getElementById("statusFilter").value;
-  const body=document.getElementById("ordersBody");
-  const rows=testOrders.filter(o=>(status==="All statuses"||o.status===status)&&[o.id,o.customer,o.tracking,o.status].join(" ").toLowerCase().includes(q));
-  body.innerHTML=rows.map((o,i)=>`<tr style="border-bottom:1px solid #222">
-    <td style="padding:6px"><strong>${o.customer} (TEST)</strong><br>${o.id}</td><td>${o.date}</td><td>${Number(o.total).toFixed(2)}</td>
-    <td><select data-order="${o.id}" data-field="status" style="padding:5px;background:#07040f;color:#fff;border:1px solid #6b5a2c;border-radius:5px">${["Pending","Processing","Shipped","Completed","Cancelled"].map(s=>`<option ${o.status===s?"selected":""}>${s}</option>`).join("")}</select></td>
-    <td><input data-order="${o.id}" data-field="tracking" placeholder="Tracking #" value="${o.tracking||""}" style="width:110px;padding:5px;background:#07040f;color:#fff;border:1px solid #6b5a2c;border-radius:5px"></td>
-    <td><button class="btn small danger" data-delete-order="${o.id}">Delete</button></td></tr>`).join("") || '<tr><td colspan="6" style="padding:14px;color:#cbb89a">No test orders match. Use + Test Order to create one.</td></tr>';
-  body.querySelectorAll("[data-order]").forEach(el=>el.onchange=()=>{const o=testOrders.find(x=>x.id===el.dataset.order);if(o){o[el.dataset.field]=el.value;saveTestData();renderOrders();}});
-  body.querySelectorAll("[data-delete-order]").forEach(el=>el.onclick=()=>{testOrders=testOrders.filter(o=>o.id!==el.dataset.deleteOrder);saveTestData();renderOrders();});
-}
-document.getElementById("orderSearch").addEventListener("input",renderOrders);
-document.getElementById("statusFilter").addEventListener("change",renderOrders);
-document.getElementById("addTestOrder").onclick=()=>{const n=testOrders.length+1001;testOrders.unshift({id:"TEST-"+n,customer:"Sample Customer "+n,date:new Date().toLocaleDateString(),total:50,status:"Pending",tracking:""});saveTestData();renderOrders();};
-
-const defaultMediaItems = [
-  {id:"media-1",title:"Main Store Video",src:"/video5.mp4",thumbnail:""},
-  {id:"media-2",title:"Additional Video",src:"/vid.mp4",thumbnail:""}
-];
-let mediaItems = JSON.parse(localStorage.getItem("r4r_test_media") || "null") || defaultMediaItems;
-function escapeMediaText(value) {
-  return String(value == null ? "" : value).replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
-}
-function saveMediaItems(showMessage = true) {
-  localStorage.setItem("r4r_test_media", JSON.stringify(mediaItems));
-  if (showMessage) document.getElementById("mediaStatus").textContent = "Video and thumbnail settings saved in this browser only. To publish them, the actual files and store code must be updated in GitHub.";
-}
-function renderMediaItems() {
-  const list = document.getElementById("mediaList");
-  if (!list) return;
-  list.innerHTML = mediaItems.map((item, index) => `
-    <div class="media-item" data-media-index="${index}">
-      <h3>${escapeMediaText(item.title || "Video " + (index + 1))}</h3>
-      <video controls playsinline preload="metadata" src="${escapeMediaText(item.src)}"></video>
-      <div class="field"><label>Video title</label><input type="text" data-media-field="title" value="${escapeMediaText(item.title)}"></div>
-      <div class="field"><label>Video file path or URL</label><input type="text" data-media-field="src" value="${escapeMediaText(item.src)}" placeholder="/video5.mp4"></div>
-      <div class="field"><label>Thumbnail file path or URL</label><input type="text" data-media-field="thumbnail" value="${escapeMediaText(item.thumbnail)}" placeholder="/thumbnail.jpg"></div>
-      <img class="thumb-preview" src="${escapeMediaText(item.thumbnail)}" alt="Thumbnail preview" style="display:${item.thumbnail ? "block" : "none"}" onerror="this.style.opacity='.25';this.alt='Thumbnail preview unavailable — check the file path';">
-      <div class="field"><label>Choose a thumbnail to preview locally</label><input type="file" accept="image/*" data-local-thumb></div>
-      <div class="field"><label>Choose a video to preview locally</label><input type="file" accept="video/*" data-local-video></div>
-      <div class="media-actions"><button type="button" class="btn small" data-save-one>Save Entry</button><button type="button" class="btn small" data-remove-media>Remove Entry</button></div>
-    </div>`).join("");
-  list.querySelectorAll(".media-item").forEach(card => {
-    const index = Number(card.dataset.mediaIndex);
-    card.querySelectorAll("[data-media-field]").forEach(input => {
-      input.addEventListener("change", () => {
-        mediaItems[index][input.dataset.mediaField] = input.value.trim();
-        const video = card.querySelector("video");
-        const thumb = card.querySelector(".thumb-preview");
-        if (input.dataset.mediaField === "src") video.src = input.value.trim();
-        if (input.dataset.mediaField === "thumbnail") { thumb.src = input.value.trim(); thumb.style.display = input.value.trim() ? "block" : "none"; }
-        const heading = card.querySelector("h3");
-        if (input.dataset.mediaField === "title") heading.textContent = input.value.trim() || "Video " + (index + 1);
-      });
-    });
-    card.querySelector("[data-local-thumb]").addEventListener("change", event => {
-      const file = event.target.files && event.target.files[0];
-      if (file) {
-        const url = URL.createObjectURL(file);
-        card.querySelector(".thumb-preview").src = url;
-        document.getElementById("mediaStatus").textContent = "Local thumbnail preview only. To publish it, upload the image file to GitHub and enter its site path.";
-      }
-    });
-    card.querySelector("[data-local-video]").addEventListener("change", event => {
-      const file = event.target.files && event.target.files[0];
-      if (file) {
-        card.querySelector("video").src = URL.createObjectURL(file);
-        document.getElementById("mediaStatus").textContent = "Local video preview only. To publish it, upload the video file to GitHub and enter its site path.";
-      }
-    });
-    card.querySelector("[data-save-one]").addEventListener("click", () => {
-      card.querySelectorAll("[data-media-field]").forEach(input => mediaItems[index][input.dataset.mediaField] = input.value.trim());
-      saveMediaItems();
-    });
-    card.querySelector("[data-remove-media]").addEventListener("click", () => {
-      if (confirm("Remove this video entry from the test list?")) {
-        mediaItems.splice(index, 1);
-        saveMediaItems(false);
-        renderMediaItems();
-        document.getElementById("mediaStatus").textContent = "Video entry removed from this browser's test list.";
-      }
-    });
-  });
-}
-document.getElementById("addMediaBtn").addEventListener("click", () => {
-  mediaItems.push({id:"media-" + Date.now(),title:"New Video",src:"/new-video.mp4",thumbnail:"/new-thumbnail.jpg"});
-  renderMediaItems();
-  document.getElementById("mediaStatus").textContent = "New video entry added. Enter the file paths and click Save Videos & Thumbnails.";
-});
-document.getElementById("saveMediaBtn").addEventListener("click", () => saveMediaItems());
-
-function escapeInventoryText(value) {
-  return String(value == null ? "" : value).replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
-}
-function openInventoryEditor(index) {
-  editingInventoryIndex = index;
-  const item = inventory[index];
-  if (!item) return;
-  currentEdit = "edit-item";
-  openModal("Edit Garment / Variant", `
-    <div class="field"><label>Product / variant name</label><input id="editItemName" value="${escapeInventoryText(item.name)}" required></div>
-    <div class="field"><label>SKU (unique stock-keeping code)</label><input id="editItemSku" value="${escapeInventoryText(item.sku || "")}" placeholder="R4R-0001"></div>
-    <div class="field"><label>Garment category</label><input id="editItemCategory" value="${escapeInventoryText(item.category || "")}" placeholder="T-shirt, hoodie, leggings..."></div>
-    <div class="field"><label>Garment color</label><input id="editItemGarmentColor" value="${escapeInventoryText(item.garmentColor || "")}" placeholder="Black, forest green..."></div>
-    <div class="field"><label>Size</label><input id="editItemSize" value="${escapeInventoryText(item.size || "One Size")}" placeholder="S, M, L, XL..."></div>
-    <div class="field"><label>Logo color</label><input id="editItemLogoColor" value="${escapeInventoryText(item.logoColor || "")}" placeholder="Gold, red, green..."></div>
-    <div class="field"><label>Product image path (uploaded to site)</label><input id="editItemImage" value="${escapeInventoryText(item.image || "")}" placeholder="/images/black-hoodie.jpg"></div>
-  `);
-}
-function renderInventory() {
-  const list = document.getElementById("inventoryList");
-  list.innerHTML = "";
-  let totalStock = 0;
-  inventory.forEach((item, i) => {
-    totalStock += Number(item.stock) || 0;
-    const row = document.createElement("div");
-    row.className = "inv-row";
-    row.innerHTML = `
-      <div style="flex:1;min-width:160px;display:flex;align-items:center;gap:10px">
-        ${item.image ? '<img src="' + escapeInventoryText(item.image) + '" alt="" style="width:52px;height:52px;object-fit:contain;background:#19151f;border-radius:6px;border:1px solid #333" onerror="this.style.display=\'none\'">' : '<div aria-hidden="true" style="width:52px;height:52px;flex:0 0 52px;display:flex;align-items:center;justify-content:center;background:#19151f;border:1px dashed #444;border-radius:6px;color:#777;font-size:10px">No image</div>'}
-        <div>
-        <strong>${escapeInventoryText(item.name)}</strong>
-        <div style="font-size:11px;color:#cbb89a;margin-top:3px">SKU: ${escapeInventoryText(item.sku || "—")} · ${escapeInventoryText(item.size || "One Size")} · Garment: ${escapeInventoryText(item.garmentColor || "—")} · Logo: ${escapeInventoryText(item.logoColor || "—")}</div>
-        <button class="btn small" type="button" data-edit-item="${i}" style="margin-top:5px">Edit details</button>
+  <div class="layout">
+    <nav class="sidebar panel" aria-label="Admin sections">
+      <button class="navbtn active" data-tab="products"><span>▦</span>Products & Inventory</button>
+      <button class="navbtn" data-tab="orders"><span>▤</span>Orders & Shipping</button>
+      <button class="navbtn" data-tab="coupons"><span>％</span>Coupons & Reports</button>
+      <button class="navbtn" data-tab="settings"><span>⚙</span>Website Settings</button>
+      <button class="navbtn" data-tab="stripe"><span>↗</span>Stripe Connection</button>
+    </nav>
+    <main>
+      <section id="tab-products" class="section active">
+        <div class="panel">
+          <div class="panelhead"><div><h2>Products & Inventory</h2><div class="muted">Manage product names, prices, stock and image filenames.</div></div><button class="btn goldbtn" id="newProductBtn">＋ Add product</button></div>
+          <div class="notice">Save changes stores data in this browser and attempts to publish it through <code>/api/catalog</code> when live sync is configured. To update the storefront for all customers, connect the shared database and have the storefront read this catalog.</div>
+          <div class="field" style="max-width:340px;margin-bottom:14px"><label for="productSearch">Search products</label><input class="search" id="productSearch" placeholder="Search name, category, SKU…"></div>
+          <div class="tablewrap"><table><thead><tr><th>Product</th><th>Price</th><th>Stock</th><th>Category / SKU</th><th>Status</th><th>Actions</th></tr></thead><tbody id="productRows"></tbody></table></div>
+          <div class="actions"><button class="btn goldbtn" id="saveProductsBtn">Save product changes</button><button class="btn" id="exportBtn">Export catalog JSON</button><label class="btn" for="importFile">Import catalog JSON</label><input id="importFile" type="file" accept=".json,application/json" class="hidden"></div>
+          <div id="productStatus" class="smallnote" aria-live="polite"></div>
         </div>
-      </div>
-      <label style="font-size:11px;display:flex;align-items:center;gap:4px">Price $
-        <input aria-label="Price for ${item.name}" type="number" min="0" step="0.01" value="${Number(item.price || 0).toFixed(2)}" data-i="${i}" data-field="price">
-      </label>
-      <label style="font-size:11px;display:flex;align-items:center;gap:4px">Stock
-        <input aria-label="Stock for ${item.name}" type="number" min="0" step="1" value="${Number(item.stock || 0)}" data-i="${i}" data-field="stock">
-      </label>
-      <button class="restock" data-i="${i}">Order More</button>
-      <button class="delete-inv" data-delete-i="${i}" aria-label="Delete ${item.name}" title="Delete item">&times;</button>
-    `;
-    list.appendChild(row);
-  });
-  document.getElementById("stockCount").textContent = totalStock;
-  document.getElementById("prodCount").textContent = inventory.length;
-  list.querySelectorAll("input").forEach(inp => {
-    inp.onchange = () => {
-      const i = Number(inp.dataset.i);
-      const field = inp.dataset.field;
-      const value = Number(inp.value);
-      if (!Number.isFinite(value) || value < 0) {
-        alert("Enter a valid non-negative " + (field === "price" ? "price" : "stock quantity") + ".");
-        inp.value = Number(inventory[i][field] || 0);
-        return;
-      }
-      inventory[i][field] = field === "price" ? Math.round(value * 100) / 100 : Math.floor(value);
-      inp.value = field === "price" ? Number(inventory[i][field]).toFixed(2) : inventory[i][field];
-      saveTestData();
-      updatePreviewPrices();
-      document.getElementById("submitStatus").textContent = "Inventory change saved in this browser only. Click Submit Changes when ready.";
-      if (field === "stock") {
-        document.getElementById("stockCount").textContent = inventory.reduce((sum, item) => sum + (Number(item.stock) || 0), 0);
-      }
-    };
-  });
-  list.querySelectorAll("[data-edit-item]").forEach(btn => {
-    btn.onclick = () => openInventoryEditor(Number(btn.dataset.editItem));
-  });
-  list.querySelectorAll(".restock").forEach(btn => {
-    btn.onclick = () => {
-      const i = Number(btn.dataset.i);
-      const add = prompt("How many to add?", "10");
-      if (add !== null && add.trim() !== "" && Number.isFinite(Number(add)) && Number(add) > 0) {
-        inventory[i].stock = (Number(inventory[i].stock) || 0) + Math.floor(Number(add));
-        saveTestData();
-        renderInventory();
-      }
-    };
-  });
-  list.querySelectorAll("[data-delete-i]").forEach(btn => {
-    btn.onclick = () => {
-      const i = Number(btn.dataset.deleteI);
-      if (!inventory[i]) return;
-      if (!confirm('Delete "' + inventory[i].name + '" from inventory?')) return;
-      inventory.splice(i, 1);
-      saveTestData();
-      renderInventory();
-      updatePreviewPrices();
-      document.getElementById("submitStatus").textContent = "Inventory item deleted in this browser only.";
-    };
-  });
-}
-function updatePreviewPrices() {
-  const bikini = inventory.find(item => /^Bikini\s*[—-]/i.test(item.name));
-  const tracksuit = inventory.find(item => /^Tracksuit\s*[—-]/i.test(item.name));
-  const bikiniPrice = document.querySelector('[data-edit="bikini-price"]');
-  const tracksuitPrice = document.querySelector('[data-edit="tracksuit-price"]');
-  if (bikiniPrice && bikini) bikiniPrice.textContent = "$" + Number(bikini.price || 0).toFixed(2);
-  if (tracksuitPrice && tracksuit) tracksuitPrice.textContent = "$" + Number(tracksuit.price || 0).toFixed(2);
-}
-
-function openModal(title, bodyHtml) {
-  document.getElementById("modalTitle").textContent = title;
-  document.getElementById("modalBody").innerHTML = bodyHtml;
-  document.getElementById("modalBg").classList.add("show");
-}
-
-document.getElementById("addItemBtn").onclick = () => {
-  currentEdit = "new-item";
-  openModal("Add New Item", `
-    <div class="field"><label>Item / variant name</label><input id="newName" placeholder="e.g. Hoodie — Black / Gold" required></div>
-    <div class="field"><label>SKU (unique code)</label><input id="newSku" placeholder="Leave blank to generate one"></div>
-    <div class="field"><label>Garment category</label><input id="newCategory" placeholder="T-shirt, hoodie, leggings..."></div>
-    <div class="field"><label>Garment color</label><input id="newGarmentColor" placeholder="Black, forest green..."></div>
-    <div class="field"><label>Size</label><input id="newSize" placeholder="S, M, L, XL or One Size" value="One Size"></div>
-    <div class="field"><label>Logo color</label><input id="newLogoColor" placeholder="Gold, red, green..."></div>
-    <div class="field"><label>Product image path (upload image to site first)</label><input id="newImage" placeholder="/images/product.jpg"></div>
-    <div class="field"><label>Price</label><input id="newPrice" type="number" min="0" step="0.01" value="50"></div>
-    <div class="field"><label>Starting stock</label><input id="newStock" type="number" min="0" step="1" value="10"></div>
-  `);
-};
-
-document.querySelectorAll("[data-edit]").forEach(el => {
-  el.onclick = (e) => {
-    e.stopPropagation();
-    const type = el.dataset.edit;
-    currentEdit = type;
-    if (type.includes("price")) {
-      const productKey = type.startsWith("bikini") ? "Bikini" : "Tracksuit";
-      const currentProduct = inventory.find(item => item.name.toLowerCase().startsWith(productKey.toLowerCase()));
-      openModal("Change " + productKey + " Price", `<div class="field"><label>New price ($)</label><input id="editValue" type="number" min="0" step="0.01" value="${currentProduct ? Number(currentProduct.price || 0).toFixed(2) : "50.00"}"></div>`);
-    } else if (type === "video") {
-      openModal("Change Video", `
-        <div class="field"><label>Main video file</label><input id="editValue" value="/video5.mp4"></div>
-        <div class="field"><label>Or upload new video</label><input type="file" id="editFile" accept="video/*"></div>
-      `);
-    } else {
-      openModal("Upload / Change Image", `
-        <div class="field"><label>Current filename or new name</label><input id="editValue" placeholder="image.jpg"></div>
-        <div class="field"><label>Upload new picture</label><input type="file" id="editFile" accept="image/*"></div>
-      `);
-    }
-  };
-});
-
-document.getElementById("modalClose").onclick = () => document.getElementById("modalBg").classList.remove("show");
-document.getElementById("modalCancel").onclick = () => document.getElementById("modalBg").classList.remove("show");
-document.getElementById("modalBg").onclick = e => { if (e.target.id === "modalBg") document.getElementById("modalBg").classList.remove("show"); };
-
-document.getElementById("modalSave").onclick = () => {
-  const val = document.getElementById("editValue")?.value;
-  if (currentEdit === "new-item") {
-    const name = document.getElementById("newName").value.trim();
-    const price = Number(document.getElementById("newPrice").value);
-    const stock = Number(document.getElementById("newStock").value);
-    if (!name) return alert("Enter a name");
-    if (!Number.isFinite(price) || price < 0) return alert("Enter a valid price.");
-    if (!Number.isInteger(stock) || stock < 0) return alert("Enter a whole-number stock quantity.");
-    const requestedSku = document.getElementById("newSku").value.trim();
-    const sku = requestedSku || ("R4R-" + String(Date.now()).slice(-8));
-    if (inventory.some(item => String(item.sku || "").toLowerCase() === sku.toLowerCase())) return alert("That SKU is already in use. Enter a unique SKU.");
-    inventory.push({
-      name, sku, category: document.getElementById("newCategory").value.trim() || "Apparel",
-      garmentColor: document.getElementById("newGarmentColor").value.trim(),
-      size: document.getElementById("newSize").value.trim() || "One Size",
-      logoColor: document.getElementById("newLogoColor").value.trim(),
-      image: document.getElementById("newImage").value.trim(),
-      price: Math.round(price * 100) / 100, stock
-    });
-    saveTestData();
-    renderInventory();
-  } else if (currentEdit === "edit-item") {
-    const item = inventory[editingInventoryIndex];
-    if (!item) return alert("That item no longer exists. Close this window and try again.");
-    const name = document.getElementById("editItemName").value.trim();
-    const sku = document.getElementById("editItemSku").value.trim();
-    if (!name || !sku) return alert("Enter both a product name and SKU.");
-    if (inventory.some((other, i) => i !== editingInventoryIndex && String(other.sku || "").toLowerCase() === sku.toLowerCase())) return alert("That SKU is already in use. Enter a unique SKU.");
-    Object.assign(item, {
-      name, sku,
-      category: document.getElementById("editItemCategory").value.trim() || "Apparel",
-      garmentColor: document.getElementById("editItemGarmentColor").value.trim(),
-      size: document.getElementById("editItemSize").value.trim() || "One Size",
-      logoColor: document.getElementById("editItemLogoColor").value.trim(),
-      image: document.getElementById("editItemImage").value.trim()
-    });
-    saveTestData();
-    renderInventory();
-  } else if (currentEdit && currentEdit.includes("price")) {
-    const price = Number(val);
-    if (val === "" || !Number.isFinite(price) || price < 0) return alert("Enter a valid price of $0 or more.");
-    const productKey = currentEdit.startsWith("bikini") ? "Bikini" : "Tracksuit";
-    inventory.forEach(item => {
-      if (item.name.toLowerCase().startsWith(productKey.toLowerCase())) item.price = Math.round(price * 100) / 100;
-    });
-    updatePreviewPrices();
-    renderInventory();
-    saveTestData();
-  }
-  document.getElementById("modalBg").classList.remove("show");
-  document.getElementById("submitStatus").textContent = "Change applied locally. Click Submit Changes when ready.";
-};
-
-document.getElementById("submitAll").onclick = () => {
-  saveTestData();
-  updatePreviewPrices();
-  document.getElementById("submitStatus").textContent = "Saved in this browser only. These catalog fields are not yet synchronized to the live store; a shared database/API is still required.";
-  alert("Saved for testing in this browser only.");
-};
-
-document.getElementById("saveInv").onclick = () => {saveTestData();alert("Inventory saved in this browser only.");};
-renderInventory();
-updatePreviewPrices();
-renderOrders();
-renderMediaItems();
-loadLiveState();
-</script>
-<style>body.passcode-locked{visibility:hidden}#passcodeGate{position:fixed;inset:0;z-index:999999;background:#050505;color:#fff;display:flex;align-items:center;justify-content:center;font-family:Arial,sans-serif;visibility:visible}#passcodeGate .gate-card{width:min(90%,380px);padding:28px;background:#111;border:1px solid #d4a017;border-radius:12px;text-align:center}#passcodeGate h2{margin:0 0 16px;color:#d4a017}#passcodeGate input{width:100%;padding:12px;background:#222;color:#fff;border:1px solid #555;border-radius:7px;font-size:16px;margin-bottom:12px}#passcodeGate button{width:100%;padding:12px;background:#d4a017;color:#000;border:0;border-radius:7px;font-weight:bold;cursor:pointer}#passcodeError{color:#ff6b6b;font-size:13px;min-height:18px}</style>
-<div id="passcodeGate"><div class="gate-card"><h2>Real 4 Real Admin</h2><p>Enter passcode to continue</p><form id="passcodeForm"><input id="passcodeInput" type="password" placeholder="Passcode" autocomplete="current-password" required><button type="submit">UNLOCK</button><div id="passcodeError" role="alert"></div></form></div></div>
+        <div class="panel" id="productEditor">
+          <div class="panelhead"><h2 id="editorTitle">Add / Edit Product</h2><span class="tag">Fields marked * are required</span></div>
+          <form id="productForm">
+            <input type="hidden" id="productId">
+            <div class="formgrid">
+              <div class="field"><label for="pName">Product name *</label><input id="pName" required maxlength="120" placeholder="Authentic Tracksuit"></div>
+              <div class="field"><label for="pPrice">Price (USD) *</label><input id="pPrice" type="number" required min="0" step=".01" placeholder="85.00"></div>
+              <div class="field"><label for="pStock">Stock quantity *</label><input id="pStock" type="number" required min="0" step="1" placeholder="10"></div>
+              <div class="field"><label for="pCategory">Category</label><input id="pCategory" placeholder="Tracksuits, Tops, Leggings…"></div>
+              <div class="field"><label for="pSku">SKU / product ID</label><input id="pSku" placeholder="TRACK-BLK-YEL"></div>
+              <div class="field"><label for="pImage">Image filename or URL</label><input id="pImage" placeholder="1.jpg or /images/track.jpg"></div>
+              <div class="field"><label for="pColor">Color / variant</label><input id="pColor" placeholder="Black / Yellow"></div>
+              <div class="field"><label for="pSizes">Available sizes (comma-separated)</label><input id="pSizes" placeholder="S, M, L, XL, 2XL"></div>
+              <div class="field full"><label for="pDescription">Description</label><textarea id="pDescription" placeholder="Product details shown in your catalog data."></textarea></div>
+              <div class="field full"><label class="checkrow"><input id="pActive" type="checkbox" checked> Active / available for sale</label></div>
+            </div>
+            <div class="actions"><button class="btn goldbtn" type="submit">Save product</button><button class="btn" type="button" id="clearProductBtn">Clear form</button></div>
+          </form>
+          <div id="imagePreviewWrap" class="hidden" style="margin-top:14px"><span class="muted">Image preview</span><br><img id="imagePreview" class="thumb" style="width:100px;height:120px;margin-top:8px" alt="Product preview"></div>
+        </div>
+      </section>
+      <section id="tab-orders" class="section">
+        <div class="panel">
+          <div class="panelhead"><div><h2>Orders & Shipping</h2><div class="muted">View locally saved orders and update fulfillment status.</div></div><button class="btn" id="addOrderBtn">＋ Add manual order</button></div>
+          <div class="notice">Stripe orders appear here only after a secure server integration stores them. The webhook endpoint currently records verified Stripe events; it does not yet convert payment events into complete order records.</div>
+          <div class="tablewrap"><table><thead><tr><th>Order</th><th>Customer / Contact</th><th>Items</th><th>Total</th><th>Payment</th><th>Fulfillment</th><th>Tracking</th><th>Save</th></tr></thead><tbody id="orderRows"></tbody></table></div>
+          <div id="orderStatus" class="smallnote" aria-live="polite"></div>
+        </div>
+      </section>
+      <section id="tab-coupons" class="section">
+        <div class="two">
+          <div class="panel"><div class="panelhead"><h2>Create coupon</h2></div>
+            <form id="couponForm"><div class="formgrid">
+              <div class="field"><label for="couponCode">Coupon code *</label><input id="couponCode" required maxlength="32" placeholder="WELCOME10"></div>
+              <div class="field"><label for="couponType">Discount type</label><select id="couponType"><option value="percent">Percentage (%)</option><option value="fixed">Fixed amount ($)</option></select></div>
+              <div class="field"><label for="couponValue">Discount value *</label><input id="couponValue" type="number" min=".01" step=".01" required placeholder="10"></div>
+              <div class="field"><label for="couponMinimum">Minimum order ($)</label><input id="couponMinimum" type="number" min="0" step=".01" value="0"></div>
+              <div class="field"><label for="couponExpires">Expiry date (optional)</label><input id="couponExpires" type="date"></div>
+              <div class="field"><label class="checkrow"><input id="couponActive" type="checkbox" checked> Active</label></div>
+            </div><div class="actions"><button class="btn goldbtn" type="submit">Save coupon</button></div></form>
+          </div>
+          <div class="panel"><div class="panelhead"><h2>Sales summary</h2></div><div class="three">
+            <div><div class="muted">Paid orders</div><div id="reportPaid" class="reportnum">0</div></div>
+            <div><div class="muted">Revenue</div><div id="reportRevenue" class="reportnum">$0.00</div></div>
+            <div><div class="muted">Units sold</div><div id="reportUnits" class="reportnum">0</div></div>
+          </div><div class="divider"></div><h3>Low-stock alerts</h3><div id="lowStockList" class="muted">No low-stock products.</div></div>
+        </div>
+        <div class="panel"><div class="panelhead"><h2>Coupon codes</h2></div><div class="tablewrap"><table><thead><tr><th>Code</th><th>Discount</th><th>Minimum</th><th>Expiry</th><th>Status</th><th>Action</th></tr></thead><tbody id="couponRows"></tbody></table></div></div>
+      </section>
+      <section id="tab-settings" class="section">
+        <div class="panel"><div class="panelhead"><h2>Website Settings</h2><span class="tag">Applies to storefront only after storefront integration</span></div>
+          <form id="settingsForm"><div class="formgrid">
+            <div class="field full"><label for="settingVideo">Homepage video URL / filename</label><input id="settingVideo" placeholder="video5.mp4 or https://…"></div>
+            <div class="field"><label for="settingStandard">Standard shipping price ($)</label><input id="settingStandard" type="number" min="0" step=".01"></div>
+            <div class="field"><label for="settingPriority">Priority shipping price ($)</label><input id="settingPriority" type="number" min="0" step=".01"></div>
+            <div class="field"><label for="settingFree">Free shipping minimum ($)</label><input id="settingFree" type="number" min="0" step=".01"></div>
+            <div class="field"><label for="settingThreshold">Low-stock alert threshold</label><input id="settingThreshold" type="number" min="0" step="1"></div>
+            <div class="field full"><label for="settingNewPassword">Change admin page password</label><input id="settingNewPassword" type="password" autocomplete="new-password" placeholder="Leave blank to keep current password"></div>
+          </div><div class="actions"><button class="btn goldbtn" type="submit">Save settings</button></div></form>
+          <div id="settingsStatus" class="smallnote" aria-live="polite"></div>
+        </div>
+        <div class="panel"><h2>Data and security notes</h2><ul class="muted"><li>Local browser storage is device/browser-specific and can be cleared by the browser.</li><li>Shared catalog/settings require Vercel environment variables and the Supabase table documented in <a href="LIVE-BACKEND-SETUP.md" target="_blank" rel="noreferrer">LIVE-BACKEND-SETUP.md</a>.</li><li>Never put Stripe secret keys or Supabase service-role keys in this HTML file or any client-side JavaScript.</li><li>This password gate is not a replacement for server-side authentication; anyone who can inspect the HTML can see client-side logic.</li></ul></div>
+      </section>
+      <section id="tab-stripe" class="section">
+        <div class="panel"><div class="panelhead"><h2>Stripe connection</h2><span id="stripeBadge" class="pill">Not checked</span></div>
+          <p class="muted">Check whether the server-side webhook endpoint is reachable. A successful endpoint check does not guarantee that Stripe has been configured to send events.</p>
+          <div class="actions"><button class="btn goldbtn" id="checkStripeBtn">Check webhook endpoint</button><a class="btn" href="https://dashboard.stripe.com/webhooks" target="_blank" rel="noreferrer">Open Stripe Webhooks</a></div>
+          <div id="stripeStatus" class="notice" style="margin-top:14px">Webhook status has not been checked.</div>
+          <div class="divider"></div><h3>Required Vercel environment variables</h3>
+          <div class="tablewrap"><table style="min-width:0"><thead><tr><th>Variable</th><th>Purpose</th></tr></thead><tbody>
+            <tr><td><code>STRIPE_SECRET_KEY</code></td><td>Stripe server-side API secret (use test key while testing).</td></tr>
+            <tr><td><code>STRIPE_WEBHOOK_SECRET</code></td><td>Signing secret shown for your Stripe webhook endpoint, usually starts with <code>whsec_</code>.</td></tr>
+            <tr><td><code>SUPABASE_URL</code></td><td>Supabase project URL used by the server API.</td></tr>
+            <tr><td><code>SUPABASE_SERVICE_ROLE_KEY</code></td><td>Private service-role key; server only, never in HTML.</td></tr>
+            <tr><td><code>ADMIN_SYNC_TOKEN</code></td><td>Strong private token used by admin-to-server sync.</td></tr>
+          </tbody></table></div>
+          <div class="notice" style="margin-top:14px">In Vercel: Project → Settings → Environment Variables. Add the variables for Development/Preview/Production as appropriate, save, then redeploy. In Stripe Dashboard → Developers → Webhooks, add your deployed endpoint URL ending in <code>/api/webhook</code>, choose the payment events you need, and copy the endpoint signing secret into <code>STRIPE_WEBHOOK_SECRET</code>. Do not paste secret values into this admin page.</div>
+          <p class="muted">Current integration status: the server webhook endpoint verifies and stores Stripe webhook events when configured. A complete checkout/payment and paid-order fulfillment pipeline still needs to be wired to Stripe and the catalog.</p>
+        </div>
+        <div class="panel"><h2>Shared live sync</h2><p class="muted">Use your <code>ADMIN_SYNC_TOKEN</code> to connect this browser to the protected catalog API. The token is kept in this browser tab's session storage only.</p>
+          <div class="formgrid"><div class="field"><label for="syncToken">Admin sync token</label><input id="syncToken" type="password" autocomplete="off" placeholder="Paste ADMIN_SYNC_TOKEN"></div></div>
+          <div class="actions"><button class="btn goldbtn" id="connectSyncBtn">Connect / test live sync</button><button class="btn" id="disconnectSyncBtn">Disconnect this tab</button></div>
+          <div id="liveSyncNotice" class="smallnote" aria-live="polite"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+</div>
 <script>
 (function(){
- const PASSCODE="theskyisthelimit";
- document.body.classList.add("passcode-locked");
- const gate=document.getElementById("passcodeGate");
- document.getElementById("passcodeForm").addEventListener("submit",function(e){
-  e.preventDefault();
-  if(document.getElementById("passcodeInput").value===PASSCODE){
-   gate.remove();document.body.classList.remove("passcode-locked");
-  }else{
-   document.getElementById("passcodeError").textContent="Incorrect passcode. Try again.";
-   document.getElementById("passcodeInput").value="";
-  }
- });
+"use strict";
+const $=id=>document.getElementById(id);
+const KEYS={products:"r4r_admin_products_v2",orders:"r4r_test_orders",settings:"r4r_admin_settings_v2",coupons:"r4r_admin_coupons_v2",legacyInventory:"r4r_test_inventory",legacyMedia:"r4r_test_media",password:"r4r_admin_password_v2"};
+const DEFAULT_PASSWORD="MRBHNCO2026!";
+const defaults=[
+{id:"bikini",name:"Bikini",price:50,stock:42,category:"Apparel",sku:"BIKINI",image:"",color:"",sizes:"XS, S, M, L, XL, XXL",description:"",active:true},
+{id:"tracksuit",name:"Tracksuit",price:50,stock:28,category:"Tracksuits",sku:"TRACKSUIT",image:"",color:"",sizes:"XS, S, M, L, XL, XXL",description:"",active:true},
+{id:"newtrack",name:"Tracksuit — Premium",price:65,stock:20,category:"Tracksuits",sku:"TRACK-PREMIUM",image:"",color:"",sizes:"XS, S, M, L, XL, XXL",description:"",active:true},
+{id:"authsuit",name:"Authentic Sweatsuit",price:65,stock:20,category:"Sweatsuits",sku:"AUTH-SUIT",image:"",color:"",sizes:"XS, S, M, L, XL, XXL",description:"",active:true},
+{id:"tile5",name:"Authentic Sweatsuit — Grey Edition",price:65,stock:20,category:"Sweatsuits",sku:"AUTH-GREY",image:"graynew.jpeg",color:"Grey",sizes:"XS, S, M, L, XL, XXL",description:"",active:true},
+{id:"track6",name:"Tracksuit — Black Edition",price:85,stock:10,category:"Tracksuits",sku:"TRACK-BLACK",image:"1.jpg",color:"Black / Yellow",sizes:"S, M, L, XL, 2XL",description:"",active:true},
+{id:"track7",name:"Tracksuit — Grey Edition",price:85,stock:10,category:"Tracksuits",sku:"TRACK-GREY",image:"7.jpg",color:"Gray / Yellow",sizes:"S, M, L, XL, 2XL",description:"",active:true}
+];
+const defaultSettings={videoUrl:"video5.mp4",standardShipping:8.95,priorityShipping:16.95,freeShippingMinimum:100,lowStockThreshold:5};
+const read=(key,fallback)=>{try{const x=localStorage.getItem(key);return x===null?fallback:JSON.parse(x)}catch{return fallback}};
+const write=(key,value)=>localStorage.setItem(key,JSON.stringify(value));
+let products=read(KEYS.products,null);
+if(!Array.isArray(products)){
+ const legacy=read(KEYS.legacyInventory,null);
+ products=Array.isArray(legacy)&&legacy.length?legacy.map((p,i)=>normalizeProduct(p,i)):defaults.map(p=>({...p}));
+}
+products=products.map((p,i)=>normalizeProduct(p,i));
+let orders=read(KEYS.orders,[]);
+if(!Array.isArray(orders))orders=[];
+let settings={...defaultSettings,...read(KEYS.settings,{})};
+let coupons=read(KEYS.coupons,[]);
+if(!Array.isArray(coupons))coupons=[];
+let editMode=false;
+function normalizeProduct(p,i){return {id:String(p.id||p.sku||("product-"+(i+1))),name:String(p.name||p.title||"Unnamed product"),price:num(p.price,0),stock:Math.max(0,Math.floor(num(p.stock??p.quantity,0))),category:String(p.category||"Apparel"),sku:String(p.sku||p.id||""),image:String(p.image||p.imageUrl||p.imageFilename||""),color:String(p.color||""),sizes:String(Array.isArray(p.sizes)?p.sizes.join(", "):(p.sizes||"S, M, L, XL")),description:String(p.description||""),active:p.active!==false};}
+function num(v,f=0){const n=Number(v);return Number.isFinite(n)?n:f}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function money(n){return num(n).toLocaleString("en-US",{style:"currency",currency:"USD"})}
+function isPaid(o){return /paid|confirmed|complete|succeeded/i.test(String(o.paymentStatus||o.payment_status||o.status||""))&&!/unpaid|unconfirmed|cancel|refund|failed/i.test(String(o.paymentStatus||o.payment_status||o.status||""))}
+function orderTotal(o){return num(o.total??o.amount_total??o.amount??0)}
+function orderUnits(o){const items=Array.isArray(o.items)?o.items:[];return items.reduce((sum,it)=>sum+num(it.qty??it.quantity,1),0)}
+function syncLabel(text,kind){$("syncStatus").textContent=text;$("syncDot").className="dot"+(kind==="ok"?" ok":kind==="bad"?" bad":"")}
+function saveLocal(){write(KEYS.products,products);write(KEYS.orders,orders);write(KEYS.settings,settings);write(KEYS.coupons,coupons)}
+function liveData(){return {inventory:products,orders,media:read(KEYS.legacyMedia,[]),settings,coupons,updatedAt:new Date().toISOString()}}
+function showStatus(id,msg,kind){const el=$(id);el.textContent=msg;el.className=kind==="error"?"notice error":kind==="success"?"notice success":"smallnote"}
+async function pushLive(){
+ const token=sessionStorage.getItem("r4r_admin_sync_token");
+ if(!token){syncLabel("Local browser storage","");return {ok:false,local:true}}
+ try{const r=await fetch("/api/catalog",{method:"PUT",headers:{"Content-Type":"application/json","x-admin-token":token},body:JSON.stringify({data:liveData()})});const d=await r.json().catch(()=>({}));
+ if(!r.ok)throw new Error(d.error||("Sync failed ("+r.status+")"));
+ syncLabel("Live sync connected","ok");return {ok:true}
+ }catch(e){syncLabel("Local save · live sync failed","bad");return {ok:false,error:e.message}}
+}
+async function loadLive(){
+ const token=sessionStorage.getItem("r4r_admin_sync_token");
+ try{
+  const r=await fetch("/api/catalog",{cache:"no-store"});
+  if(!r.ok){if(r.status===503)syncLabel("Local browser storage · database not configured","");return}
+  const d=await r.json();if(!d.ok||!d.data)return;
+  const data=d.data;
+  if(Array.isArray(data.inventory)){products=data.inventory.map(normalizeProduct);write(KEYS.products,products)}
+  if(Array.isArray(data.orders)){orders=data.orders;write(KEYS.orders,orders)}
+  if(data.settings&&typeof data.settings==="object"){settings={...settings,...data.settings};write(KEYS.settings,settings)}
+  if(Array.isArray(data.coupons)){coupons=data.coupons;write(KEYS.coupons,coupons)}
+  if(Array.isArray(data.media))write(KEYS.legacyMedia,data.media);
+  syncLabel(token?"Live catalog loaded · token available":"Shared catalog loaded","ok");renderAll();fillSettings();
+ }catch(e){syncLabel("Local browser storage","")}
+}
+function renderMetrics(){
+ $("metricProducts").textContent=products.length;$("metricOrders").textContent=orders.length;
+ const paid=orders.filter(isPaid);$("metricSales").textContent=money(paid.reduce((s,o)=>s+orderTotal(o),0));
+ $("metricLow").textContent=products.filter(p=>p.active&&p.stock<=num(settings.lowStockThreshold,5)).length;
+ $("reportPaid").textContent=paid.length;$("reportRevenue").textContent=money(paid.reduce((s,o)=>s+orderTotal(o),0));
+ $("reportUnits").textContent=paid.reduce((s,o)=>s+orderUnits(o),0);
+ const low=products.filter(p=>p.active&&p.stock<=num(settings.lowStockThreshold,5));
+ $("lowStockList").innerHTML=low.length?low.map(p=>'<div style="display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid #2b2923"><span>'+esc(p.name)+'</span><span class="pill low">'+p.stock+' left</span></div>').join(""):'No low-stock products.';
+}
+function renderProducts(){
+ const q=$("productSearch").value.trim().toLowerCase();
+ const list=products.filter(p=>(p.name+" "+p.category+" "+p.sku).toLowerCase().includes(q));
+ $("productRows").innerHTML=list.length?list.map(p=>'<tr><td><div class="prodcell">'+(p.image?'<img class="thumb" src="'+esc(p.image)+'" alt="" onerror="this.style.display=\'none\'">':'<div class="thumb placeholder">No image</div>')+'<div><b>'+esc(p.name)+'</b><div class="tag">'+esc(p.color||p.description||"")+'</div></div></div></td><td>'+money(p.price)+'</td><td>'+p.stock+'</td><td>'+esc(p.category)+'<div class="tag">'+esc(p.sku)+'</div></td><td><span class="pill '+(p.active?"":"low")+'">'+(p.active?"Active":"Hidden")+'</span>'+(p.stock<=num(settings.lowStockThreshold,5)?' <span class="pill low">Low stock</span>':'')+'</td><td><div style="display:flex;gap:6px"><button class="btn small" data-edit="'+esc(p.id)+'">Edit</button><button class="btn small danger" data-remove="'+esc(p.id)+'">Remove</button></div></td></tr>').join(""):'<tr><td colspan="6" class="empty">No products found.</td></tr>';
+ $("productRows").querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>editProduct(b.dataset.edit));
+ $("productRows").querySelectorAll("[data-remove]").forEach(b=>b.onclick=()=>removeProduct(b.dataset.remove));
+}
+function renderOrders(){
+ $("orderRows").innerHTML=orders.length?orders.map((o,i)=>{const id=String(o.id||o.orderId||("ORDER-"+(i+1)));const items=Array.isArray(o.items)?o.items.map(it=>(it.name||it.product||"Item")+" × "+num(it.qty??it.quantity,1)).join(", "):(o.items||"—");return '<tr><td><b>'+esc(id)+'</b><div class="tag">'+esc(o.date||o.createdAt||"")+'</div></td><td>'+esc(o.customer||o.name||o.customerName||"—")+'<div class="tag">'+esc(o.email||o.phone||"")+'</div></td><td>'+esc(items)+'</td><td>'+money(orderTotal(o))+'</td><td><select data-order="'+esc(id)+'" data-field="paymentStatus" aria-label="Payment status"><option '+(/paid|confirmed|complete|succeeded/i.test(o.paymentStatus||o.status||"")?'selected':'')+'>Paid</option><option '+(/pending/i.test(o.paymentStatus||o.status||"")?'selected':'')+'>Pending</option><option '+(/failed/i.test(o.paymentStatus||o.status||"")?'selected':'')+'>Failed</option><option '+(/refunded/i.test(o.paymentStatus||o.status||"")?'selected':'')+'>Refunded</option></select></td><td><select data-order="'+esc(id)+'" data-field="fulfillment"><option '+(/pending|unfulfilled/i.test(o.fulfillment||"")?'selected':'')+'>Pending</option><option '+(/processing/i.test(o.fulfillment||"")?'selected':'')+'>Processing</option><option '+(/shipped/i.test(o.fulfillment||"")?'selected':'')+'>Shipped</option><option '+(/delivered/i.test(o.fulfillment||"")?'selected':'')+'>Delivered</option></select></td><td><input data-order="'+esc(id)+'" data-field="tracking" value="'+esc(o.tracking||o.trackingNumber||"")+'" placeholder="Tracking #" style="width:120px;background:#090909;color:#fff;border:1px solid #39372f;padding:7px;border-radius:6px"></td><td><button class="btn small" data-save-order="'+esc(id)+'">Save</button></td></tr>'}).join(""):'<tr><td colspan="8" class="empty">No stored orders yet.</td></tr>';
+ $("orderRows").querySelectorAll("[data-save-order]").forEach(b=>b.onclick=async()=>{const id=b.dataset.saveOrder;const row=orders.find((o,i)=>String(o.id||o.orderId||("ORDER-"+(i+1)))===id);if(!row)return;$("orderRows").querySelectorAll('[data-order="'+CSS.escape(id)+'"]').forEach(el=>row[el.dataset.field]=el.value);saveLocal();const r=await pushLive();renderAll();showStatus("orderStatus",r.ok?"Order saved to shared storage.":"Order saved locally."+(r.error?" Live sync: "+r.error:""),r.ok?"success":"");});
+}
+function renderCoupons(){
+ $("couponRows").innerHTML=coupons.length?coupons.map((c,i)=>'<tr><td><b>'+esc(c.code)+'</b></td><td>'+(c.type==="percent"?num(c.value)+'%':money(c.value))+'</td><td>'+money(c.minimum||0)+'</td><td>'+esc(c.expires||"No expiry")+'</td><td><span class="pill '+(c.active?"":"low")+'">'+(c.active?"Active":"Inactive")+'</span></td><td><button class="btn small danger" data-coupon-delete="'+i+'">Delete</button></td></tr>').join(""):'<tr><td colspan="6" class="empty">No coupons created.</td></tr>';
+ $("couponRows").querySelectorAll("[data-coupon-delete]").forEach(b=>b.onclick=async()=>{coupons.splice(Number(b.dataset.couponDelete),1);saveLocal();await pushLive();renderAll()});
+}
+function renderAll(){renderMetrics();renderProducts();renderOrders();renderCoupons()}
+function clearProduct(){editMode=false;$("productForm").reset();$("productId").value="";$("pActive").checked=true;$("editorTitle").textContent="Add Product";$("imagePreviewWrap").classList.add("hidden")}
+function editProduct(id){const p=products.find(x=>x.id===id);if(!p)return;editMode=true;$("productId").value=p.id;$("pName").value=p.name;$("pPrice").value=p.price;$("pStock").value=p.stock;$("pCategory").value=p.category;$("pSku").value=p.sku;$("pImage").value=p.image;$("pColor").value=p.color;$("pSizes").value=p.sizes;$("pDescription").value=p.description;$("pActive").checked=p.active;$("editorTitle").textContent="Edit Product";previewImage();$("productEditor").scrollIntoView({behavior:"smooth",block:"start"})}
+function previewImage(){const v=$("pImage").value.trim();if(v){$("imagePreview").src=v;$("imagePreviewWrap").classList.remove("hidden")}else $("imagePreviewWrap").classList.add("hidden")}
+function removeProduct(id){const p=products.find(x=>x.id===id);if(!p||!confirm('Remove "'+p.name+'" from the catalog?'))return;products=products.filter(x=>x.id!==id);saveLocal();pushLive().then(renderAll);if($("productId").value===id)clearProduct()}
+function fillSettings(){$("settingVideo").value=settings.videoUrl||"";$("settingStandard").value=settings.standardShipping??0;$("settingPriority").value=settings.priorityShipping??0;$("settingFree").value=settings.freeShippingMinimum??0;$("settingThreshold").value=settings.lowStockThreshold??5}
+async function saveAndSync(){saveLocal();const r=await pushLive();renderAll();return r}
+$("loginForm").addEventListener("submit",e=>{e.preventDefault();const supplied=$("loginPassword").value;const expected=localStorage.getItem(KEYS.password)||DEFAULT_PASSWORD;if(supplied!==expected){$("loginError").textContent="Password not recognized.";return}sessionStorage.setItem("r4r_admin_logged_in","yes");$("loginScreen").classList.add("hidden");$("app").classList.remove("hidden");$("loginError").textContent="";init()});
+$("logoutBtn").onclick=()=>{sessionStorage.removeItem("r4r_admin_logged_in");$("app").classList.add("hidden");$("loginScreen").classList.remove("hidden");$("loginPassword").value=""};
+document.querySelectorAll(".navbtn").forEach(b=>b.onclick=()=>{document.querySelectorAll(".navbtn").forEach(x=>x.classList.toggle("active",x===b));document.querySelectorAll(".section").forEach(s=>s.classList.toggle("active",s.id==="tab-"+b.dataset.tab))});
+$("newProductBtn").onclick=()=>{clearProduct();$("productEditor").scrollIntoView({behavior:"smooth",block:"start"})};$("clearProductBtn").onclick=clearProduct;$("pImage").addEventListener("input",previewImage);$("productSearch").addEventListener("input",renderProducts);
+$("productForm").addEventListener("submit",async e=>{e.preventDefault();const id=$("productId").value||("prod-"+Date.now());const p=normalizeProduct({id,name:$("pName").value.trim(),price:num($("pPrice").value),stock:num($("pStock").value),category:$("pCategory").value.trim()||"Apparel",sku:$("pSku").value.trim()||id,image:$("pImage").value.trim(),color:$("pColor").value.trim(),sizes:$("pSizes").value.trim(),description:$("pDescription").value.trim(),active:$("pActive").checked},0);if(!p.name){return}const idx=products.findIndex(x=>x.id===id);if(idx>=0)products[idx]=p;else products.unshift(p);saveLocal();const r=await pushLive();renderAll();clearProduct();showStatus("productStatus",r.ok?"Product saved and synced to shared storage.":"Product saved in this browser."+(r.error?" Live sync: "+r.error:""),r.ok?"success":"")});
+$("saveProductsBtn").onclick=async()=>{const r=await saveAndSync();showStatus("productStatus",r.ok?"Catalog saved to shared storage.":"Catalog saved locally."+(r.error?" Live sync: "+r.error:""),r.ok?"success":"")};
+$("exportBtn").onclick=()=>{const blob=new Blob([JSON.stringify({products,orders,settings,coupons},null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="real4real-store-data.json";a.click();URL.revokeObjectURL(a.href)};
+$("importFile").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());const arr=Array.isArray(d)?d:d.products;if(!Array.isArray(arr))throw new Error("JSON must contain a products array.");products=arr.map(normalizeProduct);if(d.settings)settings={...settings,...d.settings};if(Array.isArray(d.orders))orders=d.orders;if(Array.isArray(d.coupons))coupons=d.coupons;const r=await saveAndSync();showStatus("productStatus",r.ok?"Catalog imported and synced.":"Catalog imported locally."+(r.error?" "+r.error:""),r.ok?"success":"")}catch(err){showStatus("productStatus","Import failed: "+err.message,"error")}e.target.value=""};
+$("addOrderBtn").onclick=async()=>{const customer=prompt("Customer name:");if(!customer)return;const total=num(prompt("Order total in dollars:","0"),0);const email=prompt("Customer email (optional):","")||"";orders.unshift({id:"MANUAL-"+Date.now(),customer,email,total,status:"Pending",paymentStatus:"Pending",fulfillment:"Pending",items:[],date:new Date().toLocaleDateString()});const r=await saveAndSync();showStatus("orderStatus",r.ok?"Manual order saved and synced.":"Manual order saved locally.",r.ok?"success":"")};
+$("couponForm").addEventListener("submit",async e=>{e.preventDefault();const code=$("couponCode").value.trim().toUpperCase();if(coupons.some(c=>c.code===code)){alert("That coupon code already exists.");return}const value=num($("couponValue").value);const type=$("couponType").value;if(value<=0||(type==="percent"&&value>100)){alert("Enter a valid discount amount.");return}coupons.push({code,type,value,minimum:num($("couponMinimum").value),expires:$("couponExpires").value,active:$("couponActive").checked});e.target.reset();$("couponActive").checked=true;const r=await saveAndSync();showStatus("settingsStatus",r.ok?"Coupon saved and synced.":"Coupon saved locally.",r.ok?"success":"")});
+$("settingsForm").addEventListener("submit",async e=>{e.preventDefault();settings={videoUrl:$("settingVideo").value.trim(),standardShipping:Math.max(0,num($("settingStandard").value)),priorityShipping:Math.max(0,num($("settingPriority").value)),freeShippingMinimum:Math.max(0,num($("settingFree").value)),lowStockThreshold:Math.max(0,Math.floor(num($("settingThreshold").value)))};const newPass=$("settingNewPassword").value;if(newPass){if(newPass.length<8){showStatus("settingsStatus","Use a password at least 8 characters long.","error");return}localStorage.setItem(KEYS.password,JSON.stringify(newPass));$("settingNewPassword").value=""}const r=await saveAndSync();fillSettings();showStatus("settingsStatus",r.ok?"Settings saved and synced. The storefront must read these shared settings to apply them.":"Settings saved in this browser."+(r.error?" Live sync: "+r.error:""),r.ok?"success":"")});
+$("refreshBtn").onclick=async()=>{await loadLive();renderAll()};
+$("connectSyncBtn").onclick=async()=>{const token=$("syncToken").value.trim();if(!token){$("liveSyncNotice").textContent="Enter the ADMIN_SYNC_TOKEN from Vercel first.";return}sessionStorage.setItem("r4r_admin_sync_token",token);try{const r=await fetch("/api/catalog",{method:"GET",cache:"no-store"});if(!r.ok)throw new Error("API returned "+r.status+". Check Vercel variables and database setup.");const d=await r.json();if(!d.ok)throw new Error(d.error||"API could not connect.");if(d.data){if(Array.isArray(d.data.inventory))products=d.data.inventory.map(normalizeProduct);if(Array.isArray(d.data.orders))orders=d.data.orders;if(d.data.settings)settings={...settings,...d.data.settings};if(Array.isArray(d.data.coupons))coupons=d.data.coupons;saveLocal();fillSettings();renderAll()}const saved=await pushLive();if(!saved.ok)throw new Error(saved.error||"Read worked but write test failed.");$("liveSyncNotice").textContent="Connected. Shared data was loaded and a sync test completed.";syncLabel("Live sync connected","ok")}catch(err){sessionStorage.removeItem("r4r_admin_sync_token");$("liveSyncNotice").textContent=err.message;syncLabel("Live sync unavailable","bad")}};
+$("disconnectSyncBtn").onclick=()=>{sessionStorage.removeItem("r4r_admin_sync_token");$("syncToken").value="";$("liveSyncNotice").textContent="Disconnected. Changes will save in this browser only.";syncLabel("Local browser storage","")};
+$("checkStripeBtn").onclick=async()=>{const badge=$("stripeBadge"),status=$("stripeStatus");badge.textContent="Checking…";status.textContent="Checking /api/webhook endpoint…";try{const r=await fetch("/api/webhook",{method:"GET",cache:"no-store"});const d=await r.json().catch(()=>({}));if(r.status===405){badge.textContent="Endpoint reachable";status.textContent="The endpoint responded with 405 to GET, which is expected for a webhook receiver. Confirm the STRIPE_WEBHOOK_SECRET in Vercel and use Stripe's Send test event feature to verify signature handling."}else if(r.ok){badge.textContent="Responded";status.textContent="Endpoint responded. This alone does not verify Stripe signing or payment processing."}else{badge.textContent="Needs setup";status.textContent=d.error||("Endpoint returned HTTP "+r.status+". Confirm Vercel environment variables and redeploy.")}}catch(err){badge.textContent="Unavailable";status.textContent="Could not reach /api/webhook. Check that the site is deployed and the endpoint exists."}};
+function init(){renderAll();fillSettings();loadLive()}
+if(sessionStorage.getItem("r4r_admin_logged_in")==="yes"){$("loginScreen").classList.add("hidden");$("app").classList.remove("hidden");init()}
 })();
-</script></body>
+</script>
+</body>
 </html>
