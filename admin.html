@@ -144,6 +144,17 @@ let inventory = JSON.parse(localStorage.getItem("r4r_test_inventory") || "null")
   {name:"Tracksuit — Grey", price:50, stock:14}
 ];
 let currentEdit = null;
+let editingInventoryIndex = null;
+// Add structured variant fields to older inventory records without deleting existing data.
+inventory = inventory.map((item, i) => ({
+  ...item,
+  sku: item.sku || ("R4R-" + String(i + 1).padStart(4, "0")),
+  category: item.category || (String(item.name).split(/[—-]/)[0].trim() || "Apparel"),
+  garmentColor: item.garmentColor || "",
+  size: item.size || "One Size",
+  logoColor: item.logoColor || "",
+  image: item.image || ""
+}));
 let testOrders = JSON.parse(localStorage.getItem("r4r_test_orders") || "null") || [];
 function saveTestData(){localStorage.setItem("r4r_test_inventory",JSON.stringify(inventory));localStorage.setItem("r4r_test_orders",JSON.stringify(testOrders));}
 function renderOrders(){
@@ -239,6 +250,24 @@ document.getElementById("addMediaBtn").addEventListener("click", () => {
 });
 document.getElementById("saveMediaBtn").addEventListener("click", () => saveMediaItems());
 
+function escapeInventoryText(value) {
+  return String(value == null ? "" : value).replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+}
+function openInventoryEditor(index) {
+  editingInventoryIndex = index;
+  const item = inventory[index];
+  if (!item) return;
+  currentEdit = "edit-item";
+  openModal("Edit Garment / Variant", `
+    <div class="field"><label>Product / variant name</label><input id="editItemName" value="${escapeInventoryText(item.name)}" required></div>
+    <div class="field"><label>SKU (unique stock-keeping code)</label><input id="editItemSku" value="${escapeInventoryText(item.sku || "")}" placeholder="R4R-0001"></div>
+    <div class="field"><label>Garment category</label><input id="editItemCategory" value="${escapeInventoryText(item.category || "")}" placeholder="T-shirt, hoodie, leggings..."></div>
+    <div class="field"><label>Garment color</label><input id="editItemGarmentColor" value="${escapeInventoryText(item.garmentColor || "")}" placeholder="Black, forest green..."></div>
+    <div class="field"><label>Size</label><input id="editItemSize" value="${escapeInventoryText(item.size || "One Size")}" placeholder="S, M, L, XL..."></div>
+    <div class="field"><label>Logo color</label><input id="editItemLogoColor" value="${escapeInventoryText(item.logoColor || "")}" placeholder="Gold, red, green..."></div>
+    <div class="field"><label>Product image path (uploaded to site)</label><input id="editItemImage" value="${escapeInventoryText(item.image || "")}" placeholder="/images/black-hoodie.jpg"></div>
+  `);
+}
 function renderInventory() {
   const list = document.getElementById("inventoryList");
   list.innerHTML = "";
@@ -248,7 +277,11 @@ function renderInventory() {
     const row = document.createElement("div");
     row.className = "inv-row";
     row.innerHTML = `
-      <span style="flex:1;min-width:120px">${item.name}</span>
+      <div style="flex:1;min-width:160px">
+        <strong>${escapeInventoryText(item.name)}</strong>
+        <div style="font-size:11px;color:#cbb89a;margin-top:3px">SKU: ${escapeInventoryText(item.sku || "—")} · ${escapeInventoryText(item.size || "One Size")} · Garment: ${escapeInventoryText(item.garmentColor || "—")} · Logo: ${escapeInventoryText(item.logoColor || "—")}</div>
+        <button class="btn small" type="button" data-edit-item="${i}" style="margin-top:5px">Edit details</button>
+      </div>
       <label style="font-size:11px;display:flex;align-items:center;gap:4px">Price $
         <input aria-label="Price for ${item.name}" type="number" min="0" step="0.01" value="${Number(item.price || 0).toFixed(2)}" data-i="${i}" data-field="price">
       </label>
@@ -281,6 +314,9 @@ function renderInventory() {
         document.getElementById("stockCount").textContent = inventory.reduce((sum, item) => sum + (Number(item.stock) || 0), 0);
       }
     };
+  });
+  list.querySelectorAll("[data-edit-item]").forEach(btn => {
+    btn.onclick = () => openInventoryEditor(Number(btn.dataset.editItem));
   });
   list.querySelectorAll(".restock").forEach(btn => {
     btn.onclick = () => {
@@ -324,10 +360,15 @@ function openModal(title, bodyHtml) {
 document.getElementById("addItemBtn").onclick = () => {
   currentEdit = "new-item";
   openModal("Add New Item", `
-    <div class="field"><label>Item name</label><input id="newName" placeholder="e.g. Hoodie — Black"></div>
-    <div class="field"><label>Price</label><input id="newPrice" type="number" step="0.01" value="50"></div>
-    <div class="field"><label>Starting stock</label><input id="newStock" type="number" value="10"></div>
-    <div class="field"><label>Image</label><input type="file" id="newImg" accept="image/*"></div>
+    <div class="field"><label>Item / variant name</label><input id="newName" placeholder="e.g. Hoodie — Black / Gold" required></div>
+    <div class="field"><label>SKU (unique code)</label><input id="newSku" placeholder="Leave blank to generate one"></div>
+    <div class="field"><label>Garment category</label><input id="newCategory" placeholder="T-shirt, hoodie, leggings..."></div>
+    <div class="field"><label>Garment color</label><input id="newGarmentColor" placeholder="Black, forest green..."></div>
+    <div class="field"><label>Size</label><input id="newSize" placeholder="S, M, L, XL or One Size" value="One Size"></div>
+    <div class="field"><label>Logo color</label><input id="newLogoColor" placeholder="Gold, red, green..."></div>
+    <div class="field"><label>Product image path (upload image to site first)</label><input id="newImage" placeholder="/images/product.jpg"></div>
+    <div class="field"><label>Price</label><input id="newPrice" type="number" min="0" step="0.01" value="50"></div>
+    <div class="field"><label>Starting stock</label><input id="newStock" type="number" min="0" step="1" value="10"></div>
   `);
 };
 
@@ -362,8 +403,40 @@ document.getElementById("modalSave").onclick = () => {
   const val = document.getElementById("editValue")?.value;
   if (currentEdit === "new-item") {
     const name = document.getElementById("newName").value.trim();
+    const price = Number(document.getElementById("newPrice").value);
+    const stock = Number(document.getElementById("newStock").value);
     if (!name) return alert("Enter a name");
-    inventory.push({name, price: Number(document.getElementById("newPrice").value || 50), stock: Number(document.getElementById("newStock").value || 10)});
+    if (!Number.isFinite(price) || price < 0) return alert("Enter a valid price.");
+    if (!Number.isInteger(stock) || stock < 0) return alert("Enter a whole-number stock quantity.");
+    const requestedSku = document.getElementById("newSku").value.trim();
+    const sku = requestedSku || ("R4R-" + String(Date.now()).slice(-8));
+    if (inventory.some(item => String(item.sku || "").toLowerCase() === sku.toLowerCase())) return alert("That SKU is already in use. Enter a unique SKU.");
+    inventory.push({
+      name, sku, category: document.getElementById("newCategory").value.trim() || "Apparel",
+      garmentColor: document.getElementById("newGarmentColor").value.trim(),
+      size: document.getElementById("newSize").value.trim() || "One Size",
+      logoColor: document.getElementById("newLogoColor").value.trim(),
+      image: document.getElementById("newImage").value.trim(),
+      price: Math.round(price * 100) / 100, stock
+    });
+    saveTestData();
+    renderInventory();
+  } else if (currentEdit === "edit-item") {
+    const item = inventory[editingInventoryIndex];
+    if (!item) return alert("That item no longer exists. Close this window and try again.");
+    const name = document.getElementById("editItemName").value.trim();
+    const sku = document.getElementById("editItemSku").value.trim();
+    if (!name || !sku) return alert("Enter both a product name and SKU.");
+    if (inventory.some((other, i) => i !== editingInventoryIndex && String(other.sku || "").toLowerCase() === sku.toLowerCase())) return alert("That SKU is already in use. Enter a unique SKU.");
+    Object.assign(item, {
+      name, sku,
+      category: document.getElementById("editItemCategory").value.trim() || "Apparel",
+      garmentColor: document.getElementById("editItemGarmentColor").value.trim(),
+      size: document.getElementById("editItemSize").value.trim() || "One Size",
+      logoColor: document.getElementById("editItemLogoColor").value.trim(),
+      image: document.getElementById("editItemImage").value.trim()
+    });
+    saveTestData();
     renderInventory();
   } else if (currentEdit && currentEdit.includes("price")) {
     const price = Number(val);
@@ -383,7 +456,7 @@ document.getElementById("modalSave").onclick = () => {
 document.getElementById("submitAll").onclick = () => {
   saveTestData();
   updatePreviewPrices();
-  document.getElementById("submitStatus").textContent = "Test changes saved in this browser only. Nothing was sent to a server.";
+  document.getElementById("submitStatus").textContent = "Saved in this browser only. These catalog fields are not yet synchronized to the live store; a shared database/API is still required.";
   alert("Saved for testing in this browser only.");
 };
 
