@@ -150,10 +150,10 @@ const $=id=>document.getElementById(id);
 const KEYS={products:"r4r_admin_products_v2",orders:"r4r_test_orders",settings:"r4r_admin_settings_v2",coupons:"r4r_admin_coupons_v2",legacyInventory:"r4r_test_inventory",legacyMedia:"r4r_test_media",password:"r4r_admin_password_v2"};
 const DEFAULT_PASSWORD="MRBHNCO2026!";
 const defaults=[
-{id:"bikini",name:"Bikini",price:50,stock:42,category:"Apparel",sku:"BIKINI",image:"",color:"",sizes:"XS, S, M, L, XL, XXL",description:"",active:true},
-{id:"tracksuit",name:"Tracksuit",price:50,stock:28,category:"Tracksuits",sku:"TRACKSUIT",image:"",color:"",sizes:"XS, S, M, L, XL, XXL",description:"",active:true},
-{id:"newtrack",name:"Tracksuit — Premium",price:65,stock:20,category:"Tracksuits",sku:"TRACK-PREMIUM",image:"",color:"",sizes:"XS, S, M, L, XL, XXL",description:"",active:true},
-{id:"authsuit",name:"Authentic Sweatsuit",price:65,stock:20,category:"Sweatsuits",sku:"AUTH-SUIT",image:"",color:"",sizes:"XS, S, M, L, XL, XXL",description:"",active:true},
+{id:"bikini",name:"Bikini",price:50,stock:42,category:"Apparel",sku:"BIKINI",image:"bikini-model-black-yellow.jpg",color:"Black / Yellow",sizes:"XS, S, M, L, XL, XXL",description:"",active:true},
+{id:"tracksuit",name:"Tracksuit",price:50,stock:28,category:"Tracksuits",sku:"TRACKSUIT",image:"tracksuit-black-front (1).jpg",color:"Black",sizes:"XS, S, M, L, XL, XXL",description:"",active:true},
+{id:"newtrack",name:"Tracksuit — Premium",price:65,stock:20,category:"Tracksuits",sku:"TRACK-PREMIUM",image:"blacknew.jpeg",color:"Black",sizes:"XS, S, M, L, XL, XXL",description:"",active:true},
+{id:"authsuit",name:"Authentic Sweatsuit",price:65,stock:20,category:"Sweatsuits",sku:"AUTH-SUIT",image:"Igpd8.jpg",color:"Red",sizes:"XS, S, M, L, XL, XXL",description:"",active:true},
 {id:"tile5",name:"Authentic Sweatsuit — Grey Edition",price:65,stock:20,category:"Sweatsuits",sku:"AUTH-GREY",image:"graynew.jpeg",color:"Grey",sizes:"XS, S, M, L, XL, XXL",description:"",active:true},
 {id:"track6",name:"Tracksuit — Black Edition",price:85,stock:10,category:"Tracksuits",sku:"TRACK-BLACK",image:"1.jpg",color:"Black / Yellow",sizes:"S, M, L, XL, 2XL",description:"",active:true},
 {id:"track7",name:"Tracksuit — Grey Edition",price:85,stock:10,category:"Tracksuits",sku:"TRACK-GREY",image:"7.jpg",color:"Gray / Yellow",sizes:"S, M, L, XL, 2XL",description:"",active:true}
@@ -167,6 +167,15 @@ if(!Array.isArray(products)){
  products=Array.isArray(legacy)&&legacy.length?legacy.map((p,i)=>normalizeProduct(p,i)):defaults.map(p=>({...p}));
 }
 products=products.map((p,i)=>normalizeProduct(p,i));
+// Always include every product tile already present on index.html, while preserving
+// any saved price, stock, image, or other edits for products that already exist.
+function mergeStoreProducts(saved){
+ const list=(Array.isArray(saved)?saved:[]).map((p,i)=>normalizeProduct(p,i));
+ const ids=new Set(list.map(p=>String(p.id).toLowerCase()));
+ defaults.forEach((p,i)=>{if(!ids.has(String(p.id).toLowerCase()))list.push(normalizeProduct(p,list.length+i))});
+ return list;
+}
+products=mergeStoreProducts(products);
 let orders=read(KEYS.orders,[]);
 if(!Array.isArray(orders))orders=[];
 let settings={...defaultSettings,...read(KEYS.settings,{})};
@@ -199,7 +208,7 @@ async function loadLive(){
   if(!r.ok){if(r.status===503)syncLabel("Local browser storage · database not configured","");return}
   const d=await r.json();if(!d.ok||!d.data)return;
   const data=d.data;
-  if(Array.isArray(data.inventory)){products=data.inventory.map(normalizeProduct);write(KEYS.products,products)}
+  if(Array.isArray(data.inventory)){products=mergeStoreProducts(data.inventory);write(KEYS.products,products)}
   if(Array.isArray(data.orders)){orders=data.orders;write(KEYS.orders,orders)}
   if(data.settings&&typeof data.settings==="object"){settings={...settings,...data.settings};write(KEYS.settings,settings)}
   if(Array.isArray(data.coupons)){coupons=data.coupons;write(KEYS.coupons,coupons)}
@@ -250,7 +259,7 @@ $("addOrderBtn").onclick=async()=>{const customer=prompt("Customer name:");if(!c
 $("couponForm").addEventListener("submit",async e=>{e.preventDefault();const code=$("couponCode").value.trim().toUpperCase();if(coupons.some(c=>c.code===code)){alert("That coupon code already exists.");return}const value=num($("couponValue").value);const type=$("couponType").value;if(value<=0||(type==="percent"&&value>100)){alert("Enter a valid discount amount.");return}coupons.push({code,type,value,minimum:num($("couponMinimum").value),expires:$("couponExpires").value,active:$("couponActive").checked});e.target.reset();$("couponActive").checked=true;const r=await saveAndSync();showStatus("settingsStatus",r.ok?"Coupon saved and synced.":"Coupon saved locally.",r.ok?"success":"")});
 $("settingsForm").addEventListener("submit",async e=>{e.preventDefault();settings={videoUrl:$("settingVideo").value.trim(),standardShipping:Math.max(0,num($("settingStandard").value)),priorityShipping:Math.max(0,num($("settingPriority").value)),freeShippingMinimum:Math.max(0,num($("settingFree").value)),lowStockThreshold:Math.max(0,Math.floor(num($("settingThreshold").value)))};const newPass=$("settingNewPassword").value;if(newPass){if(newPass.length<8){showStatus("settingsStatus","Use a password at least 8 characters long.","error");return}localStorage.setItem(KEYS.password,newPass);$("settingNewPassword").value=""}const r=await saveAndSync();fillSettings();showStatus("settingsStatus",r.ok?"Settings saved and synced. The storefront must read these shared settings to apply them.":"Settings saved in this browser."+(r.error?" Live sync: "+r.error:""),r.ok?"success":"")});
 $("refreshBtn").onclick=async()=>{await loadLive();renderAll()};
-$("connectSyncBtn").onclick=async()=>{const token=$("syncToken").value.trim();if(!token){$("liveSyncNotice").textContent="Enter the ADMIN_SYNC_TOKEN from Vercel first.";return}sessionStorage.setItem("r4r_admin_sync_token",token);try{const r=await fetch("/api/catalog",{method:"GET",cache:"no-store"});if(!r.ok)throw new Error("API returned "+r.status+". Check Vercel variables and database setup.");const d=await r.json();if(!d.ok)throw new Error(d.error||"API could not connect.");if(d.data){if(Array.isArray(d.data.inventory))products=d.data.inventory.map(normalizeProduct);if(Array.isArray(d.data.orders))orders=d.data.orders;if(d.data.settings)settings={...settings,...d.data.settings};if(Array.isArray(d.data.coupons))coupons=d.data.coupons;saveLocal();fillSettings();renderAll()}const saved=await pushLive();if(!saved.ok)throw new Error(saved.error||"Read worked but write test failed.");$("liveSyncNotice").textContent="Connected. Shared data was loaded and a sync test completed.";syncLabel("Live sync connected","ok")}catch(err){sessionStorage.removeItem("r4r_admin_sync_token");$("liveSyncNotice").textContent=err.message;syncLabel("Live sync unavailable","bad")}};
+$("connectSyncBtn").onclick=async()=>{const token=$("syncToken").value.trim();if(!token){$("liveSyncNotice").textContent="Enter the ADMIN_SYNC_TOKEN from Vercel first.";return}sessionStorage.setItem("r4r_admin_sync_token",token);try{const r=await fetch("/api/catalog",{method:"GET",cache:"no-store"});if(!r.ok)throw new Error("API returned "+r.status+". Check Vercel variables and database setup.");const d=await r.json();if(!d.ok)throw new Error(d.error||"API could not connect.");if(d.data){if(Array.isArray(d.data.inventory))products=mergeStoreProducts(d.data.inventory);if(Array.isArray(d.data.orders))orders=d.data.orders;if(d.data.settings)settings={...settings,...d.data.settings};if(Array.isArray(d.data.coupons))coupons=d.data.coupons;saveLocal();fillSettings();renderAll()}const saved=await pushLive();if(!saved.ok)throw new Error(saved.error||"Read worked but write test failed.");$("liveSyncNotice").textContent="Connected. Shared data was loaded and a sync test completed.";syncLabel("Live sync connected","ok")}catch(err){sessionStorage.removeItem("r4r_admin_sync_token");$("liveSyncNotice").textContent=err.message;syncLabel("Live sync unavailable","bad")}};
 $("disconnectSyncBtn").onclick=()=>{sessionStorage.removeItem("r4r_admin_sync_token");$("syncToken").value="";$("liveSyncNotice").textContent="Disconnected. Changes will save in this browser only.";syncLabel("Local browser storage","")};
 $("checkStripeBtn").onclick=async()=>{const badge=$("stripeBadge"),status=$("stripeStatus");badge.textContent="Checking…";status.textContent="Checking /api/webhook endpoint…";try{const r=await fetch("/api/webhook",{method:"GET",cache:"no-store"});const d=await r.json().catch(()=>({}));if(r.status===405){badge.textContent="Endpoint reachable";status.textContent="The endpoint responded with 405 to GET, which is expected for a webhook receiver. Confirm the STRIPE_WEBHOOK_SECRET in Vercel and use Stripe's Send test event feature to verify signature handling."}else if(r.ok){badge.textContent="Responded";status.textContent="Endpoint responded. This alone does not verify Stripe signing or payment processing."}else{badge.textContent="Needs setup";status.textContent=d.error||("Endpoint returned HTTP "+r.status+". Confirm Vercel environment variables and redeploy.")}}catch(err){badge.textContent="Unavailable";status.textContent="Could not reach /api/webhook. Check that the site is deployed and the endpoint exists."}};
 function init(){renderAll();fillSettings();loadLive()}
