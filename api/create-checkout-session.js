@@ -41,7 +41,7 @@ export default async function handler(req, res) {
     const origin = req.headers.origin || ("https://" + req.headers.host);
     const params = new URLSearchParams();
     params.set("mode", "payment");
-    params.set("ui_mode", "embedded");
+    params.set("ui_mode", "embedded_page");
     params.set("return_url", origin + "/?payment=success&session_id={CHECKOUT_SESSION_ID}");
     params.set("redirect_on_completion", "if_required");
     params.set("billing_address_collection", "required");
