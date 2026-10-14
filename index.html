@@ -215,16 +215,6 @@ document.getElementById("pay").addEventListener("click",function(){
     document.getElementById("embeddedCheckoutPanel").classList.remove("show");
     document.getElementById("back").style.display="";
   }
-});=true; button.textContent="Connecting to secure checkout…";
-  try {
-    const response=await fetch("/api/create-checkout-session",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({items:cartItems.map(item=>({productId:item.productId,color:item.color,size:item.size,quantity:item.qty})),shippingMethod:"standard"})});
-    const result=await response.json().catch(()=>({}));
-    if(!response.ok||!result.url) throw new Error(result.error||"Unable to start Stripe Checkout.");
-    window.location.assign(result.url);
-  } catch(error) {
-    alert(error.message||"Could not connect to Stripe Checkout.");
-    button.disabled=false; button.textContent=originalText;
-  }
 });
 
 const video=document.getElementById("siteVideo");
