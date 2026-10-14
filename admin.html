@@ -48,7 +48,7 @@
       <section id="tab-products" class="section active">
         <div class="panel">
           <div class="panelhead"><div><h2>Products & Inventory</h2><div class="muted">Manage product names, prices, stock and image filenames.</div></div><button class="btn goldbtn" id="newProductBtn">＋ Add product</button></div>
-          <div class="notice">Save changes stores data in this browser and attempts to publish it through <code>/api/catalog</code> when live sync is configured. To update the storefront for all customers, connect the shared database and have the storefront read this catalog.</div>
+          <div class="notice">Products are shared with customers through the GitHub-backed catalog when <b>Shared live sync</b> is connected. If the status says <b>Local browser storage</b> or a save says “saved locally,” the change has NOT been shared. Connect live sync before editing prices or adding products.</div>
           <div class="field" style="max-width:340px;margin-bottom:14px"><label for="productSearch">Search products</label><input class="search" id="productSearch" placeholder="Search name, category, SKU…"></div>
           <div class="tablewrap"><table><thead><tr><th>Product</th><th>Price</th><th>Total stock</th><th>Color variation / stock</th><th>Category / SKU</th><th>Status</th><th>Actions</th></tr></thead><tbody id="productRows"></tbody></table></div>
           <div class="actions"><button class="btn goldbtn" id="saveProductsBtn">Save product changes</button><button class="btn" id="exportBtn">Export catalog JSON</button><label class="btn" for="importFile">Import catalog JSON</label><input id="importFile" type="file" accept=".json,application/json" class="hidden"></div>
@@ -133,7 +133,7 @@
           <div class="notice" style="margin-top:14px">In Vercel: Project → Settings → Environment Variables. Add the variables for Development/Preview/Production as appropriate, save, then redeploy. In Stripe Dashboard → Developers → Webhooks, add your deployed endpoint URL ending in <code>/api/webhook</code>, choose the payment events you need, and copy the endpoint signing secret into <code>STRIPE_WEBHOOK_SECRET</code>. Do not paste secret values into this admin page.</div>
           <p class="muted">Current integration status: the server webhook endpoint verifies and stores Stripe webhook events when configured. A complete checkout/payment and paid-order fulfillment pipeline still needs to be wired to Stripe and the catalog.</p>
         </div>
-        <div class="panel"><h2>Shared live sync</h2><p class="muted">Use your <code>ADMIN_SYNC_TOKEN</code> to connect this browser to the protected catalog API. The token is kept in this browser tab's session storage only.</p>
+        <div class="panel"><h2>Shared live sync</h2><p class="muted">Connect this admin page to the shared GitHub catalog using the <code>ADMIN_SYNC_TOKEN</code> from Vercel. The token is kept in this browser tab only. You must see “Live sync connected” before saving changes for customers.</p>
           <div class="formgrid"><div class="field"><label for="syncToken">Admin sync token</label><input id="syncToken" type="password" autocomplete="off" placeholder="Paste ADMIN_SYNC_TOKEN"></div></div>
           <div class="actions"><button class="btn goldbtn" id="connectSyncBtn">Connect / test live sync</button><button class="btn" id="disconnectSyncBtn">Disconnect this tab</button></div>
           <div id="liveSyncNotice" class="smallnote" aria-live="polite"></div>
@@ -168,15 +168,16 @@ if(!Array.isArray(products)){
  products=Array.isArray(legacy)&&legacy.length?legacy.map((p,i)=>normalizeProduct(p,i)):defaults.map(p=>({...p}));
 }
 products=products.map((p,i)=>normalizeProduct(p,i));
-// Always include every product tile already present on index.html, while preserving
-// any saved price, stock, image, or other edits for products that already exist.
+// Keep all seven original storefront products and preserve every additional
+// product created in Admin. Never discard extra catalog entries on refresh.
 function mergeStoreProducts(saved){
  const list=(Array.isArray(saved)?saved:[]).map((p,i)=>normalizeProduct(p,i));
- // The storefront has exactly seven product tiles. Keep saved edits for those
- // seven IDs, remove duplicate/legacy extras, and restore any missing tile.
  const byId=new Map();
  list.forEach(p=>{const id=String(p.id||"").toLowerCase();if(id&&!byId.has(id))byId.set(id,p)});
- return defaults.map((d,i)=>normalizeProduct(byId.get(String(d.id).toLowerCase())||d,i));
+ const merged=defaults.map((d,i)=>normalizeProduct(byId.get(String(d.id).toLowerCase())||d,i));
+ const known=new Set(merged.map(p=>String(p.id||"").toLowerCase()));
+ list.forEach(p=>{const id=String(p.id||"").toLowerCase();if(id&&!known.has(id)){merged.push(p);known.add(id)}});
+ return merged;
 }
 products=mergeStoreProducts(products);
 let orders=read(KEYS.orders,[]);
@@ -208,7 +209,7 @@ async function loadLive(){
  const token=sessionStorage.getItem("r4r_admin_sync_token");
  try{
   const r=await fetch("/api/catalog",{cache:"no-store"});
-  if(!r.ok){if(r.status===503)syncLabel("Local browser storage · database not configured","");return}
+  if(!r.ok){if(r.status===503)syncLabel("Local browser storage · shared catalog not configured","");return}
   const d=await r.json();if(!d.ok||!d.data)return;
   const data=d.data;
   if(Array.isArray(data.inventory)){products=mergeStoreProducts(data.inventory);write(KEYS.products,products)}
@@ -264,7 +265,7 @@ $("addOrderBtn").onclick=async()=>{const customer=prompt("Customer name:");if(!c
 $("couponForm").addEventListener("submit",async e=>{e.preventDefault();const code=$("couponCode").value.trim().toUpperCase();if(coupons.some(c=>c.code===code)){alert("That coupon code already exists.");return}const value=num($("couponValue").value);const type=$("couponType").value;if(value<=0||(type==="percent"&&value>100)){alert("Enter a valid discount amount.");return}coupons.push({code,type,value,minimum:num($("couponMinimum").value),expires:$("couponExpires").value,active:$("couponActive").checked});e.target.reset();$("couponActive").checked=true;const r=await saveAndSync();showStatus("settingsStatus",r.ok?"Coupon saved and synced.":"Coupon saved locally.",r.ok?"success":"")});
 $("settingsForm").addEventListener("submit",async e=>{e.preventDefault();settings={videoUrl:$("settingVideo").value.trim(),standardShipping:Math.max(0,num($("settingStandard").value)),priorityShipping:Math.max(0,num($("settingPriority").value)),freeShippingMinimum:Math.max(0,num($("settingFree").value)),lowStockThreshold:Math.max(0,Math.floor(num($("settingThreshold").value)))};const newPass=$("settingNewPassword").value;if(newPass){if(newPass.length<8){showStatus("settingsStatus","Use a password at least 8 characters long.","error");return}localStorage.setItem(KEYS.password,newPass);$("settingNewPassword").value=""}const r=await saveAndSync();fillSettings();showStatus("settingsStatus",r.ok?"Settings saved and synced. The storefront must read these shared settings to apply them.":"Settings saved in this browser."+(r.error?" Live sync: "+r.error:""),r.ok?"success":"")});
 $("refreshBtn").onclick=async()=>{await loadLive();renderAll()};
-$("connectSyncBtn").onclick=async()=>{const token=$("syncToken").value.trim();if(!token){$("liveSyncNotice").textContent="Enter the ADMIN_SYNC_TOKEN from Vercel first.";return}sessionStorage.setItem("r4r_admin_sync_token",token);try{const r=await fetch("/api/catalog",{method:"GET",cache:"no-store"});if(!r.ok)throw new Error("API returned "+r.status+". Check Vercel variables and database setup.");const d=await r.json();if(!d.ok)throw new Error(d.error||"API could not connect.");if(d.data){if(Array.isArray(d.data.inventory))products=mergeStoreProducts(d.data.inventory);if(Array.isArray(d.data.orders))orders=d.data.orders;if(d.data.settings)settings={...settings,...d.data.settings};if(Array.isArray(d.data.coupons))coupons=d.data.coupons;saveLocal();fillSettings();renderAll()}const saved=await pushLive();if(!saved.ok)throw new Error(saved.error||"Read worked but write test failed.");$("liveSyncNotice").textContent="Connected. Shared data was loaded and a sync test completed.";syncLabel("Live sync connected","ok")}catch(err){sessionStorage.removeItem("r4r_admin_sync_token");$("liveSyncNotice").textContent=err.message;syncLabel("Live sync unavailable","bad")}};
+$("connectSyncBtn").onclick=async()=>{const token=$("syncToken").value.trim();if(!token){$("liveSyncNotice").textContent="Enter the ADMIN_SYNC_TOKEN from Vercel first.";return}sessionStorage.setItem("r4r_admin_sync_token",token);try{const r=await fetch("/api/catalog",{method:"GET",cache:"no-store"});if(!r.ok)throw new Error("API returned "+r.status+". Check the GitHub catalog settings in Vercel.");const d=await r.json();if(!d.ok)throw new Error(d.error||"API could not connect.");if(d.data){if(Array.isArray(d.data.inventory))products=mergeStoreProducts(d.data.inventory);if(Array.isArray(d.data.orders))orders=d.data.orders;if(d.data.settings)settings={...settings,...d.data.settings};if(Array.isArray(d.data.coupons))coupons=d.data.coupons;saveLocal();fillSettings();renderAll()}const saved=await pushLive();if(!saved.ok)throw new Error(saved.error||"Read worked but write test failed.");$("liveSyncNotice").textContent="Connected. Shared data was loaded and a sync test completed.";syncLabel("Live sync connected","ok")}catch(err){sessionStorage.removeItem("r4r_admin_sync_token");$("liveSyncNotice").textContent=err.message;syncLabel("Live sync unavailable","bad")}};
 $("disconnectSyncBtn").onclick=()=>{sessionStorage.removeItem("r4r_admin_sync_token");$("syncToken").value="";$("liveSyncNotice").textContent="Disconnected. Changes will save in this browser only.";syncLabel("Local browser storage","")};
 $("checkStripeBtn").onclick=async()=>{const badge=$("stripeBadge"),status=$("stripeStatus");badge.textContent="Checking…";status.textContent="Checking /api/webhook endpoint…";try{const r=await fetch("/api/webhook",{method:"GET",cache:"no-store"});const d=await r.json().catch(()=>({}));if(r.status===405){badge.textContent="Endpoint reachable";status.textContent="The endpoint responded with 405 to GET, which is expected for a webhook receiver. Confirm the STRIPE_WEBHOOK_SECRET in Vercel and use Stripe's Send test event feature to verify signature handling."}else if(r.ok){badge.textContent="Responded";status.textContent="Endpoint responded. This alone does not verify Stripe signing or payment processing."}else{badge.textContent="Needs setup";status.textContent=d.error||("Endpoint returned HTTP "+r.status+". Confirm Vercel environment variables and redeploy.")}}catch(err){badge.textContent="Unavailable";status.textContent="Could not reach /api/webhook. Check that the site is deployed and the endpoint exists."}};
 function init(){renderAll();fillSettings();loadLive()}
