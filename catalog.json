@@ -3,7 +3,7 @@
     {
       "id": "bikini",
       "name": "Bikini",
-      "price": 200000000,
+      "price": 50,
       "stock": 42,
       "category": "Apparel",
       "sku": "BIKINI",
