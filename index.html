@@ -161,27 +161,28 @@ document.getElementById("pay").addEventListener("click",function(){
   if(!cartItems.length)return;
   const list=document.getElementById("orderItems");
   list.innerHTML="";
-  cartItems.forEach(function(item,i){
+  cartItems.forEach(function(item){
     const row=document.createElement("div");
     row.className="row";
-    row.innerHTML=`<span>${item.name} — ${item.color} / ${item.size} × ${item.qty}</span><span>$${(item.price*item.qty).toFixed(2)} <button class="x" data-i="${i}">✕</button></span>`;
+    row.innerHTML=`<span>${item.name} — ${item.color} / ${item.size} × ${item.qty}</span><span>$${(item.price*item.qty).toFixed(2)}</span>`;
     list.appendChild(row);
   });
-  list.querySelectorAll(".x").forEach(btn=>{
-    btn.onclick=function(){
-      const i=Number(btn.dataset.i);
-      cartTotal-=cartItems[i].price*cartItems[i].qty;
-      cartItems.splice(i,1);
-      document.getElementById("checkoutSubtotal").textContent="$"+cartTotal.toFixed(2);
-      document.getElementById("checkoutTotal").textContent="$"+(cartTotal+shippingCost).toFixed(2);
-      document.getElementById("subtotal").textContent="$"+cartTotal.toFixed(2);
-      document.getElementById("pay").disabled=!cartItems.length;
-      if(!cartItems.length){document.getElementById("back").click();}
-      else document.getElementById("pay").click();
-    };
-  });
   document.getElementById("checkoutSubtotal").textContent="$"+cartTotal.toFixed(2);
-  document.getElementById("cdocument.getElementById("stripePay").addEventListener("click", async function(){
+  document.getElementById("checkoutTotal").textContent="$"+(cartTotal+shippingCost).toFixed(2);
+  document.getElementById("shippingCost").textContent="$"+shippingCost.toFixed(2);
+  document.getElementById("shop").style.display="none";
+  document.getElementById("checkout").classList.add("show");
+  document.getElementById("embeddedCheckoutPanel").classList.remove("show");
+  document.querySelectorAll(".checkout-inner > .checkout-card").forEach(el=>el.style.display="");
+  document.getElementById("back").style.display="";
+  window.scrollTo(0,0);
+});
+document.getElementById("back").addEventListener("click",function(){
+  document.getElementById("checkout").classList.remove("show");
+  document.getElementById("shop").style.display="flex";
+  window.scrollTo(0,0);
+});
+document.getElementById("stripePay").addEventListener("click", async function(){
   if(!cartItems.length){alert("Add items to cart first.");return;}
   const button=this, originalText=button.textContent;
   button.disabled=true; button.textContent="Opening secure checkout…";
