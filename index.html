@@ -146,7 +146,7 @@ document.querySelectorAll(".add-btn").forEach(function(btn){btn.addEventListener
   const qty=Math.max(1,Math.min(Number(qtyEl.max)||99,parseInt(qtyEl.value,10)||1));
   if(!size){alert("Please select a size.");return;}
   const name=product==="bikini"?"Bikini":product==="authsuit"?"Authentic Sweatsuit":product==="tile5"?"Authentic Sweatsuit ("+(colors.tile5||"Grey")+")":product==="track6"?"Tracksuit (Black Edition)":product==="track7"?"Tracksuit (Gray Edition)":"Tracksuit";
-  cartItems.push({name,color:colors[product],size,qty,price});
+  cartItems.push({productId:product,name,color:colors[product],size,qty,price});
   cartTotal+=price*qty;
   document.getElementById("subtotal").textContent="$"+cartTotal.toFixed(2);
   document.getElementById("pay").disabled=false;
@@ -189,10 +189,19 @@ document.getElementById("pay").addEventListener("click",function(){
 document.getElementById("back").addEventListener("click",function(){document.getElementById("checkout").classList.remove("show");document.getElementById("shop").style.display="flex";renderMainCart();});
 document.getElementById("placeOrder").addEventListener("click",function(){const form=document.getElementById("shippingForm");if(!form.checkValidity()){form.reportValidity();return;}alert("Practice order placed. This demo did not send your information or process a payment.");});
 
-const stripe = Stripe("pk_test_YOUR_KEY_HERE");
 document.getElementById("stripePay").addEventListener("click", async function(){
   if(!cartItems.length){alert("Add items to cart first.");return;}
-  alert("Stripe Checkout ready for " + cartItems.length + " item(s). Backend session creation needed for live payments.");
+  const button=this, originalText=button.textContent;
+  button.disabled=true; button.textContent="Connecting to secure checkout…";
+  try {
+    const response=await fetch("/api/create-checkout-session",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({items:cartItems.map(item=>({productId:item.productId,color:item.color,size:item.size,quantity:item.qty})),shippingMethod:"standard"})});
+    const result=await response.json().catch(()=>({}));
+    if(!response.ok||!result.url) throw new Error(result.error||"Unable to start Stripe Checkout.");
+    window.location.assign(result.url);
+  } catch(error) {
+    alert(error.message||"Could not connect to Stripe Checkout.");
+    button.disabled=false; button.textContent=originalText;
+  }
 });
 
 const video=document.getElementById("siteVideo");
