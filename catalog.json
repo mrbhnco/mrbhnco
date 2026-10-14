@@ -3,7 +3,7 @@
     {
       "id": "bikini",
       "name": "Bikini",
-      "price": 50,
+      "price": 70000,
       "stock": 42,
       "category": "Apparel",
       "sku": "BIKINI",
@@ -326,5 +326,5 @@
     "lowStockThreshold": 5
   },
   "coupons": [],
-  "updatedAt": "2026-10-14T00:10:28.943Z"
+  "updatedAt": "2026-10-14T00:50:38.396Z"
 }
