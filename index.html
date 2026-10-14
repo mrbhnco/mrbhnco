@@ -121,7 +121,7 @@
 const bikiniImage=document.getElementById("bikiniImage"),tracksuitImage=document.getElementById("tracksuitImage"),newTracksuitImage=document.getElementById("newTracksuitImage"),authSweatsuitImage=document.getElementById("authSweatsuitImage");
 const colors={bikini:"Black / Yellow",tracksuit:"Black",newtrack:"Black",authsuit:"Red",tile5:"Grey",track6:"Black / Yellow",track7:"Gray / Yellow"};
 // All seven product tiles are previews until launch: disable ordering and show Coming Soon.
-document.querySelectorAll(".product-card .add-btn").forEach(function(btn){btn.disabled=true;btn.textContent="Coming Soon";btn.setAttribute("aria-label","Coming Soon");});
+document.querySelectorAll(".product-card .add-btn").forEach(function(btn){btn.disabled=true;btn.textContent="Coming Soon";});
 document.querySelectorAll(".color-thumb").forEach(function(t){t.addEventListener("click",function(){const target=t.dataset.target;document.querySelectorAll('.color-thumb[data-target="'+target+'"]').forEach(x=>x.classList.remove("active"));t.classList.add("active");colors[target]=t.dataset.color; if(target==="bikini")bikiniImage.src=t.dataset.img;else if(target==="tracksuit")tracksuitImage.src=t.dataset.img;else if(target==="newtrack")newTracksuitImage.src=t.dataset.img;else if(target==="authsuit")authSweatsuitImage.src=t.dataset.img;else if(target==="tile5")document.getElementById("tile5Image").src=t.dataset.img;else if(target==="track6")document.getElementById("preview-track6").src=t.dataset.img;else if(target==="track7")document.getElementById("preview-track7").src=t.dataset.img;});});
 let cartTotal=0,shippingCost=5.99,cartItems=[];
 function renderMainCart(){
