@@ -148,7 +148,7 @@
 "use strict";
 const $=id=>document.getElementById(id);
 const KEYS={products:"r4r_admin_products_v2",orders:"r4r_test_orders",settings:"r4r_admin_settings_v2",coupons:"r4r_admin_coupons_v2",legacyInventory:"r4r_test_inventory",legacyMedia:"r4r_test_media",password:"r4r_admin_password_v2"};
-const DEFAULT_PASSWORD="theskyisthelimit";const OLD_DEFAULT_PASSWORD="MRBHNCO2026!";if(localStorage.getItem(KEYS.password)===OLD_DEFAULT_PASSWORD)localStorage.setItem(KEYS.password,DEFAULT_PASSWORD);
+const DEFAULT_PASSWORD="6524";const OLD_DEFAULT_PASSWORDS=["MRBHNCO2026!","theskyisthelimit"];if(OLD_DEFAULT_PASSWORDS.includes(localStorage.getItem(KEYS.password)))localStorage.setItem(KEYS.password,DEFAULT_PASSWORD);
 const defaults=[
 {id:"bikini",name:"Bikini",price:50,stock:42,category:"Apparel",sku:"BIKINI",image:"bikini-model-black-yellow.jpg",color:"Black / Yellow",sizes:"XS, S, M, L, XL, XXL",description:"",active:true},
 {id:"tracksuit",name:"Tracksuit",price:50,stock:28,category:"Tracksuits",sku:"TRACKSUIT",image:"tracksuit-black-front (1).jpg",color:"Black",sizes:"XS, S, M, L, XL, XXL",description:"",active:true},
