@@ -41,8 +41,9 @@ export default async function handler(req, res) {
     const origin = req.headers.origin || ("https://" + req.headers.host);
     const params = new URLSearchParams();
     params.set("mode", "payment");
-    params.set("success_url", origin + "/?payment=success&session_id={CHECKOUT_SESSION_ID}");
-    params.set("cancel_url", origin + "/?payment=cancelled");
+    params.set("ui_mode", "embedded");
+    params.set("return_url", origin + "/?payment=success&session_id={CHECKOUT_SESSION_ID}");
+    params.set("redirect_on_completion", "if_required");
     params.set("billing_address_collection", "required");
     params.set("shipping_address_collection[allowed_countries][0]", "US");
     params.set("phone_number_collection[enabled]", "true");
@@ -55,6 +56,8 @@ export default async function handler(req, res) {
     const stripeResponse = await fetch("https://api.stripe.com/v1/checkout/sessions", { method: "POST", headers: { Authorization: "Bearer " + secret, "Content-Type": "application/x-www-form-urlencoded" }, body: params });
     const session = await stripeResponse.json().catch(() => ({}));
     if (!stripeResponse.ok) { console.error("Stripe Checkout session failed:", session.error && session.error.message); return res.status(502).json({ error: "Stripe could not start checkout. Check that the Stripe keys in Vercel are active and belong to the same mode." }); }
-    return res.status(200).json({ url: session.url });
+    const publishableKey = process.env.STRIPE_PUBLISHABLE_KEY;
+    if (!publishableKey || !publishableKey.startsWith("pk_")) return res.status(503).json({ error: "Embedded Stripe Checkout needs STRIPE_PUBLISHABLE_KEY in Vercel Environment Variables." });
+    return res.status(200).json({ clientSecret: session.client_secret, publishableKey });
   } catch (error) { return res.status(400).json({ error: error.message || "Unable to start checkout." }); }
 }
