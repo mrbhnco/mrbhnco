@@ -21,7 +21,7 @@
     <div class="field"><label for="loginPassword">Admin password</label><input id="loginPassword" type="password" autocomplete="current-password" required placeholder="Enter admin password"></div>
     <button class="btn goldbtn" type="submit">Log in</button>
     <div id="loginError" class="smallnote" role="alert"></div>
-    <div class="smallnote">First setup password is <b>MRBHNCO2026!</b>. Change it in Website Settings after signing in. This page-level password is a convenience lock, not secure server authentication.</div>
+    
   </form>
 </div>
 <div id="app" class="hidden">
@@ -148,7 +148,7 @@
 "use strict";
 const $=id=>document.getElementById(id);
 const KEYS={products:"r4r_admin_products_v2",orders:"r4r_test_orders",settings:"r4r_admin_settings_v2",coupons:"r4r_admin_coupons_v2",legacyInventory:"r4r_test_inventory",legacyMedia:"r4r_test_media",password:"r4r_admin_password_v2"};
-const DEFAULT_PASSWORD="MRBHNCO2026!";
+const DEFAULT_PASSWORD="theskyisthelimit";const OLD_DEFAULT_PASSWORD="MRBHNCO2026!";if(localStorage.getItem(KEYS.password)===OLD_DEFAULT_PASSWORD)localStorage.setItem(KEYS.password,DEFAULT_PASSWORD);
 const defaults=[
 {id:"bikini",name:"Bikini",price:50,stock:42,category:"Apparel",sku:"BIKINI",image:"bikini-model-black-yellow.jpg",color:"Black / Yellow",sizes:"XS, S, M, L, XL, XXL",description:"",active:true},
 {id:"tracksuit",name:"Tracksuit",price:50,stock:28,category:"Tracksuits",sku:"TRACKSUIT",image:"tracksuit-black-front (1).jpg",color:"Black",sizes:"XS, S, M, L, XL, XXL",description:"",active:true},
