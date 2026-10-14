@@ -259,7 +259,8 @@ document.querySelectorAll(".video-thumb").forEach(function(t){t.addEventListener
 })();
 </script>
 <script id="r4r-live-catalog">
-/* Pull the shared catalog on refresh. Requires the server-side /api/catalog + Supabase setup. */
+/* Load shared product data. Existing seven tiles keep their original layout;
+   extra products created in Admin are added as simple Coming Soon cards. */
 (async function(){
   try {
     const response = await fetch("/api/catalog",{cache:"no-store"});
@@ -269,6 +270,7 @@ document.querySelectorAll(".video-thumb").forEach(function(t){t.addEventListener
     if(!data || !Array.isArray(data.inventory)) return;
     const catalog = data.inventory;
     const byId = new Map(catalog.map(p=>[String(p.id||p.sku||"").toLowerCase(),p]));
+    const knownIds = new Set(["bikini","tracksuit","newtrack","authsuit","tile5","track6","track7"]);
     const findProduct = id => {
       const key=String(id||"").toLowerCase();
       if(byId.has(key)) return byId.get(key);
@@ -278,24 +280,62 @@ document.querySelectorAll(".video-thumb").forEach(function(t){t.addEventListener
     };
     document.querySelectorAll(".add-btn[data-product]").forEach(button=>{
       const id=button.dataset.product, p=findProduct(id);
-      if(!p || p.active===false) return;
+      if(!p) return;
+      const card=button.closest(".product-card");
+      if(p.active===false){if(card)card.style.display="none";return;}
+      if(card)card.style.display="";
       const price=Number(p.price);
       if(Number.isFinite(price)){button.dataset.price=String(price);const details=button.closest(".product-details");const priceEl=details&&details.querySelector(".price");if(priceEl)priceEl.textContent=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(price);}
-      const card=button.closest(".product-card");
+      const details=button.closest(".product-details");
+      const title=details&&details.querySelector("h2");
+      if(title&&p.name)title.textContent=p.name;
       const qty=card&&card.querySelector('.qty[data-product="'+id+'"]');
       if(qty && Number.isFinite(Number(p.stock))){qty.max=String(Math.max(0,Number(p.stock)));if(Number(qty.value)>Number(qty.max))qty.value=qty.max;}
       const stock=card&&card.querySelector(".stock");
       if(stock && Number.isFinite(Number(p.stock)))stock.textContent="In stock: "+Number(p.stock);
       if(card && p.image){const img=card.querySelector(".product-image img");if(img)img.src=p.image;}
-      if(card){card.dataset.catalogActive="true";card.style.display="";}
+      if(card)card.dataset.catalogActive="true";
     });
-    catalog.forEach(p=>{
-      if(p.active===false){
-        const key=String(p.id||p.sku||"").toLowerCase();
-        const btn=document.querySelector('.add-btn[data-product="'+CSS.escape(key)+'"]');
-        if(btn){const card=btn.closest(".product-card");if(card)card.style.display="none";}
-      }
-    });
+    const left=document.querySelector(".left");
+    const cart=document.querySelector(".cart");
+    if(left){
+      catalog.forEach(p=>{
+        const id=String(p.id||p.sku||"");
+        const key=id.toLowerCase();
+        if(!id||knownIds.has(key)) return;
+        let card=Array.from(left.querySelectorAll("[data-catalog-extra]")).find(el=>el.dataset.catalogExtra===id);
+        if(p.active===false){if(card)card.style.display="none";return;}
+        if(!card){
+          card=document.createElement("div");
+          card.className="product-card";
+          card.dataset.catalogExtra=id;
+          const top=document.createElement("div");top.className="product-top";
+          const media=document.createElement("div");media.className="product-image";
+          if(p.image){const img=document.createElement("img");img.alt=String(p.name||"Product");img.src=p.image;img.onerror=()=>{img.style.display="none";};media.appendChild(img);}
+          const details=document.createElement("div");details.className="product-details";
+          const title=document.createElement("h2");details.appendChild(title);
+          const price=document.createElement("div");price.className="price";details.appendChild(price);
+          const sizeLabel=document.createElement("div");sizeLabel.className="field-label";sizeLabel.textContent="Size";details.appendChild(sizeLabel);
+          const sizes=document.createElement("select");sizes.className="size";sizes.dataset.product=id;
+          const prompt=document.createElement("option");prompt.value="";prompt.textContent="Select size";sizes.appendChild(prompt);
+          const sizeList=Array.isArray(p.sizes)?p.sizes:String(p.sizes||"XS, S, M, L, XL, XXL").split(",");
+          sizeList.map(s=>String(s).trim()).filter(Boolean).forEach(s=>{const option=document.createElement("option");option.value=s;option.textContent=s;sizes.appendChild(option);});
+          details.appendChild(sizes);
+          const qtyLabel=document.createElement("div");qtyLabel.className="field-label";qtyLabel.textContent="Quantity";details.appendChild(qtyLabel);
+          const qty=document.createElement("input");qty.type="number";qty.className="qty";qty.dataset.product=id;qty.min="1";qty.value="1";details.appendChild(qty);
+          const stock=document.createElement("div");stock.className="stock";details.appendChild(stock);
+          const btn=document.createElement("button");btn.className="add-btn";btn.disabled=true;btn.textContent="Coming Soon";details.appendChild(btn);
+          top.append(media,details);card.appendChild(top);
+          if(cart)left.insertBefore(card,cart);else left.appendChild(card);
+        }
+        card.style.display="";
+        const title=card.querySelector("h2");if(title)title.textContent=String(p.name||"Product");
+        const price=card.querySelector(".price");if(price)price.textContent=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(Number(p.price)||0);
+        const stock=card.querySelector(".stock");if(stock)stock.textContent="In stock: "+Math.max(0,Number(p.stock)||0);
+        const qty=card.querySelector(".qty");if(qty){qty.max=String(Math.max(0,Number(p.stock)||0));if(Number(qty.value)>Number(qty.max))qty.value=qty.max;}
+        const img=card.querySelector(".product-image img");if(img&&p.image&&img.src!==p.image)img.src=p.image;
+      });
+    }
     const videoUrl=data.settings && data.settings.videoUrl;
     if(videoUrl){const video=document.querySelector("video");if(video && video.getAttribute("src")!==videoUrl){video.src=videoUrl;video.load();}}
   } catch (error) { console.warn("Shared catalog unavailable; showing storefront defaults.",error); }
