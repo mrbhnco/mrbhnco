@@ -129,23 +129,31 @@ function renderMainCart(){
     };
   });
 }
-document.querySelectorAll(".add-btn").forEach(function(btn){btn.addEventListener("click",function(){
+document.addEventListener("click",function(event){
+  const btn=event.target.closest(".add-btn");
+  if(!btn || btn.disabled) return;
   const product=btn.dataset.product,price=Number(btn.dataset.price);
-  const size=document.querySelector('.size[data-product="'+product+'"]').value;
+  if(!product || !Number.isFinite(price)) return;
+  const sizeEl=document.querySelector('.size[data-product="'+product+'"]');
   const qtyEl=document.querySelector('.qty[data-product="'+product+'"]');
+  if(!sizeEl || !qtyEl){alert("This item is not ready to order yet.");return;}
+  const size=sizeEl.value;
   const qty=Math.max(1,Math.min(Number(qtyEl.max)||99,parseInt(qtyEl.value,10)||1));
   if(!size){alert("Please select a size.");return;}
-  const name=product==="bikini"?"Bikini":product==="authsuit"?"Authentic Sweatsuit":product==="tile5"?"Authentic Sweatsuit ("+(colors.tile5||"Grey")+")":product==="track6"?"Tracksuit (Black Edition)":product==="track7"?"Tracksuit (Gray Edition)":"Tracksuit";
-  cartItems.push({productId:product,name,color:colors[product],size,qty,price});
+  const card=btn.closest(".product-card");
+  const title=card&&card.querySelector("h2");
+  const name=title?title.textContent.trim():(product==="bikini"?"Bikini":product==="authsuit"?"Authentic Sweatsuit":product==="tile5"?"Authentic Sweatsuit ("+(colors.tile5||"Grey")+")":product==="track6"?"Tracksuit (Black Edition)":product==="track7"?"Tracksuit (Gray Edition)":"Tracksuit");
+  const color=colors[product]||"Standard";
+  cartItems.push({productId:product,name,color,size,qty,price});
   cartTotal+=price*qty;
   document.getElementById("subtotal").textContent="$"+cartTotal.toFixed(2);
   document.getElementById("pay").disabled=false;
   renderMainCart();
   btn.classList.add("blink");
   const pop=btn.querySelector(".popup");
-  pop.classList.add("show");
-  setTimeout(()=>{btn.classList.remove("blink");pop.classList.remove("show");},800);
-});});
+  if(pop) pop.classList.add("show");
+  setTimeout(()=>{btn.classList.remove("blink");if(pop)pop.classList.remove("show");},800);
+});
 document.querySelectorAll(".ship").forEach(function(opt){opt.addEventListener("click",function(){document.querySelectorAll(".ship").forEach(o=>o.classList.remove("active"));opt.classList.add("active");shippingCost=Number(opt.dataset.cost);document.getElementById("shippingCost").textContent="$"+shippingCost.toFixed(2);document.getElementById("checkoutTotal").textContent="$"+(cartTotal+shippingCost).toFixed(2);});});
 document.getElementById("pay").addEventListener("click",function(){
   if(!cartItems.length)return;
