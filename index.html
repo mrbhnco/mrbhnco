@@ -309,7 +309,7 @@ document.querySelectorAll(".video-thumb").forEach(function(t){t.addEventListener
           const qtyLabel=document.createElement("div");qtyLabel.className="field-label";qtyLabel.textContent="Quantity";details.appendChild(qtyLabel);
           const qty=document.createElement("input");qty.type="number";qty.className="qty";qty.dataset.product=id;qty.min="1";qty.value="1";details.appendChild(qty);
           const stock=document.createElement("div");stock.className="stock";details.appendChild(stock);
-          const btn=document.createElement("button");btn.className="add-btn";btn.disabled=true;btn.textContent="Coming Soon";details.appendChild(btn);
+          const btn=document.createElement("button");btn.className="add-btn";btn.disabled=false;btn.textContent="ADD TO CART";btn.dataset.product=id;btn.dataset.price=String(Number(p.price)||0);details.appendChild(btn);
           top.append(media,details);card.appendChild(top);
           if(cart)left.insertBefore(card,cart);else left.appendChild(card);
         }
