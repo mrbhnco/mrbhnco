@@ -16,7 +16,7 @@
     },
     {
       "id": "bikini",
-      "name": "Bikini",
+      "name": "Real4Real Worldwide Bikini",
       "price": 50,
       "stock": 42,
       "category": "Apparel",
@@ -24,7 +24,7 @@
       "image": "bikini-model-black-yellow.jpg",
       "color": "Black / Yellow",
       "sizes": "XS, S, M, L, XL, XXL",
-      "description": "",
+      "description": "Black / Yellow logo",
       "active": true,
       "variants": [
         {
@@ -61,15 +61,15 @@
     },
     {
       "id": "tracksuit",
-      "name": "Tracksuit",
+      "name": "Black Real4Real Worldwide Sweatsuit",
       "price": 50,
       "stock": 28,
       "category": "Tracksuits",
       "sku": "TRACKSUIT",
       "image": "tracksuit-black-front (1).jpg",
-      "color": "Black",
+      "color": "Black / Yellow",
       "sizes": "XS, S, M, L, XL, XXL",
-      "description": "",
+      "description": "Black sweatsuit · Yellow / White logo",
       "active": true,
       "variants": [
         {
@@ -106,15 +106,15 @@
     },
     {
       "id": "newtrack",
-      "name": "Tracksuit — Premium",
+      "name": "Black R4R Sweatsuit",
       "price": 65,
       "stock": 20,
       "category": "Tracksuits",
       "sku": "TRACK-PREMIUM",
       "image": "blacknew.jpeg",
-      "color": "Black",
+      "color": "Black / Yellow",
       "sizes": "XS, S, M, L, XL, XXL",
-      "description": "",
+      "description": "Black sweatsuit · R4R logo",
       "active": true,
       "variants": [
         {
@@ -151,15 +151,15 @@
     },
     {
       "id": "authsuit",
-      "name": "Authentic Sweatsuit",
+      "name": "Grey Real4Real Worldwide Sweatsuit",
       "price": 65,
       "stock": 20,
       "category": "Sweatsuits",
       "sku": "AUTH-SUIT",
       "image": "Igpd8.jpg",
-      "color": "Red",
+      "color": "Grey / White",
       "sizes": "XS, S, M, L, XL, XXL",
-      "description": "",
+      "description": "Grey sweatsuit · White logo",
       "active": true,
       "variants": [
         {
@@ -196,15 +196,15 @@
     },
     {
       "id": "tile5",
-      "name": "Authentic Sweatsuit — Grey Edition",
+      "name": "Grey R4R Sweatsuit",
       "price": 65,
       "stock": 20,
       "category": "Sweatsuits",
       "sku": "AUTH-GREY",
       "image": "graynew.jpeg",
-      "color": "Grey",
+      "color": "Grey / White",
       "sizes": "XS, S, M, L, XL, XXL",
-      "description": "",
+      "description": "Grey sweatsuit · R4R logo",
       "active": true,
       "variants": [
         {
@@ -241,7 +241,7 @@
     },
     {
       "id": "track6",
-      "name": "Tracksuit — Black Edition",
+      "name": "Black Thunderbolt R4R Sweatsuit",
       "price": 85,
       "stock": 10,
       "category": "Tracksuits",
@@ -249,7 +249,7 @@
       "image": "1.jpg",
       "color": "Black / Yellow",
       "sizes": "S, M, L, XL, 2XL",
-      "description": "",
+      "description": "Black sweatsuit · Yellow Thunderbolt / R4R",
       "active": true,
       "variants": [
         {
@@ -286,15 +286,15 @@
     },
     {
       "id": "track7",
-      "name": "Tracksuit — Grey Edition",
+      "name": "Grey Thunderbolt R4R Sweatsuit",
       "price": 85,
       "stock": 10,
       "category": "Tracksuits",
       "sku": "TRACK-GREY",
       "image": "7.jpg",
-      "color": "Gray / Yellow",
+      "color": "Grey / Yellow",
       "sizes": "S, M, L, XL, 2XL",
-      "description": "",
+      "description": "Grey sweatsuit · Yellow Thunderbolt / R4R",
       "active": true,
       "variants": [
         {
