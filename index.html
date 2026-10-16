@@ -225,31 +225,6 @@ video.addEventListener("canplay",start,{once:true});
 document.addEventListener("visibilitychange",()=>{if(!document.hidden)start();});
 document.querySelectorAll(".video-thumb").forEach(function(t){t.addEventListener("click",function(){document.querySelectorAll(".video-thumb").forEach(x=>x.classList.remove("active"));t.classList.add("active");video.pause();video.src=t.dataset.src;video.load();video.muted=false;const p=video.play();if(p&&p.catch)p.catch(function(){});});});
 })();
-</script><style>body.passcode-locked{visibility:hidden}#passcodeGate{position:fixed;inset:0;z-index:999999;background:#050505;color:#fff;display:flex;align-items:center;justify-content:center;font-family:Arial,sans-serif;visibility:visible}#passcodeGate .gate-card{width:min(90%,380px);padding:28px;background:#111;border:1px solid #d4a017;border-radius:12px;text-align:center}#passcodeGate h2{margin:0 0 16px;color:#d4a017}#passcodeGate input{width:100%;padding:12px;background:#222;color:#fff;border:1px solid #555;border-radius:7px;font-size:16px;margin-bottom:12px}#passcodeGate button{width:100%;padding:12px;background:#d4a017;color:#000;border:0;border-radius:7px;font-weight:bold;cursor:pointer}#passcodeError{color:#ff6b6b;font-size:13px;min-height:18px}</style>
-<div id="passcodeGate"><div class="gate-card"><h2>Real 4 Real Store</h2><p>Enter passcode to continue</p><form id="passcodeForm"><input id="passcodeInput" type="password" placeholder="Passcode" autocomplete="current-password" required><button type="submit">UNLOCK</button><div id="passcodeError" role="alert"></div></form></div></div>
-<script>
-(function(){
- const PASSCODE="6524";
- document.body.classList.add("passcode-locked");
- const gate=document.getElementById("passcodeGate");
- document.getElementById("passcodeForm").addEventListener("submit",function(e){
-  e.preventDefault();
-  if(document.getElementById("passcodeInput").value===PASSCODE){
-   gate.remove();document.body.classList.remove("passcode-locked");
-   // Start playback directly from the successful unlock gesture for browser audio policies.
-   const media=document.getElementById("siteVideo");
-   if(media){
-    media.autoplay=true;media.loop=true;media.playsInline=true;media.muted=false;media.defaultMuted=false;media.volume=1;
-    const startMedia=()=>{const playPromise=media.play();if(playPromise&&playPromise.catch)playPromise.catch(()=>{});};
-    startMedia();
-    media.addEventListener("canplay",startMedia,{once:true});
-   }
-  }else{
-   document.getElementById("passcodeError").textContent="Incorrect passcode. Try again.";
-   document.getElementById("passcodeInput").value="";
-  }
- });
-})();
 </script>
 <script id="r4r-live-catalog">
 /* Load shared product data. Existing seven tiles keep their original layout;
