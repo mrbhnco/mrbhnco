@@ -93,7 +93,7 @@
 </div>
 </section>
 <section class="video-side"><div class="main-video-wrap"><video id="siteVideo" autoplay loop playsinline><source src="/video5.mp4" type="video/mp4"></video></div>
-<button type="button" id="soundToggle" class="sound-toggle">TAP FOR SOUND</button><div class="video-thumbs"><div class="video-thumb active" data-src="/video5.mp4"><img src="r4r.png" alt="R4R" style="opacity:0.5"></div><div class="video-thumb" data-src="vid.mp4"><img src="mark.png" alt="Mark" style="opacity:0.5"></div></div></section>
+<div class="video-thumbs"><div class="video-thumb active" data-src="/video5.mp4"><img src="r4r.png" alt="R4R" style="opacity:0.5"></div><div class="video-thumb" data-src="vid.mp4"><img src="mark.png" alt="Mark" style="opacity:0.5"></div></div></section>
 </main>
 <section id="checkout" class="checkout"><div class="checkout-inner"><button type="button" id="back" class="back-btn">← BACK</button><div id="embeddedCheckoutPanel" class="embedded-panel"><div class="embedded-heading"><span>Secure Stripe Checkout</span><button type="button" id="closeEmbeddedCheckout" class="embedded-close">← BACK TO STORE</button></div><div id="embedded-checkout"></div></div>
 <div class="checkout-card"><h2>Order</h2><div id="orderItems"></div><div class="row" style="display:none"><strong>Subtotal</strong><strong id="checkoutSubtotal">$0.00</strong></div>
@@ -217,16 +217,12 @@ document.getElementById("stripePay").addEventListener("click", async function(){
 });
 
 const video=document.getElementById("siteVideo");
-const soundToggle=document.getElementById("soundToggle");
-video.muted=true;video.defaultMuted=true;video.volume=1;video.loop=true;video.autoplay=true;video.playsInline=true;
+video.muted=false;video.defaultMuted=false;video.volume=1;video.loop=true;video.autoplay=true;video.playsInline=true;
 const startVideo=()=>{const p=video.play();if(p&&p.catch)p.catch(()=>{});};
-const enableSound=()=>{video.muted=false;video.defaultMuted=false;video.volume=1;startVideo();soundToggle.textContent="SOUND ON";};
 startVideo();
 video.addEventListener("loadeddata",startVideo);
 video.addEventListener("canplay",startVideo,{once:true});
 document.addEventListener("visibilitychange",()=>{if(!document.hidden)startVideo();});
-soundToggle.addEventListener("click",function(){if(video.muted){enableSound();}else{video.muted=true;video.defaultMuted=true;soundToggle.textContent="TAP FOR SOUND";}});
-video.addEventListener("click",function(){if(video.muted)enableSound();});
 document.querySelectorAll(".video-thumb").forEach(function(t){t.addEventListener("click",function(){document.querySelectorAll(".video-thumb").forEach(x=>x.classList.remove("active"));t.classList.add("active");video.pause();video.src=t.dataset.src;video.load();startVideo();});});
 })();
 </script>
