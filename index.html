@@ -33,6 +33,7 @@
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
+    z-index: 1;
   }
   #enter-btn {
     background: transparent;
@@ -59,6 +60,7 @@
     background: var(--black);
     opacity: 0;
     visibility: hidden;
+    z-index: 10;
     transition: opacity 0.6s ease, filter 1.2s ease;
   }
   #experience.show { opacity: 1; visibility: visible; }
@@ -143,6 +145,17 @@
   const mainVideo = document.getElementById('main-video');
   const store = document.getElementById('store');
 
+  let transitioned = false;
+
+  function goToStore() {
+    if (transitioned) return;
+    transitioned = true;
+    experience.classList.add('blur-out');
+    setTimeout(() => {
+      store.classList.add('show');
+    }, 500);
+  }
+
   enterBtn.addEventListener('click', () => {
     enterScreen.classList.add('hide');
     setTimeout(() => {
@@ -151,12 +164,18 @@
     }, 600);
   });
 
-  mainVideo.addEventListener('ended', () => {
-    experience.classList.add('blur-out');
-    setTimeout(() => {
-      store.classList.add('show');
-    }, 400);
+  mainVideo.addEventListener('ended', goToStore);
+  mainVideo.addEventListener('error', () => {
+    console.error('Video failed to load');
+    goToStore();
   });
+
+  // Safety fallback in case ended never fires
+  setTimeout(() => {
+    if (experience.classList.contains('show') && !transitioned) {
+      goToStore();
+    }
+  }, 25000);
 </script>
 </body>
 </html>
