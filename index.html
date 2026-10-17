@@ -17,6 +17,8 @@
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     overflow: hidden;
   }
+
+  /* ENTER */
   #enter-screen {
     position: fixed;
     inset: 0;
@@ -49,29 +51,28 @@
     color: var(--black);
     border-color: var(--white);
   }
+
+  /* VIDEO EXPERIENCE */
   #experience {
     position: fixed;
     inset: 0;
     background: var(--black);
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.6s ease;
+    transition: opacity 0.6s ease, filter 1.2s ease;
   }
-  #experience.show {
-    opacity: 1;
-    visibility: visible;
-  }
+  #experience.show { opacity: 1; visibility: visible; }
+  #experience.blur-out { filter: blur(12px); opacity: 0; }
+
   #panels {
     position: absolute;
     inset: 0;
     display: flex;
-    transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-direction: column;
+    transition: opacity 1s ease, transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  #panels.hide {
-    opacity: 0;
-    transform: scale(0.96);
-    pointer-events: none;
-  }
+  #panels.hide { opacity: 0; transform: scale(1.05); pointer-events: none; }
+
   .panel {
     flex: 1;
     position: relative;
@@ -79,15 +80,16 @@
   }
   .panel video {
     position: absolute;
-    top: 0;
-    height: 100%;
-    width: 300%;
+    left: 0;
+    width: 100%;
+    height: 300%;
     object-fit: cover;
     pointer-events: none;
   }
-  .panel:nth-child(1) video { left: 0; }
-  .panel:nth-child(2) video { left: -100%; }
-  .panel:nth-child(3) video { left: -200%; }
+  .panel:nth-child(1) video { top: 0; }
+  .panel:nth-child(2) video { top: -100%; }
+  .panel:nth-child(3) video { top: -200%; }
+
   #joined {
     position: absolute;
     inset: 0;
@@ -96,97 +98,65 @@
     justify-content: center;
     opacity: 0;
     pointer-events: none;
-    transition: all 1.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  #joined.show {
-    opacity: 1;
-    pointer-events: auto;
-  }
-  #joined.shifted {
-    left: 66.66%;
-    width: 33.33%;
-    top: 0;
-    height: 100%;
-  }
+  #joined.show { opacity: 1; pointer-events: auto; }
   #main-video {
-    height: 88vh;
-    max-width: 92%;
-    object-fit: contain;
-    border-radius: 6px;
-    transition: all 1.6s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  #joined.shifted #main-video {
-    height: 100%;
-    max-width: 100%;
     width: 100%;
-    object-fit: cover;
-    border-radius: 0;
-  }
-  #website {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 66.66%;
     height: 100%;
-    background: var(--black);
+    object-fit: contain;
+  }
+
+  /* STORE */
+  #store {
+    position: fixed;
+    inset: 0;
+    background: #111;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 3rem 2rem;
+    padding: 2rem;
     opacity: 0;
-    transform: translateX(-40px);
+    filter: blur(12px);
     pointer-events: none;
-    transition: all 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 1.2s ease, filter 1.2s ease;
+    z-index: 500;
   }
-  #website.show {
+  #store.show {
     opacity: 1;
-    transform: translateX(0);
+    filter: blur(0);
     pointer-events: auto;
   }
-  #website h1 {
-    font-size: clamp(2rem, 5vw, 3.2rem);
+  #store h1 {
+    font-size: clamp(2rem, 5vw, 3.4rem);
     font-weight: 500;
     letter-spacing: 0.12em;
-    margin-bottom: 0.6rem;
+    margin-bottom: 1rem;
   }
-  #website p {
+  #store p {
     font-size: 1.15rem;
     opacity: 0.75;
-    margin-bottom: 2.2rem;
+    margin-bottom: 2rem;
   }
-  #website a {
+  #store a {
     display: inline-block;
     background: var(--white);
     color: var(--black);
-    padding: 0.95rem 2.4rem;
-    font-size: 0.95rem;
+    padding: 1rem 2.6rem;
+    font-size: 1rem;
     font-weight: 600;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.16em;
     text-decoration: none;
     text-transform: uppercase;
     transition: transform 0.3s ease;
   }
-  #website a:hover {
-    transform: scale(1.04);
-  }
-  @media (max-width: 900px) {
-    #website { width: 100%; }
-    #joined.shifted {
-      left: 0;
-      width: 100%;
-      top: 40%;
-      height: 60%;
-    }
-    #joined.shifted #main-video {
-      height: 100%;
-      object-fit: contain;
-    }
-  }
+  #store a:hover { transform: scale(1.04); }
 </style>
 </head>
 <body>
+
   <div id="enter-screen">
     <button id="enter-btn">Enter</button>
   </div>
@@ -197,18 +167,17 @@
       <div class="panel"><video muted playsinline loop preload="auto"></video></div>
       <div class="panel"><video muted playsinline loop preload="auto"></video></div>
     </div>
-
     <div id="joined">
       <video id="main-video" playsinline preload="auto">
-        <source src="promo.mp4" type="video/mp4">
+        <source src="Download.mp4" type="video/mp4">
       </video>
     </div>
+  </div>
 
-    <div id="website">
-      <h1>REAL FOR REAL</h1>
-      <p>Choose the rest</p>
-      <a href="https://mrbhnco.com/" target="_blank" rel="noopener">mrbhnco.com</a>
-    </div>
+  <div id="store">
+    <h1>REAL FOR REAL</h1>
+    <p>Welcome to the store</p>
+    <a href="https://mrbhnco.com/" target="_blank" rel="noopener">Shop Now</a>
   </div>
 
 <script>
@@ -219,39 +188,37 @@
   const splitVideos = document.querySelectorAll('#panels video');
   const joined = document.getElementById('joined');
   const mainVideo = document.getElementById('main-video');
-  const website = document.getElementById('website');
+  const store = document.getElementById('store');
 
-  const videoSrc = 'promo.mp4';
+  const videoSrc = 'Download.mp4';
   splitVideos.forEach(v => { v.src = videoSrc; });
   mainVideo.querySelector('source').src = videoSrc;
   mainVideo.load();
 
   enterBtn.addEventListener('click', () => {
     enterScreen.classList.add('hide');
-
     setTimeout(() => {
       experience.classList.add('show');
       splitVideos.forEach(v => v.play().catch(() => {}));
-      setTimeout(join, 7000);
-    }, 700);
+      setTimeout(joinFull, 4000);
+    }, 600);
   });
 
-  function join() {
+  function joinFull() {
     panels.classList.add('hide');
     setTimeout(() => {
       joined.classList.add('show');
-      mainVideo.currentTime = 7;
+      mainVideo.currentTime = 4;
       mainVideo.play().catch(() => {});
-      setTimeout(revealSite, 9000);
-    }, 700);
+    }, 600);
   }
 
-  function revealSite() {
-    joined.classList.add('shifted');
-    website.classList.add('show');
-  }
-
-  mainVideo.addEventListener('ended', revealSite);
+  mainVideo.addEventListener('ended', () => {
+    experience.classList.add('blur-out');
+    setTimeout(() => {
+      store.classList.add('show');
+    }, 400);
+  });
 </script>
 </body>
 </html>
