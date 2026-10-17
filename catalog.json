@@ -227,7 +227,7 @@
     },
     {
       "id": "track6",
-      "name": "Black Thunderbolt R4R Sweatsuit 5",
+      "name": "Black Thunderbolt R4R Sweatsuit",
       "price": 85,
       "stock": 10,
       "category": "Tracksuits",
@@ -340,5 +340,5 @@
     "lowStockThreshold": 5
   },
   "coupons": [],
-  "updatedAt": "2026-10-17T11:58:24.088Z"
+  "updatedAt": "2026-10-17T11:58:51.356Z"
 }
