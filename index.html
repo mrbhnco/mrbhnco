@@ -92,7 +92,7 @@
 <p class="small">Development preview only. Orders and payments are not transmitted or processed.</p>
 </div>
 </section>
-<section class="video-side"><div class="main-video-wrap"><video id="siteVideo" autoplay loop playsinline><source src="/video5.mp4" type="video/mp4"></video></div>
+<section class="video-side"><div class="main-video-wrap"><video id="siteVideo" autoplay muted loop playsinline preload="auto"><source src="/video5.mp4" type="video/mp4"></video></div>
 <div class="video-thumbs"><div class="video-thumb active" data-src="/video5.mp4"><img src="r4r.png" alt="R4R" style="opacity:0.5"></div><button type="button" class="video-thumb" data-src="/vid.mp4" aria-label="Play Mark video"><img src="mark.png" alt="Mark" style="opacity:0.5"></button></div></section>
 </main>
 <section id="checkout" class="checkout"><div class="checkout-inner"><button type="button" id="back" class="back-btn">← BACK</button><div id="embeddedCheckoutPanel" class="embedded-panel"><div class="embedded-heading"><span>Secure Stripe Checkout</span><button type="button" id="closeEmbeddedCheckout" class="embedded-close">← BACK TO STORE</button></div><div id="embedded-checkout"></div></div>
@@ -180,7 +180,7 @@ document.getElementById("back").addEventListener("click",function(){
   document.getElementById("shop").style.display="flex";
   window.scrollTo(0,0);
 });
-document.getElementById("stripePay").addEventListener("click", async function(){
+document.getElementById("stripePay")?.addEventListener("click", async function(){
   if(!cartItems.length){alert("Add items to cart first.");return;}
   const button=this, originalText=button.textContent;
   button.disabled=true; button.textContent="Opening secure checkout…";
@@ -229,8 +229,9 @@ function playCurrentVideo(){
   const result=video.play();
   if(result && typeof result.catch==="function"){
     result.then(()=>{ video.controls=false; }).catch(()=>{
-      // Autoplay with sound can be blocked by the browser. Keep the video usable.
-      video.controls=true;
+      // If the browser blocks playing with sound, keep playing muted. Never show controls.
+      video.controls=false;
+      if(!video.muted){ video.muted=true; video.play().catch(()=>{}); }
     });
   }
 }
@@ -271,8 +272,18 @@ document.querySelectorAll(".video-thumb").forEach(tile=>{
     chooseVideo(tile);
   });
 });
+// Browsers never allow autoplay WITH sound. Turn sound on at the visitor's first tap/click/key.
+const enableSound=()=>{
+  ["click","touchend","keydown"].forEach(t=>document.removeEventListener(t,enableSound,true));
+  soundRequested=true;
+  video.muted=false;
+  video.defaultMuted=false;
+  video.volume=1;
+  if(video.paused) playCurrentVideo();
+};
+["click","touchend","keydown"].forEach(t=>document.addEventListener(t,enableSound,true));
 video.addEventListener("error",()=>{
-  video.controls=true;
+  video.controls=false;
   console.error("Video failed to load:",video.currentSrc,video.error);
 });
 
@@ -359,7 +370,7 @@ video.addEventListener("error",()=>{
       });
     }
     const videoUrl=data.settings && data.settings.videoUrl;
-    if(videoUrl){const video=document.querySelector("video");if(video && video.getAttribute("src")!==videoUrl){video.src=videoUrl;video.load();}}
+    if(videoUrl){const video=document.querySelector("video");const wanted=new URL(videoUrl,location.href).href;const active=document.querySelector(".video-thumb.active");const first=document.querySelector(".video-thumb");if(video && video.currentSrc!==wanted && (!active||active===first)){video.src=wanted;video.load();video.play().catch(()=>{});if(first)first.dataset.src=wanted;}}
   } catch (error) { console.warn("Shared catalog unavailable; showing storefront defaults.",error); }
 })();
 </script>
