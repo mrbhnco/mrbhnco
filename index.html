@@ -217,49 +217,64 @@ document.getElementById("stripePay").addEventListener("click", async function(){
 });
 
 const video=document.getElementById("siteVideo");
-video.loop=true;video.autoplay=true;video.playsInline=true;video.setAttribute("playsinline","");video.preload="auto";
-video.muted=true;video.defaultMuted=true;video.volume=1;
+video.loop=true;
+video.autoplay=true;
+video.playsInline=true;
+video.setAttribute("playsinline","");
+video.preload="auto";
+video.controls=false;
 let soundRequested=false;
+
 function playCurrentVideo(){
-  const attempt=video.play();
-  if(attempt&&attempt.then){
-    attempt.then(()=>{video.controls=false;}).catch(()=>{
-      /* If autoplay is blocked, expose native controls so the visitor can start it. */
+  const result=video.play();
+  if(result && typeof result.catch==="function"){
+    result.then(()=>{ video.controls=false; }).catch(()=>{
+      // Autoplay with sound can be blocked by the browser. Keep the video usable.
       video.controls=true;
     });
   }
 }
-function chooseVideo(t){
-  document.querySelectorAll(".video-thumb").forEach(x=>x.classList.remove("active"));
-  t.classList.add("active");
-  const selected=new URL(t.dataset.src,window.location.origin).href;
+
+function chooseVideo(tile){
+  document.querySelectorAll(".video-thumb").forEach(el=>el.classList.toggle("active",el===tile));
+  const selected=new URL(tile.dataset.src,window.location.href).href;
+  soundRequested=true;
   video.pause();
-  video.removeAttribute("src");
-  const source=video.querySelector("source");
-  if(source) source.remove();
-  video.src=selected;
-  video.muted=!soundRequested;
-  video.defaultMuted=!soundRequested;
+  video.controls=false;
+  video.muted=false;
+  video.defaultMuted=false;
   video.volume=1;
+  // Set the media URL directly; do not remove the source element or leave a stale source.
+  video.src=selected;
   video.load();
-  playCurrentVideo();
-  video.addEventListener("loadeddata",playCurrentVideo,{once:true});
-  video.addEventListener("canplay",playCurrentVideo,{once:true});
+  const playAfterReady=()=>{
+    video.muted=false;
+    video.defaultMuted=false;
+    video.volume=1;
+    playCurrentVideo();
+  };
+  video.addEventListener("canplay",playAfterReady,{once:true});
+  // Attempt immediately within the thumbnail click, then retry once the selected file is ready.
+  playAfterReady();
 }
+
+video.muted=true;
+video.defaultMuted=true;
+video.volume=1;
 playCurrentVideo();
-video.addEventListener("loadeddata",playCurrentVideo);
-document.addEventListener("visibilitychange",()=>{if(!document.hidden)playCurrentVideo();});
-function enableSoundAndPlay(){
-  soundRequested=true;
-  video.muted=false;video.defaultMuted=false;video.volume=1;
-  playCurrentVideo();
-}
-video.addEventListener("click",enableSoundAndPlay);
-document.querySelectorAll(".video-thumb").forEach(t=>t.addEventListener("click",()=>{
-  soundRequested=true;
-  chooseVideo(t);
-}));
-video.addEventListener("error",()=>{video.controls=true;});
+video.addEventListener("loadeddata",()=>{ if(!soundRequested) playCurrentVideo(); });
+document.addEventListener("visibilitychange",()=>{ if(!document.hidden) playCurrentVideo(); });
+document.querySelectorAll(".video-thumb").forEach(tile=>{
+  tile.addEventListener("click",event=>{
+    event.preventDefault();
+    event.stopPropagation();
+    chooseVideo(tile);
+  });
+});
+video.addEventListener("error",()=>{
+  video.controls=true;
+  console.error("Video failed to load:",video.currentSrc,video.error);
+});
 
 })();
 </script>
