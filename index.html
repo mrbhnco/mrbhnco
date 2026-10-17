@@ -218,24 +218,49 @@ document.getElementById("stripePay").addEventListener("click", async function(){
 
 const video=document.getElementById("siteVideo");
 video.loop=true;video.autoplay=true;video.playsInline=true;video.setAttribute("playsinline","");video.preload="auto";
-/* Browsers block autoplay with sound. Start the picture muted so it reliably plays,
-   then enable sound directly from the visitor's thumbnail/video click. */
 video.muted=true;video.defaultMuted=true;video.volume=1;
-const playVideo=()=>{const p=video.play();if(p&&p.catch)p.catch(()=>{});};
-playVideo();
-video.addEventListener("loadedmetadata",playVideo);
-video.addEventListener("canplay",playVideo);
-document.addEventListener("visibilitychange",()=>{if(!document.hidden)playVideo();});
-const enableSoundAndPlay=()=>{video.muted=false;video.defaultMuted=false;video.volume=1;playVideo();};
-video.addEventListener("click",enableSoundAndPlay);
-document.querySelectorAll(".video-thumb").forEach(function(t){t.addEventListener("click",function(){
-  document.querySelectorAll(".video-thumb").forEach(x=>x.classList.remove("active"));t.classList.add("active");
+let soundRequested=false;
+function playCurrentVideo(){
+  const attempt=video.play();
+  if(attempt&&attempt.then){
+    attempt.then(()=>{video.controls=false;}).catch(()=>{
+      /* If autoplay is blocked, expose native controls so the visitor can start it. */
+      video.controls=true;
+    });
+  }
+}
+function chooseVideo(t){
+  document.querySelectorAll(".video-thumb").forEach(x=>x.classList.remove("active"));
+  t.classList.add("active");
   const selected=new URL(t.dataset.src,window.location.origin).href;
-  video.pause();video.src=selected;video.muted=false;video.defaultMuted=false;video.volume=1;video.load();
-  /* Call play immediately in the click gesture, and retry when the new file is ready. */
-  playVideo();
-  video.addEventListener("canplay",enableSoundAndPlay,{once:true});
-});});
+  video.pause();
+  video.removeAttribute("src");
+  const source=video.querySelector("source");
+  if(source) source.remove();
+  video.src=selected;
+  video.muted=!soundRequested;
+  video.defaultMuted=!soundRequested;
+  video.volume=1;
+  video.load();
+  playCurrentVideo();
+  video.addEventListener("loadeddata",playCurrentVideo,{once:true});
+  video.addEventListener("canplay",playCurrentVideo,{once:true});
+}
+playCurrentVideo();
+video.addEventListener("loadeddata",playCurrentVideo);
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)playCurrentVideo();});
+function enableSoundAndPlay(){
+  soundRequested=true;
+  video.muted=false;video.defaultMuted=false;video.volume=1;
+  playCurrentVideo();
+}
+video.addEventListener("click",enableSoundAndPlay);
+document.querySelectorAll(".video-thumb").forEach(t=>t.addEventListener("click",()=>{
+  soundRequested=true;
+  chooseVideo(t);
+}));
+video.addEventListener("error",()=>{video.controls=true;});
+
 })();
 </script>
 <script id="r4r-live-catalog">
