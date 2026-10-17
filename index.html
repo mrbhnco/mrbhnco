@@ -93,7 +93,7 @@
 </div>
 </section>
 <section class="video-side"><div class="main-video-wrap"><video id="siteVideo" autoplay loop playsinline><source src="/video5.mp4" type="video/mp4"></video></div>
-<div class="video-thumbs"><div class="video-thumb active" data-src="/video5.mp4"><img src="r4r.png" alt="R4R" style="opacity:0.5"></div><div class="video-thumb" data-src="vid.mp4"><img src="mark.png" alt="Mark" style="opacity:0.5"></div></div></section>
+<div class="video-thumbs"><div class="video-thumb active" data-src="/video5.mp4"><img src="r4r.png" alt="R4R" style="opacity:0.5"></div><div class="video-thumb" data-src="/vid.mp4"><img src="mark.png" alt="Mark" style="opacity:0.5"></div></div></section>
 </main>
 <section id="checkout" class="checkout"><div class="checkout-inner"><button type="button" id="back" class="back-btn">← BACK</button><div id="embeddedCheckoutPanel" class="embedded-panel"><div class="embedded-heading"><span>Secure Stripe Checkout</span><button type="button" id="closeEmbeddedCheckout" class="embedded-close">← BACK TO STORE</button></div><div id="embedded-checkout"></div></div>
 <div class="checkout-card"><h2>Order</h2><div id="orderItems"></div><div class="row" style="display:none"><strong>Subtotal</strong><strong id="checkoutSubtotal">$0.00</strong></div>
@@ -223,7 +223,7 @@ startVideo();
 video.addEventListener("loadeddata",startVideo);
 video.addEventListener("canplay",startVideo,{once:true});
 document.addEventListener("visibilitychange",()=>{if(!document.hidden)startVideo();});
-document.querySelectorAll(".video-thumb").forEach(function(t){t.addEventListener("click",function(){document.querySelectorAll(".video-thumb").forEach(x=>x.classList.remove("active"));t.classList.add("active");video.pause();video.src=t.dataset.src;video.load();startVideo();});});
+document.querySelectorAll(".video-thumb").forEach(function(t){t.addEventListener("click",function(){document.querySelectorAll(".video-thumb").forEach(x=>x.classList.remove("active"));t.classList.add("active");video.pause();video.src=new URL(t.dataset.src,window.location.origin).href;video.load();const playSelected=()=>{const p=video.play();if(p&&p.catch)p.catch(()=>{});};video.addEventListener("canplay",playSelected,{once:true});video.addEventListener("loadeddata",playSelected,{once:true});});});
 })();
 </script>
 <script id="r4r-live-catalog">
