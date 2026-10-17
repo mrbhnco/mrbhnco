@@ -234,7 +234,7 @@
       "sku": "TRACK-BLACK",
       "image": "1.jpg",
       "color": "Black / Yellow",
-      "sizes": "S, M, L, XL, 2XL",
+      "sizes": "S, M, L, XL, 2XL, 99",
       "description": "Black sweatsuit · Yellow Thunderbolt / R4R",
       "active": true,
       "variants": [
@@ -340,5 +340,5 @@
     "lowStockThreshold": 5
   },
   "coupons": [],
-  "updatedAt": "2026-10-17T11:55:30.277Z"
+  "updatedAt": "2026-10-17T11:55:56.454Z"
 }
