@@ -61,7 +61,374 @@
 
   <!-- FULL STORE LOADS HERE AUTOMATICALLY AFTER VIDEO -->
   <div id="store">
-    <!-- PASTE YOUR FULL STORE HTML CODE INSIDE THIS DIV -->
+    <!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Real 4 Real Store</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;background:#000;color:#fff;font-family:Arial,Helvetica,sans-serif}body{min-height:100vh}.page{display:flex;min-height:100vh}.left{flex:2.15;min-width:0;padding:8px 24px 36px;overflow:auto}.brand{text-align:center;margin:0 0 10px}.brand img{max-width:min(380px,88%);height:auto;display:block;margin:auto}.product-card{background:#111;border:1px solid #333;border-radius:12px;padding:14px;max-width:760px;margin:0 auto 16px}.product-top{display:flex;gap:14px}.product-image{flex:0 0 360px;min-height:280px;background:#fff;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center}.product-image img{width:100%;height:auto;max-height:520px;object-fit:contain;display:block}.product-details{flex:1;min-width:0}.product-details h2{margin:0;font-size:22px}.item-description{margin:5px 0 8px;color:#c9c9c9;font-size:12px;font-weight:700;letter-spacing:.035em;line-height:1.45}.price{display:none!important;font-size:20px;font-weight:700;color:#ffd700}.field-label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin:10px 0 5px}.color-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.color-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.color-thumb{border:2px solid #444;border-radius:6px;overflow:hidden;cursor:pointer;background:#fff;aspect-ratio:1;min-width:0}.color-thumb img{width:100%;height:calc(100% - 18px);object-fit:contain;display:block}.color-thumb span{display:block;font-size:10px;text-align:center;padding:3px 1px;background:#111;color:#fff}.color-thumb.active{border-color:#ffd700}select,input[type=number]{width:100%;padding:10px;border:1px solid #555;border-radius:6px;background:#1a1a1a;color:#fff;font-size:15px}.stock{font-size:13px;color:#aaa;margin:8px 0}.add-btn,.place-btn{width:100%;border:0;border-radius:8px;padding:14px;background:#d4a017;color:#000;font-size:16px;font-weight:900;cursor:pointer;margin-top:6px;position:relative}.add-btn.blink{animation:blink .4s 2}.add-btn:disabled{background:#222;color:#e6c200;border:1px solid #d4a017;cursor:not-allowed;opacity:1;font-family:Georgia,"Times New Roman",serif;font-size:20px;font-style:italic;letter-spacing:.08em;text-transform:uppercase}.popup{position:absolute;right:-110px;top:50%;transform:translateY(-50%);background:#e6c200;color:#000;font-size:12px;font-weight:700;padding:4px 8px;border-radius:4px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s}.popup.show{opacity:1}@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}.cart{max-width:760px;margin:16px auto 0;padding-top:12px;border-top:1px solid #333}.cart-list{margin-bottom:12px;font-size:14px}.cart-item{display:flex;justify-content:space-between;align-items:center;margin:6px 0;padding:6px 0;border-bottom:1px solid #333}.cart-item .x{background:#900;color:#fff;border:0;border-radius:4px;padding:2px 6px;cursor:pointer;font-size:12px;margin-left:8px}.subtotal-row,.row{display:flex;justify-content:space-between;gap:12px}.subtotal-row{display:none!important;font-size:22px;font-weight:800;margin-bottom:12px}.pay-btn{width:100%;border:0;border-radius:8px;padding:15px;background:#f00;color:#fff;font-size:18px;font-weight:900;cursor:pointer}.pay-btn:disabled{opacity:.45;cursor:not-allowed}.stripe-btn{display:block;width:100%;text-align:center;background:#635bff;color:#fff;font-weight:900;font-size:18px;padding:15px;border-radius:8px;border:0;cursor:pointer;margin-top:10px}.video-side{height:100vh;flex:1.15;min-width:300px;background:#000;position:sticky;top:0}.main-video-wrap{position:absolute;inset:0;z-index:1;pointer-events:none}.main-video-wrap video{width:100%;height:100%;object-fit:cover;background:#000;pointer-events:none}.sound-toggle{position:absolute;right:12px;bottom:12px;z-index:5;border:1px solid #d4a017;border-radius:8px;background:rgba(0,0,0,.82);color:#ffd700;padding:11px 14px;font-weight:800;cursor:pointer}.video-thumbs{position:absolute;top:0;left:0;right:0;display:flex;gap:8px;padding:8px;z-index:9999;pointer-events:auto}.video-thumb{appearance:none;-webkit-appearance:none;padding:0;font:inherit;position:relative;z-index:10000;pointer-events:auto;flex:0 0 55px;height:36px;border:2px solid #ffd700;border-radius:6px;overflow:hidden;cursor:pointer;background:#111;opacity:0.65}.video-thumb img{width:100%;height:100%;object-fit:cover;display:block}.video-thumb.active{border-color:#fff;opacity:1}.checkout{display:none;min-height:100vh;padding:28px 16px;background:#050505}.checkout.show{display:block}.checkout-inner{max-width:640px;margin:0 auto}.back-btn{background:#111;color:#fff;border:1px solid #444;border-radius:8px;padding:10px 16px;font-weight:800;cursor:pointer;margin-bottom:16px}.checkout-card{background:#111;border:1px solid #2a2a2a;border-radius:14px;padding:20px;margin-bottom:18px}.checkout-card h2{color:#e6c200;margin:0 0 14px}.ship-row{display:flex;gap:10px;margin:12px 0}.ship{flex:1;border:1px solid #444;border-radius:10px;padding:12px;text-align:center;cursor:pointer;background:#1a1a1a}.ship.active{background:#e6c200;color:#000}label{display:block;margin-bottom:12px;font-weight:700}label input{display:block;width:100%;margin-top:5px;padding:12px;border:1px solid #444;border-radius:8px;background:#1a1a1a;color:#fff}.note{color:#bbb;font-size:13px}.pay-opt{padding:10px;border:1px solid #444;border-radius:8px;margin:8px 0}.small{color:#aaa;font-size:12px;line-height:1.5}.embedded-panel{display:none;background:#fff;color:#111;border-radius:14px;padding:12px;min-height:520px;margin:0 auto 18px}.embedded-panel.show{display:block}.embedded-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#111;padding:4px 4px 12px;font-weight:800}.embedded-close{background:#111;color:#fff;border:0;border-radius:6px;padding:8px 12px;cursor:pointer}#embedded-checkout{min-height:460px}
+@media(max-width:900px){.page{display:block}.left{padding:6px 12px 28px;flex:none}.video-side{position:relative;width:100%;height:58vh;min-height:340px;flex:none}.product-top{flex-direction:column}.product-image{flex:auto;width:100%;min-height:240px}.video-thumb{flex-basis:40px;height:28px}.popup{right:0;top:-28px;transform:none}}
+
+/* Hide only the PAY / CHECKOUT button above Stripe; keep cart and ordering active. */
+#pay{display:none!important}
+</style>
+<script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+<main id="shop" class="page">
+<section class="left">
+<div class="brand"><img src="eLzdZ.jpg" alt="Real 4 Real"></div>
+
+<!-- Bikini -->
+<div class="product-card"><div class="product-top">
+<div class="product-image"><img id="bikiniImage" src="bikini-model-black-yellow.jpg" alt="Bikini"></div>
+<div class="product-details"><h2>Real4Real Worldwide Bikini</h2><div class="item-description">Black / Yellow logo</div><div class="price">$50.00</div><div class="field-label">Choose Color</div>
+<div class="color-grid">
+<div class="color-thumb active" data-img="bikini-model-black-yellow.jpg" data-target="bikini" data-color="Black / Yellow"><img src="bikini-black-yellow.jpg" alt=""><span>Black / Yellow</span></div>
+<div class="color-thumb" data-img="bikini-model-white-black.jpg" data-target="bikini" data-color="White / Black"><img src="bikini-white-black.jpg" alt=""><span>White / Black</span></div>
+<div class="color-thumb" data-img="bikini-model-red-white.jpg" data-target="bikini" data-color="Red / White"><img src="bikini-red-white.jpg" alt=""><span>Red / White</span></div>
+<div class="color-thumb" data-img="bikini-model-royal-blue.jpg" data-target="bikini" data-color="Royal Blue"><img src="bikini-royal-blue.jpg" alt=""><span>Royal Blue</span></div>
+<div class="color-thumb" data-img="bikini-model-pink-black.jpg" data-target="bikini" data-color="Pink / Black"><img src="bikini-pink-black.jpg" alt=""><span>Pink / Black</span></div>
+<div class="color-thumb" data-img="bikini-model-purple-white.jpg" data-target="bikini" data-color="Purple / White"><img src="bikini-purple-white.jpg" alt=""><span>Purple / White</span></div>
+</div>
+<div class="field-label">Size</div><select class="size" data-product="bikini"><option value="">Select size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select>
+<div class="field-label">Quantity</div><input type="number" class="qty" data-product="bikini" value="1" min="1" max="42"><div class="stock">In stock: 42</div>
+<button class="add-btn" data-product="bikini" data-price="50">ADD TO ORDER<div class="popup">Added to cart</div></button></div></div></div>
+
+<!-- Existing Tracksuit -->
+<div class="product-card"><div class="product-top">
+<div class="product-image"><img id="tracksuitImage" src="tracksuit-black-front (1).jpg" alt="Black tracksuit with yellow logo"></div>
+<div class="product-details"><h2>Black Real4Real Worldwide Sweatsuit</h2><div class="item-description">Black sweatsuit · Choose logo color below</div><div class="price">$50.00</div><div class="field-label">Choose Color</div>
+<div class="color-grid">
+<div class="color-thumb active" data-img="DWPqo.jpg" data-target="tracksuit" data-color="Black / Yellow"><img src="DWPqo.jpg" alt="Black tracksuit with yellow logo"><span>Black / Yellow</span></div>
+<div class="color-thumb" data-img="YW3MF.jpg" data-target="tracksuit" data-color="Black / White"><img src="YW3MF.jpg" alt="Black / White"><span>Black / White</span></div>
+<div class="color-thumb" data-img="MQmUP.jpg" data-target="tracksuit" data-color="Black / Red"><img src="MQmUP.jpg" alt="Black / Red"><span>Black / Red</span></div>
+<div class="color-thumb" data-img="ijtHJ.jpg" data-target="tracksuit" data-color="Black / Green"><img src="ijtHJ.jpg" alt="Black / Green"><span>Black / Green</span></div>
+<div class="color-thumb" data-img="CAyNi.jpg" data-target="tracksuit" data-color="Black / Blue"><img src="CAyNi.jpg" alt="Black / Blue"><span>Black / Blue</span></div>
+<div class="color-thumb" data-img="tracksuit-black-front (1).jpg" data-target="tracksuit" data-color="Black / Grey"><img src="tracksuit-black-front (1).jpg" alt="Black tracksuit with grey logo"><span>Black / Grey</span></div>
+</div>
+<div class="field-label">Size</div><select class="size" data-product="tracksuit"><option value="">Select size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select>
+<div class="field-label">Quantity</div><input type="number" class="qty" data-product="tracksuit" value="1" min="1" max="28"><div class="stock">In stock: 28</div>
+<button class="add-btn" data-product="tracksuit" data-price="50">ADD TO ORDER<div class="popup">Added to cart</div></button></div></div></div>
+
+<!-- Third Tracksuit (blacknew + graynew) -->
+<div class="product-card"><div class="product-top">
+<div class="product-image"><img id="newTracksuitImage" src="blacknew.jpeg" alt="Tracksuit"></div>
+<div class="product-details">
+<h2>Black R4R Sweatsuit</h2><div class="item-description">Black sweatsuit · R4R logo</div>
+<div class="price">$65.00</div>
+<div class="field-label">Choose Color</div>
+<div class="color-grid"><div class="color-thumb active" data-img="g6R3t.jpg" data-target="newtrack" data-color="Black / Yellow"><img src="g6R3t.jpg" alt="Black / Yellow"><span>Black / Yellow</span></div><div class="color-thumb" data-img="LZPk0.jpg" data-target="newtrack" data-color="Black / White"><img src="LZPk0.jpg" alt="Black / White"><span>Black / White</span></div><div class="color-thumb" data-img="nJjxr.jpg" data-target="newtrack" data-color="Black / Red"><img src="nJjxr.jpg" alt="Black / Red"><span>Black / Red</span></div><div class="color-thumb" data-img="AFO8J.jpg" data-target="newtrack" data-color="Black / Green"><img src="AFO8J.jpg" alt="Black / Green"><span>Black / Green</span></div><div class="color-thumb" data-img="qjBuO.jpg" data-target="newtrack" data-color="Black / Blue"><img src="qjBuO.jpg" alt="Black / Blue"><span>Black / Blue</span></div><div class="color-thumb" data-img="blacknew.jpeg" data-target="newtrack" data-color="Black / Grey"><img src="blacknew.jpeg" alt="Black / Grey"><span>Black / Grey</span></div></div>
+<div class="field-label">Size</div>
+<select class="size" data-product="newtrack"><option value="">Select size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select>
+<div class="field-label">Quantity</div>
+<input type="number" class="qty" data-product="newtrack" value="1" min="1" max="20">
+<div class="stock">In stock: 20</div>
+<button class="add-btn" data-product="newtrack" data-price="65">ADD TO ORDER<div class="popup">Added to cart</div></button>
+</div></div></div>
+
+<!-- Newly uploaded authentic sweatsuit images -->
+<div class="product-card"><div class="product-top">
+<div class="product-image"><img id="authSweatsuitImage" src="Igpd8.jpg" alt="Grey tracksuit with yellow logo"></div>
+<div class="product-details"><h2>Grey Real4Real Worldwide Sweatsuit</h2><div class="item-description">Grey sweatsuit · Choose logo color below</div><div class="price">$65.00</div>
+<div class="field-label">Choose Design</div>
+<div class="color-grid"><div class="color-thumb active" data-img="Igpd8.jpg" data-target="authsuit" data-color="Grey / Yellow"><img src="Igpd8.jpg" alt="Grey / Yellow"><span>Grey / Yellow</span></div><div class="color-thumb" data-img="kN3et.jpg" data-target="authsuit" data-color="Grey / White"><img src="kN3et.jpg" alt="Grey / White"><span>Grey / White</span></div><div class="color-thumb" data-img="NXEKj.jpg" data-target="authsuit" data-color="Grey / Red"><img src="NXEKj.jpg" alt="Grey / Red"><span>Grey / Red</span></div><div class="color-thumb" data-img="FbDYc (1).jpg" data-target="authsuit" data-color="Grey / Green"><img src="FbDYc (1).jpg" alt="Grey / Green"><span>Grey / Green</span></div><div class="color-thumb" data-img="XSP6Q.jpg" data-target="authsuit" data-color="Grey / Blue"><img src="XSP6Q.jpg" alt="Grey / Blue"><span>Grey / Blue</span></div><div class="color-thumb" data-img="tracksuit-grey-front (1).jpg" data-target="authsuit" data-color="Grey / Grey"><img src="tracksuit-grey-front (1).jpg" alt="Grey / Grey"><span>Grey / Grey</span></div></div>
+<div class="field-label">Size</div><select class="size" data-product="authsuit"><option value="">Select size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select>
+<div class="field-label">Quantity</div><input type="number" class="qty" data-product="authsuit" value="1" min="1" max="20"><div class="stock">In stock: 20</div>
+<button class="add-btn" data-product="authsuit" data-price="65">ADD TO ORDER<div class="popup">Added to cart</div></button></div></div></div>
+
+<!-- Tile 5 color variants -->
+<div class="product-card"><div class="product-top"><div class="product-image"><img id="tile5Image" src="Hqxxw.jpg" alt="Grey tracksuit with yellow and gray details"></div><div class="product-details"><h2>Grey R4R Sweatsuit</h2><div class="item-description">Grey sweatsuit · Choose logo color below</div><div class="price">$65.00</div><div class="field-label">Choose Color</div><div class="color-grid"><div class="color-thumb active" data-img="Hqxxw.jpg" data-target="tile5" data-color="Grey / Yellow"><img src="Hqxxw.jpg" alt="Grey / Yellow"><span>Grey / Yellow</span></div><div class="color-thumb" data-img="ArZTJ.jpg" data-target="tile5" data-color="Grey / White"><img src="ArZTJ.jpg" alt="Grey / White"><span>Grey / White</span></div><div class="color-thumb" data-img="jZRYy (2).jpg" data-target="tile5" data-color="Grey / Red"><img src="jZRYy (2).jpg" alt="Grey / Red"><span>Grey / Red</span></div><div class="color-thumb" data-img="KBUwC.jpg" data-target="tile5" data-color="Grey / Green"><img src="KBUwC.jpg" alt="Grey / Green"><span>Grey / Green</span></div><div class="color-thumb" data-img="1neSq.jpg" data-target="tile5" data-color="Grey / Blue"><img src="1neSq.jpg" alt="Grey / Blue"><span>Grey / Blue</span></div><div class="color-thumb" data-img="graynew.jpeg" data-target="tile5" data-color="Grey / Grey"><img src="graynew.jpeg" alt="Grey / Grey"><span>Grey / Grey</span></div></div><div class="field-label">Size</div><select class="size" data-product="tile5"><option value="">Select size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select><div class="field-label">Quantity</div><input type="number" class="qty" data-product="tile5" value="1" min="1" max="20"><button class="add-btn" data-product="tile5" data-price="65">ADD TO ORDER<div class="popup">Added to cart</div></button></div></div></div>
+
+<!-- TILE 6 - BLACK TRACKSUITS -->
+<div class="product-card" data-id="track6"><div class="product-top"><div class="product-image"><img id="preview-track6" src="1.jpg" alt="Tracksuit"></div><div class="product-details"><h2>Black Thunderbolt R4R Sweatsuit</h2><div class="item-description">Black sweatsuit · Yellow Thunderbolt / R4R</div><div class="price">$85.00</div><div class="field-label">Choose Color</div><div class="color-grid"><div class="color-thumb active" data-img="1.jpg" data-target="track6" data-color="Black / Yellow"><img src="1.jpg" alt="Black / Yellow"><span>Black / Yellow</span></div><div class="color-thumb" data-img="2.jpg" data-target="track6" data-color="Black / White"><img src="2.jpg" alt="Black / White"><span>Black / White</span></div><div class="color-thumb" data-img="3.jpg" data-target="track6" data-color="Black / Red"><img src="3.jpg" alt="Black / Red"><span>Black / Red</span></div><div class="color-thumb" data-img="4.jpg" data-target="track6" data-color="Black / Green"><img src="4.jpg" alt="Black / Green"><span>Black / Green</span></div><div class="color-thumb" data-img="5.jpg" data-target="track6" data-color="Black / Blue"><img src="5.jpg" alt="Black / Blue"><span>Black / Blue</span></div><div class="color-thumb" data-img="6.jpg" data-target="track6" data-color="Black / Gray"><img src="6.jpg" alt="Black / Gray"><span>Black / Gray</span></div></div><div class="field-label">Size</div><select class="size" data-product="track6"><option value="">Select size</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>2XL</option></select><div class="field-label">Quantity</div><input type="number" class="qty" data-product="track6" value="1" min="1" max="10"><button class="add-btn" data-product="track6" data-price="85">ADD TO ORDER<div class="popup">Added to cart</div></button></div></div></div>
+
+<!-- TILE 7 - GRAY TRACKSUITS -->
+<div class="product-card" data-id="track7"><div class="product-top"><div class="product-image"><img id="preview-track7" src="7.jpg" alt="Tracksuit"></div><div class="product-details"><h2>Grey Thunderbolt R4R Sweatsuit</h2><div class="item-description">Grey sweatsuit · Yellow Thunderbolt / R4R</div><div class="price">$85.00</div><div class="field-label">Choose Color</div><div class="color-grid"><div class="color-thumb active" data-img="7.jpg" data-target="track7" data-color="Gray / Yellow"><img src="7.jpg" alt="Gray / Yellow"><span>Gray / Yellow</span></div><div class="color-thumb" data-img="8.jpg" data-target="track7" data-color="Gray / White"><img src="8.jpg" alt="Gray / White"><span>Gray / White</span></div><div class="color-thumb" data-img="9.jpg" data-target="track7" data-color="Gray / Red"><img src="9.jpg" alt="Gray / Red"><span>Gray / Red</span></div><div class="color-thumb" data-img="10.jpg" data-target="track7" data-color="Gray / Green"><img src="10.jpg" alt="Gray / Green"><span>Gray / Green</span></div><div class="color-thumb" data-img="11.jpg" data-target="track7" data-color="Gray / Blue"><img src="11.jpg" alt="Gray / Blue"><span>Gray / Blue</span></div><div class="color-thumb" data-img="12.jpg" data-target="track7" data-color="Gray / Gray"><img src="12.jpg" alt="Gray / Gray"><span>Gray / Gray</span></div></div><div class="field-label">Size</div><select class="size" data-product="track7"><option value="">Select size</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>2XL</option></select><div class="field-label">Quantity</div><input type="number" class="qty" data-product="track7" value="1" min="1" max="10"><button class="add-btn" data-product="track7" data-price="85">ADD TO ORDER<div class="popup">Added to cart</div></button></div></div></div>
+<div class="cart">
+<div class="cart-list" id="mainCartList"></div>
+<div class="subtotal-row"><span>Subtotal</span><span id="subtotal">$0.00</span></div>
+<button id="pay" class="pay-btn" disabled>PAY / CHECKOUT</button>
+
+<p class="small">Development preview only. Orders and payments are not transmitted or processed.</p>
+</div>
+</section>
+<section class="video-side"><div class="main-video-wrap"><video id="siteVideo" autoplay loop playsinline><source src="/video5.mp4" type="video/mp4"></video></div>
+<div class="video-thumbs"><div class="video-thumb active" data-src="/video5.mp4"><img src="r4r.png" alt="R4R" style="opacity:0.5"></div><button type="button" class="video-thumb" data-src="/vid.mp4" aria-label="Play Mark video"><img src="mark.png" alt="Mark" style="opacity:0.5"></button></div></section>
+</main>
+<section id="checkout" class="checkout"><div class="checkout-inner"><button type="button" id="back" class="back-btn">← BACK</button><div id="embeddedCheckoutPanel" class="embedded-panel"><div class="embedded-heading"><span>Secure Stripe Checkout</span><button type="button" id="closeEmbeddedCheckout" class="embedded-close">← BACK TO STORE</button></div><div id="embedded-checkout"></div></div>
+<div class="checkout-card"><h2>Order</h2><div id="orderItems"></div><div class="row" style="display:none"><strong>Subtotal</strong><strong id="checkoutSubtotal">$0.00</strong></div>
+<div class="ship-row"><div class="ship active" data-cost="5.99"><strong>Standard</strong><div>3–5 business days</div></div><div class="ship" data-cost="10.99"><strong>Priority</strong><div>1–2 business days</div></div></div>
+<div class="row" style="display:none"><span>Shipping</span><span id="shippingCost">$5.99</span></div><div class="row" style="display:none"><strong>Total</strong><strong id="checkoutTotal">$0.00</strong></div></div>
+<div class="checkout-card"><h2>Customer Information</h2><form id="shippingForm"><label>Full name<input id="name" required></label><label>Email<input id="email" type="email" required></label><label>Phone<input id="phone" type="tel"></label><label>Street address<input id="address" required></label><label>City<input id="city" required></label><label>State<input id="state" required></label><label>ZIP<input id="zip" required></label></form></div>
+<div class="checkout-card"><h2>Payment Method</h2><div class="pay-opt">Credit Card — demo only</div><div class="pay-opt">PayPal — demo only</div><div class="pay-opt">Venmo or Zelle — demo only</div><p class="note">Practice mode. No payment will be taken and no order will be sent.</p><button type="button" id="placeOrder" class="place-btn">Place Practice Order</button></div></div></section>
+<script>
+(function(){
+const bikiniImage=document.getElementById("bikiniImage"),tracksuitImage=document.getElementById("tracksuitImage"),newTracksuitImage=document.getElementById("newTracksuitImage"),authSweatsuitImage=document.getElementById("authSweatsuitImage");
+const colors={bikini:"Black / Yellow",tracksuit:"Black / Yellow",newtrack:"Black / Yellow",authsuit:"Grey / Red",tile5:"Grey / Yellow",track6:"Black / Yellow",track7:"Gray / Yellow"};
+// All seven product tiles are previews until launch: disable ordering and show Coming Soon.
+document.querySelectorAll(".product-card .add-btn").forEach(function(btn){btn.disabled=true;btn.textContent="Coming Soon";});
+document.querySelectorAll(".color-thumb").forEach(function(t){t.addEventListener("click",function(){const target=t.dataset.target;document.querySelectorAll('.color-thumb[data-target="'+target+'"]').forEach(x=>x.classList.remove("active"));t.classList.add("active");colors[target]=t.dataset.color; if(target==="bikini")bikiniImage.src=t.dataset.img;else if(target==="tracksuit")tracksuitImage.src=t.dataset.img;else if(target==="newtrack")newTracksuitImage.src=t.dataset.img;else if(target==="authsuit")authSweatsuitImage.src=t.dataset.img;else if(target==="tile5")document.getElementById("tile5Image").src=t.dataset.img;else if(target==="track6")document.getElementById("preview-track6").src=t.dataset.img;else if(target==="track7")document.getElementById("preview-track7").src=t.dataset.img;});});
+let cartTotal=0,shippingCost=5.99,cartItems=[];
+function renderMainCart(){
+  const list=document.getElementById("mainCartList");
+  list.innerHTML="";
+  cartItems.forEach(function(item,i){
+    const row=document.createElement("div");
+    row.className="cart-item";
+    row.innerHTML=`<span>${item.name} — ${item.color} / ${item.size} × ${item.qty}</span><span><button class="x" data-i="${i}">✕</button></span>`;
+    list.appendChild(row);
+  });
+  list.querySelectorAll(".x").forEach(btn=>{
+    btn.onclick=function(){
+      const i=Number(btn.dataset.i);
+      cartTotal-=cartItems[i].price*cartItems[i].qty;
+      cartItems.splice(i,1);
+      document.getElementById("subtotal").textContent="$"+cartTotal.toFixed(2);
+      document.getElementById("pay").disabled=!cartItems.length;
+      renderMainCart();
+    };
+  });
+}
+document.addEventListener("click",function(event){
+  const btn=event.target.closest(".add-btn");
+  if(!btn || btn.disabled) return;
+  const product=btn.dataset.product,price=Number(btn.dataset.price);
+  if(!product || !Number.isFinite(price)) return;
+  const sizeEl=document.querySelector('.size[data-product="'+product+'"]');
+  const qtyEl=document.querySelector('.qty[data-product="'+product+'"]');
+  if(!sizeEl || !qtyEl){alert("This item is not ready to order yet.");return;}
+  const size=sizeEl.value;
+  const qty=Math.max(1,Math.min(Number(qtyEl.max)||99,parseInt(qtyEl.value,10)||1));
+  if(!size){alert("Please select a size.");return;}
+  const card=btn.closest(".product-card");
+  const title=card&&card.querySelector("h2");
+  const name=title?title.textContent.trim():(product==="bikini"?"Bikini":product==="authsuit"?"Authentic Sweatsuit":product==="tile5"?"Authentic Sweatsuit ("+(colors.tile5||"Grey")+")":product==="track6"?"Tracksuit (Black Edition)":product==="track7"?"Tracksuit (Gray Edition)":"Tracksuit");
+  const color=colors[product]||"Standard";
+  cartItems.push({productId:product,name,color,size,qty,price});
+  cartTotal+=price*qty;
+  document.getElementById("subtotal").textContent="$"+cartTotal.toFixed(2);
+  document.getElementById("pay").disabled=false;
+  renderMainCart();
+  btn.classList.add("blink");
+  const pop=btn.querySelector(".popup");
+  if(pop) pop.classList.add("show");
+  setTimeout(()=>{btn.classList.remove("blink");if(pop)pop.classList.remove("show");},800);
+});
+document.querySelectorAll(".ship").forEach(function(opt){opt.addEventListener("click",function(){document.querySelectorAll(".ship").forEach(o=>o.classList.remove("active"));opt.classList.add("active");shippingCost=Number(opt.dataset.cost);document.getElementById("shippingCost").textContent="$"+shippingCost.toFixed(2);document.getElementById("checkoutTotal").textContent="$"+(cartTotal+shippingCost).toFixed(2);});});
+document.getElementById("pay").addEventListener("click",function(){
+  if(!cartItems.length)return;
+  const list=document.getElementById("orderItems");
+  list.innerHTML="";
+  cartItems.forEach(function(item){
+    const row=document.createElement("div");
+    row.className="row";
+    row.innerHTML=`<span>${item.name} — ${item.color} / ${item.size} × ${item.qty}</span>`;
+    list.appendChild(row);
+  });
+  document.getElementById("checkoutSubtotal").textContent="$"+cartTotal.toFixed(2);
+  document.getElementById("checkoutTotal").textContent="$"+(cartTotal+shippingCost).toFixed(2);
+  document.getElementById("shippingCost").textContent="$"+shippingCost.toFixed(2);
+  document.getElementById("shop").style.display="none";
+  document.getElementById("checkout").classList.add("show");
+  document.getElementById("embeddedCheckoutPanel").classList.remove("show");
+  document.querySelectorAll(".checkout-inner > .checkout-card").forEach(el=>el.style.display="");
+  document.getElementById("back").style.display="";
+  window.scrollTo(0,0);
+});
+document.getElementById("back").addEventListener("click",function(){
+  document.getElementById("checkout").classList.remove("show");
+  document.getElementById("shop").style.display="flex";
+  window.scrollTo(0,0);
+});
+document.getElementById("stripePay").addEventListener("click", async function(){
+  if(!cartItems.length){alert("Add items to cart first.");return;}
+  const button=this, originalText=button.textContent;
+  button.disabled=true; button.textContent="Opening secure checkout…";
+  try {
+    const response=await fetch("/api/create-checkout-session",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({items:cartItems.map(item=>({productId:item.productId,color:item.color,size:item.size,quantity:item.qty})),shippingMethod:"standard"})});
+    const result=await response.json().catch(()=>({}));
+    if(!response.ok||!result.clientSecret||!result.publishableKey) throw new Error(result.error||"Unable to start embedded Stripe Checkout.");
+    document.getElementById("shop").style.display="none";
+    document.getElementById("checkout").classList.add("show");
+    document.getElementById("embeddedCheckoutPanel").classList.add("show");
+    document.querySelectorAll(".checkout-inner > .checkout-card").forEach(el=>el.style.display="none");
+    document.getElementById("back").style.display="none";
+    window.scrollTo(0,0);
+    const stripe=Stripe(result.publishableKey);
+    const checkout=await stripe.initEmbeddedCheckout({fetchClientSecret:async()=>result.clientSecret});
+    checkout.mount("#embedded-checkout");
+    document.getElementById("closeEmbeddedCheckout").onclick=function(){
+      try{checkout.destroy();}catch(e){}
+      document.getElementById("embedded-checkout").innerHTML="";
+      document.getElementById("embeddedCheckoutPanel").classList.remove("show");
+      document.getElementById("checkout").classList.remove("show");
+      document.getElementById("shop").style.display="flex";
+      document.getElementById("back").style.display="";
+      button.disabled=false;button.textContent=originalText;
+    };
+  } catch(error) {
+    alert(error.message||"Could not connect to embedded Stripe Checkout.");
+    button.disabled=false;button.textContent=originalText;
+    document.getElementById("shop").style.display="flex";
+    document.getElementById("checkout").classList.remove("show");
+    document.getElementById("embeddedCheckoutPanel").classList.remove("show");
+    document.getElementById("back").style.display="";
+  }
+});
+
+const video=document.getElementById("siteVideo");
+video.loop=true;
+video.autoplay=true;
+video.playsInline=true;
+video.setAttribute("playsinline","");
+video.preload="auto";
+video.controls=false;
+let soundRequested=false;
+
+function playCurrentVideo(){
+  const result=video.play();
+  if(result && typeof result.catch==="function"){
+    result.then(()=>{ video.controls=false; }).catch(()=>{
+      // Autoplay with sound can be blocked by the browser. Keep the video usable.
+      video.controls=true;
+    });
+  }
+}
+
+function chooseVideo(tile){
+  document.querySelectorAll(".video-thumb").forEach(el=>el.classList.toggle("active",el===tile));
+  const selected=new URL(tile.dataset.src,window.location.href).href;
+  soundRequested=true;
+  video.pause();
+  video.controls=false;
+  video.muted=false;
+  video.defaultMuted=false;
+  video.volume=1;
+  // Set the media URL directly; do not remove the source element or leave a stale source.
+  video.src=selected;
+  video.load();
+  const playAfterReady=()=>{
+    video.muted=false;
+    video.defaultMuted=false;
+    video.volume=1;
+    playCurrentVideo();
+  };
+  video.addEventListener("canplay",playAfterReady,{once:true});
+  // Attempt immediately within the thumbnail click, then retry once the selected file is ready.
+  playAfterReady();
+}
+
+video.muted=true;
+video.defaultMuted=true;
+video.volume=1;
+playCurrentVideo();
+video.addEventListener("loadeddata",()=>{ if(!soundRequested) playCurrentVideo(); });
+document.addEventListener("visibilitychange",()=>{ if(!document.hidden) playCurrentVideo(); });
+document.querySelectorAll(".video-thumb").forEach(tile=>{
+  tile.addEventListener("click",event=>{
+    event.preventDefault();
+    event.stopPropagation();
+    chooseVideo(tile);
+  });
+});
+video.addEventListener("error",()=>{
+  video.controls=true;
+  console.error("Video failed to load:",video.currentSrc,video.error);
+});
+
+})();
+</script>
+<script id="r4r-live-catalog">
+/* Load shared product data. Existing seven tiles keep their original layout;
+   extra products created in Admin are added as simple Coming Soon cards. */
+(async function(){
+  try {
+    const response = await fetch("/api/catalog",{cache:"no-store"});
+    if(!response.ok) return;
+    const payload = await response.json();
+    const data = payload && payload.data;
+    if(!data || !Array.isArray(data.inventory)) return;
+    const catalog = data.inventory;
+    const byId = new Map(catalog.map(p=>[String(p.id||p.sku||"").toLowerCase(),p]));
+    const knownIds = new Set(["bikini","tracksuit","newtrack","authsuit","tile5","track6","track7"]);
+    const findProduct = id => {
+      const key=String(id||"").toLowerCase();
+      if(byId.has(key)) return byId.get(key);
+      const labels={bikini:/bikini/i,tracksuit:/^tracksuit$/i,newtrack:/premium|newtrack/i,authsuit:/authentic sweatsuit/i,tile5:/grey edition|auth-grey/i,track6:/black edition|track-black/i,track7:/gray edition|grey tracksuit|track-grey/i};
+      const re=labels[key];
+      return re?catalog.find(p=>re.test(String(p.name||"")+" "+String(p.sku||""))):null;
+    };
+    document.querySelectorAll(".add-btn[data-product]").forEach(button=>{
+      const id=button.dataset.product, p=findProduct(id);
+      if(!p) return;
+      const card=button.closest(".product-card");
+      if(p.active===false){if(card)card.style.display="none";return;}
+      if(card)card.style.display="";
+      const price=Number(p.price);
+      if(Number.isFinite(price)){button.dataset.price=String(price);const details=button.closest(".product-details");const priceEl=details&&details.querySelector(".price");if(priceEl)priceEl.textContent=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(price);}
+      const details=button.closest(".product-details");
+      const title=details&&details.querySelector("h2");
+      if(title&&p.name)title.textContent=p.name;
+      const qty=card&&card.querySelector('.qty[data-product="'+id+'"]');
+      if(qty && Number.isFinite(Number(p.stock))){qty.max=String(Math.max(0,Number(p.stock)));if(Number(qty.value)>Number(qty.max))qty.value=qty.max;}
+      const stock=card&&card.querySelector(".stock");
+      if(stock && Number.isFinite(Number(p.stock)))stock.textContent="In stock: "+Number(p.stock);
+      if(card && p.image){const img=card.querySelector(".product-image img");if(img)img.src=p.image;}
+      if(card)card.dataset.catalogActive="true";
+    });
+    const left=document.querySelector(".left");
+    const cart=document.querySelector(".cart");
+    if(left){
+      let extraTileNumber=8;
+      catalog.forEach(p=>{
+        const id=String(p.id||p.sku||"");
+        const key=id.toLowerCase();
+        if(!id||knownIds.has(key)) return;
+        const tileNumber=extraTileNumber++;
+        let card=Array.from(left.querySelectorAll("[data-catalog-extra]")).find(el=>el.dataset.catalogExtra===id);
+        if(p.active===false){if(card)card.style.display="none";return;}
+        if(!card){
+          card=document.createElement("div");
+          card.className="product-card";
+          card.dataset.catalogExtra=id;
+          const top=document.createElement("div");top.className="product-top";
+          const media=document.createElement("div");media.className="product-image";
+          if(p.image){const img=document.createElement("img");img.alt=String(p.name||"Product");img.src=p.image;img.onerror=()=>{img.style.display="none";};media.appendChild(img);}
+          const details=document.createElement("div");details.className="product-details";
+          const title=document.createElement("h2");details.appendChild(title);
+          const price=document.createElement("div");price.className="price";details.appendChild(price);
+          const sizeLabel=document.createElement("div");sizeLabel.className="field-label";sizeLabel.textContent="Size";details.appendChild(sizeLabel);
+          const sizes=document.createElement("select");sizes.className="size";sizes.dataset.product=id;
+          const prompt=document.createElement("option");prompt.value="";prompt.textContent="Select size";sizes.appendChild(prompt);
+          const sizeList=Array.isArray(p.sizes)?p.sizes:String(p.sizes||"XS, S, M, L, XL, XXL").split(",");
+          sizeList.map(s=>String(s).trim()).filter(Boolean).forEach(s=>{const option=document.createElement("option");option.value=s;option.textContent=s;sizes.appendChild(option);});
+          details.appendChild(sizes);
+          const qtyLabel=document.createElement("div");qtyLabel.className="field-label";qtyLabel.textContent="Quantity";details.appendChild(qtyLabel);
+          const qty=document.createElement("input");qty.type="number";qty.className="qty";qty.dataset.product=id;qty.min="1";qty.value="1";details.appendChild(qty);
+          const stock=document.createElement("div");stock.className="stock";details.appendChild(stock);
+          const btn=document.createElement("button");btn.className="add-btn";btn.disabled=false;btn.textContent="ADD TO CART";btn.dataset.product=id;btn.dataset.price=String(Number(p.price)||0);details.appendChild(btn);
+          top.append(media,details);card.appendChild(top);
+          if(cart)left.insertBefore(card,cart);else left.appendChild(card);
+        }
+        card.style.display="";
+        const title=card.querySelector("h2");if(title)title.textContent=String(p.name||"Product");
+        const price=card.querySelector(".price");if(price)price.textContent=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(Number(p.price)||0);
+        const stock=card.querySelector(".stock");if(stock)stock.textContent="In stock: "+Math.max(0,Number(p.stock)||0);
+        const qty=card.querySelector(".qty");if(qty){qty.max=String(Math.max(0,Number(p.stock)||0));if(Number(qty.value)>Number(qty.max))qty.value=qty.max;}
+        const img=card.querySelector(".product-image img");if(img&&p.image&&img.src!==p.image)img.src=p.image;
+      });
+    }
+    const videoUrl=data.settings && data.settings.videoUrl;
+    if(videoUrl){const video=document.querySelector("video");if(video && video.getAttribute("src")!==videoUrl){video.src=videoUrl;video.load();}}
+  } catch (error) { console.warn("Shared catalog unavailable; showing storefront defaults.",error); }
+})();
+</script>
+
+</body></html>
+ -->
     <!-- The store will appear automatically when the intro video ends -->
     <div style="padding:2rem;text-align:center;color:#fff;">
       <h1>REAL FOR REAL</h1>
