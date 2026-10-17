@@ -96,31 +96,37 @@
     justify-content: center;
     opacity: 0;
     pointer-events: none;
-    transition: all 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 1.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
   #joined.show {
     opacity: 1;
     pointer-events: auto;
   }
   #joined.shifted {
-    left: 52%;
-    width: 48%;
+    left: 66.66%;
+    width: 33.33%;
+    top: 0;
+    height: 100%;
   }
   #main-video {
     height: 88vh;
     max-width: 92%;
     object-fit: contain;
     border-radius: 6px;
-    transition: all 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 1.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
   #joined.shifted #main-video {
-    height: 72vh;
+    height: 100%;
+    max-width: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 0;
   }
   #website {
     position: absolute;
     top: 0;
     left: 0;
-    width: 52%;
+    width: 66.66%;
     height: 100%;
     background: var(--black);
     display: flex;
@@ -130,9 +136,9 @@
     text-align: center;
     padding: 3rem 2rem;
     opacity: 0;
-    transform: translateX(-30px);
+    transform: translateX(-40px);
     pointer-events: none;
-    transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 1.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
   #website.show {
     opacity: 1;
@@ -170,11 +176,13 @@
     #joined.shifted {
       left: 0;
       width: 100%;
-      top: 38%;
-      height: 62%;
+      top: 40%;
+      height: 60%;
     }
-    #joined.shifted #main-video { height: 48vh; }
-    #main-video { height: 70vh; }
+    #joined.shifted #main-video {
+      height: 100%;
+      object-fit: contain;
+    }
   }
 </style>
 </head>
@@ -213,10 +221,14 @@
   const mainVideo = document.getElementById('main-video');
   const website = document.getElementById('website');
 
-  splitVideos.forEach(v => { v.src = 'promo.mp4'; });
+  const videoSrc = 'promo.mp4';
+  splitVideos.forEach(v => { v.src = videoSrc; });
+  mainVideo.querySelector('source').src = videoSrc;
+  mainVideo.load();
 
   enterBtn.addEventListener('click', () => {
     enterScreen.classList.add('hide');
+
     setTimeout(() => {
       experience.classList.add('show');
       splitVideos.forEach(v => v.play().catch(() => {}));
@@ -230,7 +242,7 @@
       joined.classList.add('show');
       mainVideo.currentTime = 7;
       mainVideo.play().catch(() => {});
-      setTimeout(revealSite, 22000);
+      setTimeout(revealSite, 9000);
     }, 700);
   }
 
