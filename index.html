@@ -64,7 +64,7 @@
     transition: opacity 0.3s ease, filter 0.8s ease;
   }
   #experience.show { opacity: 1; visibility: visible; }
-  #experience.blur-out { filter: blur(12px); opacity: 0; }
+  #experience.blur-out { filter: blur(12px); opacity: 0; visibility: hidden; }
 
   #main-video {
     width: 100%;
@@ -77,47 +77,18 @@
     position: fixed;
     inset: 0;
     background: #111;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 2rem;
     opacity: 0;
     filter: blur(12px);
     pointer-events: none;
     transition: opacity 0.8s ease, filter 0.8s ease;
     z-index: 500;
+    overflow: auto;
   }
   #store.show {
     opacity: 1;
     filter: blur(0);
     pointer-events: auto;
   }
-  #store h1 {
-    font-size: clamp(2rem, 5vw, 3.4rem);
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    margin-bottom: 1rem;
-  }
-  #store p {
-    font-size: 1.15rem;
-    opacity: 0.75;
-    margin-bottom: 2rem;
-  }
-  #store a {
-    display: inline-block;
-    background: var(--white);
-    color: var(--black);
-    padding: 1rem 2.6rem;
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 0.16em;
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: transform 0.3s ease;
-  }
-  #store a:hover { transform: scale(1.04); }
 </style>
 </head>
 <body>
@@ -132,10 +103,13 @@
     </video>
   </div>
 
+  <!-- STORE: replace the content inside #store with your full store HTML/code -->
   <div id="store">
-    <h1>REAL FOR REAL</h1>
-    <p>Welcome to the store</p>
-    <a href="https://mrbhnco.com/" target="_blank" rel="noopener">Shop Now</a>
+    <!-- Paste your full store page content here -->
+    <div style="padding:2rem;text-align:center;">
+      <h1 style="font-size:clamp(2rem,5vw,3.4rem);letter-spacing:0.12em;margin-bottom:1rem;">REAL FOR REAL</h1>
+      <p style="opacity:0.75;">Store loads here</p>
+    </div>
   </div>
 
 <script>
@@ -153,6 +127,8 @@
     experience.classList.add('blur-out');
     setTimeout(() => {
       store.classList.add('show');
+      // Permanently remove enter screen so it never comes back
+      enterScreen.style.display = 'none';
     }, 200);
   }
 
