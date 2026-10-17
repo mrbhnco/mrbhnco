@@ -27,7 +27,7 @@
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    transition: opacity 0.8s ease, visibility 0.8s;
+    transition: opacity 0.4s ease, visibility 0.4s;
   }
   #enter-screen.hide {
     opacity: 0;
@@ -61,7 +61,7 @@
     opacity: 0;
     visibility: hidden;
     z-index: 10;
-    transition: opacity 0.6s ease, filter 1.2s ease;
+    transition: opacity 0.3s ease, filter 0.8s ease;
   }
   #experience.show { opacity: 1; visibility: visible; }
   #experience.blur-out { filter: blur(12px); opacity: 0; }
@@ -86,7 +86,7 @@
     opacity: 0;
     filter: blur(12px);
     pointer-events: none;
-    transition: opacity 1.2s ease, filter 1.2s ease;
+    transition: opacity 0.8s ease, filter 0.8s ease;
     z-index: 500;
   }
   #store.show {
@@ -153,15 +153,13 @@
     experience.classList.add('blur-out');
     setTimeout(() => {
       store.classList.add('show');
-    }, 500);
+    }, 200);
   }
 
   enterBtn.addEventListener('click', () => {
     enterScreen.classList.add('hide');
-    setTimeout(() => {
-      experience.classList.add('show');
-      mainVideo.play().catch(() => {});
-    }, 600);
+    experience.classList.add('show');
+    mainVideo.play().catch(() => {});
   });
 
   mainVideo.addEventListener('ended', goToStore);
@@ -170,7 +168,7 @@
     goToStore();
   });
 
-  // Safety fallback in case ended never fires
+  // Safety fallback
   setTimeout(() => {
     if (experience.classList.contains('show') && !transitioned) {
       goToStore();
