@@ -5,10 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Real For Real Apparel</title>
 <style>
-  :root {
-    --black: #000;
-    --white: #fff;
-  }
+  :root { --black: #000; --white: #fff; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body {
     height: 100%;
@@ -18,77 +15,36 @@
     overflow: hidden;
   }
 
-  /* ENTER */
   #enter-screen {
-    position: fixed;
-    inset: 0;
-    background: var(--black);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    transition: opacity 0.4s ease, visibility 0.4s;
+    position: fixed; inset: 0; background: var(--black);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1000; transition: opacity 0.4s ease, visibility 0.4s;
   }
-  #enter-screen.hide {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    z-index: 1;
-  }
+  #enter-screen.hide { opacity: 0; visibility: hidden; pointer-events: none; z-index: 1; }
   #enter-btn {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.6);
-    color: var(--white);
-    font-size: clamp(1.4rem, 4vw, 2.2rem);
-    font-weight: 500;
-    letter-spacing: 0.45em;
-    padding: 1.1rem 2.8rem;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: all 0.35s ease;
+    background: transparent; border: 1px solid rgba(255,255,255,0.6);
+    color: var(--white); font-size: clamp(1.4rem, 4vw, 2.2rem);
+    font-weight: 500; letter-spacing: 0.45em; padding: 1.1rem 2.8rem;
+    cursor: pointer; text-transform: uppercase; transition: all 0.35s ease;
   }
-  #enter-btn:hover {
-    background: var(--white);
-    color: var(--black);
-    border-color: var(--white);
-  }
+  #enter-btn:hover { background: var(--white); color: var(--black); border-color: var(--white); }
 
-  /* VIDEO EXPERIENCE */
   #experience {
-    position: fixed;
-    inset: 0;
-    background: var(--black);
-    opacity: 0;
-    visibility: hidden;
-    z-index: 10;
+    position: fixed; inset: 0; background: var(--black);
+    opacity: 0; visibility: hidden; z-index: 10;
     transition: opacity 0.3s ease, filter 0.8s ease;
   }
   #experience.show { opacity: 1; visibility: visible; }
   #experience.blur-out { filter: blur(12px); opacity: 0; visibility: hidden; }
+  #main-video { width: 100%; height: 100%; object-fit: contain; }
 
-  #main-video {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-
-  /* STORE */
   #store {
-    position: fixed;
-    inset: 0;
-    background: #111;
-    opacity: 0;
-    filter: blur(12px);
-    pointer-events: none;
-    transition: opacity 0.8s ease, filter 0.8s ease;
-    z-index: 500;
+    position: fixed; inset: 0; background: #000;
+    opacity: 0; filter: blur(12px); pointer-events: none;
+    transition: opacity 0.8s ease, filter 0.8s ease; z-index: 500;
     overflow: auto;
   }
-  #store.show {
-    opacity: 1;
-    filter: blur(0);
-    pointer-events: auto;
-  }
+  #store.show { opacity: 1; filter: blur(0); pointer-events: auto; }
 </style>
 </head>
 <body>
@@ -103,12 +59,13 @@
     </video>
   </div>
 
-  <!-- STORE: replace the content inside #store with your full store HTML/code -->
+  <!-- FULL STORE LOADS HERE AUTOMATICALLY AFTER VIDEO -->
   <div id="store">
-    <!-- Paste your full store page content here -->
-    <div style="padding:2rem;text-align:center;">
-      <h1 style="font-size:clamp(2rem,5vw,3.4rem);letter-spacing:0.12em;margin-bottom:1rem;">REAL FOR REAL</h1>
-      <p style="opacity:0.75;">Store loads here</p>
+    <!-- PASTE YOUR FULL STORE HTML CODE INSIDE THIS DIV -->
+    <!-- The store will appear automatically when the intro video ends -->
+    <div style="padding:2rem;text-align:center;color:#fff;">
+      <h1>REAL FOR REAL</h1>
+      <p>Store content goes here</p>
     </div>
   </div>
 
@@ -127,7 +84,6 @@
     experience.classList.add('blur-out');
     setTimeout(() => {
       store.classList.add('show');
-      // Permanently remove enter screen so it never comes back
       enterScreen.style.display = 'none';
     }, 200);
   }
@@ -139,16 +95,10 @@
   });
 
   mainVideo.addEventListener('ended', goToStore);
-  mainVideo.addEventListener('error', () => {
-    console.error('Video failed to load');
-    goToStore();
-  });
+  mainVideo.addEventListener('error', goToStore);
 
-  // Safety fallback
   setTimeout(() => {
-    if (experience.classList.contains('show') && !transitioned) {
-      goToStore();
-    }
+    if (experience.classList.contains('show') && !transitioned) goToStore();
   }, 25000);
 </script>
 </body>
