@@ -231,8 +231,8 @@ let soundRequested=false;
 function playCurrentVideo(){
   video.controls=false;
   video.volume=1;
-  // Try audible autoplay first. If the browser blocks it, use muted autoplay
-  // until the visitor's first normal interaction (no extra sound button).
+  // Try audible autoplay. If the browser blocks sound before a user gesture,
+  // keep the video unmuted and retry after the visitor's first normal interaction.
   video.muted=false;
   video.defaultMuted=false;
   let result;
@@ -240,10 +240,7 @@ function playCurrentVideo(){
   if(result && typeof result.then==="function"){
     result.then(()=>{ video.controls=false; }).catch(()=>{
       video.controls=false;
-      video.muted=true;
-      video.defaultMuted=true;
-      const fallback=video.play();
-      if(fallback && typeof fallback.catch==="function") fallback.catch(()=>{});
+      // Never silently switch to muted playback; no sound button is added.
     });
   }
 }
