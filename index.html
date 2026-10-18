@@ -12,25 +12,8 @@
 #pay{display:none!important}
 </style>
 <script src="https://js.stripe.com/v3/"></script>
-<style id="r4r-intro-style">
-/* Enter screen + full-screen intro (shown before the store) */
-html.intro-lock,html.intro-lock body{overflow:hidden;height:100%}
-#introOverlay{position:fixed;inset:0;z-index:2147483000;background:#000;display:flex;align-items:center;justify-content:center;transition:opacity .25s ease}
-#introOverlay.hide{opacity:0;pointer-events:none}
-#introVideo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000;display:none;pointer-events:none}
-#introOverlay.playing #introVideo{display:block}
-#introOverlay.playing #enterBtn{display:none}
-@media (max-aspect-ratio:4/3){#introVideo{object-fit:contain}}
-#enterBtn{background:transparent;border:1px solid #d4a017;color:#ffd700;font-family:Arial,Helvetica,sans-serif;font-size:clamp(1.05rem,3.4vw,1.9rem);font-weight:900;letter-spacing:.32em;padding:1.1rem 2.4rem;margin:0 16px;cursor:pointer;text-transform:uppercase;border-radius:8px;transition:all .35s ease;max-width:calc(100vw - 32px)}
-#enterBtn:hover,#enterBtn:focus-visible{background:#d4a017;color:#000;border-color:#ffd700;outline:none}
-</style>
 </head>
 <body>
-<div id="introOverlay" role="dialog" aria-label="Enter Real 4 Real">
-<video id="introVideo" playsinline preload="auto" src="triple_panel_intro.mp4"></video>
-<button type="button" id="enterBtn">Enter the Experience</button>
-</div>
-<script>document.documentElement.classList.add("intro-lock");</script>
 <main id="shop" class="page">
 <section class="left">
 <div class="brand"><img src="eLzdZ.jpg" alt="Real 4 Real"></div>
@@ -109,8 +92,8 @@ html.intro-lock,html.intro-lock body{overflow:hidden;height:100%}
 <p class="small">Development preview only. Orders and payments are not transmitted or processed.</p>
 </div>
 </section>
-<section class="video-side"><div class="main-video-wrap"><video id="siteVideo" autoplay muted loop playsinline preload="auto"><source src="/video5.mp4" type="video/mp4"></video></div>
-<div class="video-thumbs"><div class="video-thumb active" data-src="/video5.mp4"><img src="r4r.png" alt="R4R" style="opacity:0.5"></div><button type="button" class="video-thumb" data-src="/vid.mp4" aria-label="Play Mark video"><img src="mark.png" alt="Mark" style="opacity:0.5"></button></div></section>
+<section class="video-side"><div class="main-video-wrap"><video id="siteVideo" autoplay muted loop playsinline preload="auto"><source src="/video%20(3).mp4" type="video/mp4"></video></div>
+<div class="video-thumbs"><div class="video-thumb active" data-src="/video%20(3).mp4"><img src="r4r.png" alt="R4R" style="opacity:0.5"></div><button type="button" class="video-thumb" data-src="/vid.mp4" aria-label="Play Mark video"><img src="mark.png" alt="Mark" style="opacity:0.5"></button><button type="button" class="video-thumb" data-src="/R4R_promo_EST2026_v2.mp4" aria-label="Play R4R promo video"><img src="r4r.png" alt="R4R Promo" style="opacity:0.5"></button></div></section>
 </main>
 <section id="checkout" class="checkout"><div class="checkout-inner"><button type="button" id="back" class="back-btn">← BACK</button><div id="embeddedCheckoutPanel" class="embedded-panel"><div class="embedded-heading"><span>Secure Stripe Checkout</span><button type="button" id="closeEmbeddedCheckout" class="embedded-close">← BACK TO STORE</button></div><div id="embedded-checkout"></div></div>
 <div class="checkout-card"><h2>Order</h2><div id="orderItems"></div><div class="row" style="display:none"><strong>Subtotal</strong><strong id="checkoutSubtotal">$0.00</strong></div>
@@ -387,58 +370,9 @@ video.addEventListener("error",()=>{
       });
     }
     const videoUrl=data.settings && data.settings.videoUrl;
-    if(videoUrl){const video=document.getElementById("siteVideo");const wanted=new URL(videoUrl,location.href).href;const active=document.querySelector(".video-thumb.active");const first=document.querySelector(".video-thumb");if(video && video.currentSrc!==wanted && (!active||active===first)){video.src=wanted;video.load();video.play().catch(()=>{});if(first)first.dataset.src=wanted;}}
+    if(videoUrl){const video=document.querySelector("video");const wanted=new URL(videoUrl,location.href).href;const active=document.querySelector(".video-thumb.active");const first=document.querySelector(".video-thumb");if(video && video.currentSrc!==wanted && (!active||active===first)){video.src=wanted;video.load();video.play().catch(()=>{});if(first)first.dataset.src=wanted;}}
   } catch (error) { console.warn("Shared catalog unavailable; showing storefront defaults.",error); }
 })();
 </script>
 
-<script id="r4r-intro">
-(function(){
-  var overlay=document.getElementById("introOverlay"),btn=document.getElementById("enterBtn"),intro=document.getElementById("introVideo");
-  var storeVideo=document.getElementById("siteVideo"),shop=document.getElementById("shop"),checkout=document.getElementById("checkout");
-  var introActive=true,done=false,timer=null,introFailed=false;
-  // Keep the store hidden and non-interactive behind the overlay; its scripts have already run.
-  [shop,checkout].forEach(function(el){if(el)el.inert=true;});
-  // Don't let the store's side video play (or make sound) behind the intro.
-  function holdStoreVideo(){if(introActive&&storeVideo&&!storeVideo.paused)storeVideo.pause();}
-  if(storeVideo){storeVideo.addEventListener("play",holdStoreVideo);storeVideo.addEventListener("playing",holdStoreVideo);holdStoreVideo();}
-  function showStore(){
-    if(done)return;done=true;introActive=false;clearTimeout(timer);
-    try{intro.pause();}catch(e){}
-    document.documentElement.classList.remove("intro-lock");
-    [shop,checkout].forEach(function(el){if(el)el.inert=false;});
-    overlay.classList.add("hide");
-    setTimeout(function(){overlay.style.display="none";intro.removeAttribute("src");intro.load();},260);
-    window.scrollTo(0,0);
-    if(storeVideo){
-      // Visitor already tapped Enter, so sound is allowed; fall back to muted if a browser still refuses.
-      storeVideo.controls=false;storeVideo.muted=false;storeVideo.defaultMuted=false;storeVideo.volume=1;
-      var p=storeVideo.play();
-      if(p&&p.catch)p.catch(function(){storeVideo.muted=true;storeVideo.play().catch(function(){});});
-    }
-  }
-  function armTimeout(){
-    clearTimeout(timer);
-    var d=isFinite(intro.duration)&&intro.duration>0?intro.duration:22;
-    var left=Math.max(0,d-(intro.currentTime||0));
-    timer=setTimeout(showStore,(left+4)*1000);
-  }
-  intro.addEventListener("ended",showStore);
-  // If the intro file fails before Enter is tapped, keep the Enter screen; the tap then opens the store directly.
-  intro.addEventListener("error",function(){introFailed=true;if(overlay.classList.contains("playing"))showStore();});
-  intro.addEventListener("loadedmetadata",function(){if(!done&&overlay.classList.contains("playing"))armTimeout();});
-  intro.addEventListener("playing",function(){if(!done)armTimeout();});
-  btn.addEventListener("click",function(){
-    if(overlay.classList.contains("playing"))return;
-    overlay.classList.add("playing");
-    if(introFailed||intro.error){showStore();return;}
-    intro.controls=false;intro.muted=false;intro.volume=1;
-    // Unlock the store video for later playback with sound (iOS needs a gesture per element).
-    if(storeVideo){storeVideo.muted=false;var sp=storeVideo.play();if(sp&&sp.catch)sp.catch(function(){});storeVideo.pause();}
-    var p=intro.play();
-    if(p&&p.catch)p.catch(function(){showStore();});
-    armTimeout();
-  });
-})();
-</script>
 </body></html>
