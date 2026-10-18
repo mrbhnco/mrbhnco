@@ -93,7 +93,7 @@
 </div>
 </section>
 <section class="video-side"><div class="main-video-wrap"><video id="siteVideo" autoplay muted loop playsinline preload="auto"><source src="/first.mp4" type="video/mp4"></video></div>
-<div class="video-thumbs"><button type="button" class="video-thumb active" data-src="/first.mp4" aria-label="Play first video"><img src="r4r.png" alt="R4R" style="opacity:0.5"></button><button type="button" class="video-thumb" data-src="/R4R_promo2_EST2026.mp4" aria-label="Play Mark video"><img src="mark.png" alt="Mark" style="opacity:0.5"></button><button type="button" class="video-thumb" data-src="/video%20(3).mp4" aria-label="Play R4R promo video"><img src="r4r.png" alt="R4R Promo" style="opacity:0.5"></button></div><button id="soundToggle" type="button" class="sound-toggle" aria-label="Enable video sound">TAP FOR SOUND</button></section>
+<div class="video-thumbs"><button type="button" class="video-thumb active" data-src="/first.mp4" aria-label="Play first video"><img src="r4r.png" alt="R4R" style="opacity:0.5"></button><button type="button" class="video-thumb" data-src="/R4R_promo2_EST2026.mp4" aria-label="Play Mark video"><img src="mark.png" alt="Mark" style="opacity:0.5"></button><button type="button" class="video-thumb" data-src="/video%20(3).mp4" aria-label="Play R4R promo video"><img src="r4r.png" alt="R4R Promo" style="opacity:0.5"></button></div></section>
 </main>
 <section id="checkout" class="checkout"><div class="checkout-inner"><button type="button" id="back" class="back-btn">← BACK</button><div id="embeddedCheckoutPanel" class="embedded-panel"><div class="embedded-heading"><span>Secure Stripe Checkout</span><button type="button" id="closeEmbeddedCheckout" class="embedded-close">← BACK TO STORE</button></div><div id="embedded-checkout"></div></div>
 <div class="checkout-card"><h2>Order</h2><div id="orderItems"></div><div class="row" style="display:none"><strong>Subtotal</strong><strong id="checkoutSubtotal">$0.00</strong></div>
@@ -217,20 +217,16 @@ document.getElementById("stripePay")?.addEventListener("click", async function()
 });
 
 const video=document.getElementById("siteVideo");
-const soundToggle=document.getElementById("soundToggle");
 video.loop=true;
 video.autoplay=true;
 video.playsInline=true;
 video.setAttribute("playsinline","");
 video.preload="auto";
 video.controls=false;
+video.muted=false;
+video.defaultMuted=false;
+video.volume=1;
 let soundRequested=false;
-
-function showSoundButton(show){
-  if(!soundToggle) return;
-  soundToggle.hidden=!show;
-  soundToggle.style.display=show?"block":"none";
-}
 
 function playCurrentVideo(){
   video.controls=false;
@@ -240,41 +236,15 @@ function playCurrentVideo(){
   let result;
   try { result=video.play(); } catch(error) { result=Promise.reject(error); }
   if(result && typeof result.then==="function"){
-    result.then(()=>{
-      video.controls=false;
-      if(!video.muted) showSoundButton(false);
-    }).catch(()=>{
-      // Browsers commonly block audible autoplay. Keep the video running muted
-      // and show a real button so the visitor can enable audio with one tap.
+    result.then(()=>{ video.controls=false; }).catch(()=>{
+      // Autoplay with sound can be blocked by browser policy. Continue the video
+      // silently rather than showing a sound button or stopping playback.
       video.controls=false;
       video.muted=true;
       video.defaultMuted=true;
       const fallback=video.play();
       if(fallback && typeof fallback.catch==="function") fallback.catch(()=>{});
-      showSoundButton(true);
     });
-  }
-}
-
-function enableSoundFromTap(event){
-  if(event){ event.preventDefault(); event.stopPropagation(); }
-  soundRequested=true;
-  video.muted=false;
-  video.defaultMuted=false;
-  video.volume=1;
-  // Call play directly in the click handler so the browser recognizes the gesture.
-  const result=video.play();
-  if(result && typeof result.then==="function"){
-    result.then(()=>{
-      video.muted=false;
-      video.defaultMuted=false;
-      video.volume=1;
-      showSoundButton(false);
-    }).catch(()=>{
-      showSoundButton(true);
-    });
-  } else {
-    showSoundButton(false);
   }
 }
 
@@ -299,10 +269,6 @@ function chooseVideo(tile){
   playAfterReady();
 }
 
-video.muted=false;
-video.defaultMuted=false;
-video.volume=1;
-showSoundButton(false);
 playCurrentVideo();
 video.addEventListener("loadeddata",()=>{ if(!soundRequested) playCurrentVideo(); });
 document.addEventListener("visibilitychange",()=>{ if(!document.hidden) playCurrentVideo(); });
@@ -313,24 +279,8 @@ document.querySelectorAll(".video-thumb").forEach(tile=>{
     chooseVideo(tile);
   });
 });
-if(soundToggle) soundToggle.addEventListener("click",enableSoundFromTap);
-// Any first interaction can enable audio, but keep the visible button until play succeeds.
-const enableSoundOnFirstInteraction=(event)=>{
-  if(event && soundToggle && event.target===soundToggle) return;
-  if(soundRequested) return;
-  soundRequested=true;
-  video.muted=false;
-  video.defaultMuted=false;
-  video.volume=1;
-  const result=video.play();
-  if(result && typeof result.then==="function"){
-    result.then(()=>{ showSoundButton(false); }).catch(()=>{ showSoundButton(true); });
-  }
-};
-["click","touchend","keydown"].forEach(type=>document.addEventListener(type,enableSoundOnFirstInteraction,true));
 video.addEventListener("error",()=>{
   video.controls=false;
-  showSoundButton(true);
   console.error("Video failed to load:",video.currentSrc,video.error);
 });
 
