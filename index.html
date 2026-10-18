@@ -92,8 +92,8 @@
 <p class="small">Development preview only. Orders and payments are not transmitted or processed.</p>
 </div>
 </section>
-<section class="video-side"><div class="main-video-wrap"><video id="siteVideo" autoplay muted loop playsinline preload="auto"><source src="/first.mp4" type="video/mp4"></video></div>
-<div class="video-thumbs"><button type="button" class="video-thumb active" data-src="/first.mp4" aria-label="Play first video"><img src="r4r.png" alt="R4R" style="opacity:0.5"></button><button type="button" class="video-thumb" data-src="/R4R_promo2_EST2026.mp4" aria-label="Play Mark video"><img src="mark.png" alt="Mark" style="opacity:0.5"></button><button type="button" class="video-thumb" data-src="/video%20(3).mp4" aria-label="Play R4R promo video"><img src="r4r.png" alt="R4R Promo" style="opacity:0.5"></button></div></section>
+<section class="video-side"><div class="main-video-wrap"><video id="siteVideo" autoplay muted loop playsinline preload="auto"><source src="/video%20(3).mp4" type="video/mp4"></video></div>
+<div class="video-thumbs"><button type="button" class="video-thumb active" data-src="/video%20(3).mp4" aria-label="Play R4R promo video"><img src="r4r.png" alt="R4R Promo" style="opacity:0.5"></button><button type="button" class="video-thumb" data-src="/R4R_promo2_EST2026.mp4" aria-label="Play Mark video"><img src="mark.png" alt="Mark" style="opacity:0.5"></button><button type="button" class="video-thumb" data-src="/first.mp4" aria-label="Play first video"><img src="r4r.png" alt="R4R" style="opacity:0.5"></button></div></section>
 </main>
 <section id="checkout" class="checkout"><div class="checkout-inner"><button type="button" id="back" class="back-btn">← BACK</button><div id="embeddedCheckoutPanel" class="embedded-panel"><div class="embedded-heading"><span>Secure Stripe Checkout</span><button type="button" id="closeEmbeddedCheckout" class="embedded-close">← BACK TO STORE</button></div><div id="embedded-checkout"></div></div>
 <div class="checkout-card"><h2>Order</h2><div id="orderItems"></div><div class="row" style="display:none"><strong>Subtotal</strong><strong id="checkoutSubtotal">$0.00</strong></div>
@@ -386,12 +386,12 @@ video.addEventListener("error",()=>{
         const img=card.querySelector(".product-image img");if(img&&p.image&&img.src!==p.image)img.src=p.image;
       });
     }
-    // Keep the first video fixed to /first.mp4; ignore any older saved videoUrl setting.
+    // Keep the newly swapped first video fixed to /video%20(3).mp4.
     const firstVideo=document.querySelector("#siteVideo");
     const firstThumb=document.querySelector(".video-thumb");
     if(firstVideo && firstThumb && (!document.querySelector(".video-thumb.active") || document.querySelector(".video-thumb.active")===firstThumb)){
-      if(firstThumb.dataset.src!=="/first.mp4") firstThumb.dataset.src="/first.mp4";
-      if(!firstVideo.currentSrc.endsWith("/first.mp4")){firstVideo.src="/first.mp4";firstVideo.load();firstVideo.play().catch(()=>{});}
+      if(firstThumb.dataset.src!=="/video%20(3).mp4") firstThumb.dataset.src="/video%20(3).mp4";
+      if(!firstVideo.currentSrc.endsWith("/video%20(3).mp4")){firstVideo.src="/video%20(3).mp4";firstVideo.load();firstVideo.play().catch(()=>{});}
     }
   } catch (error) { console.warn("Shared catalog unavailable; showing storefront defaults.",error); }
 })();
