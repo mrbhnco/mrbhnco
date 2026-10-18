@@ -230,15 +230,15 @@ let soundRequested=false;
 
 function playCurrentVideo(){
   video.controls=false;
+  video.volume=1;
+  // Try audible autoplay first. If the browser blocks it, use muted autoplay
+  // until the visitor's first normal interaction (no extra sound button).
   video.muted=false;
   video.defaultMuted=false;
-  video.volume=1;
   let result;
   try { result=video.play(); } catch(error) { result=Promise.reject(error); }
   if(result && typeof result.then==="function"){
     result.then(()=>{ video.controls=false; }).catch(()=>{
-      // Autoplay with sound can be blocked by browser policy. Continue the video
-      // silently rather than showing a sound button or stopping playback.
       video.controls=false;
       video.muted=true;
       video.defaultMuted=true;
@@ -247,6 +247,26 @@ function playCurrentVideo(){
     });
   }
 }
+
+function enableVideoSound(){
+  video.muted=false;
+  video.defaultMuted=false;
+  video.volume=1;
+  const result=video.play();
+  if(result && typeof result.then==="function") result.then(()=>{ video.controls=false; }).catch(()=>{});
+  soundRequested=true;
+}
+// Browsers may block sound on page load. Unmute on the visitor's first regular
+// click, tap, or key press anywhere on the page, without adding a visible button.
+function handleFirstInteraction(){
+  enableVideoSound();
+  document.removeEventListener("pointerdown",handleFirstInteraction,true);
+  document.removeEventListener("keydown",handleFirstInteraction,true);
+  document.removeEventListener("touchstart",handleFirstInteraction,true);
+}
+document.addEventListener("pointerdown",handleFirstInteraction,true);
+document.addEventListener("keydown",handleFirstInteraction,true);
+document.addEventListener("touchstart",handleFirstInteraction,{capture:true,passive:true});
 
 function chooseVideo(tile){
   document.querySelectorAll(".video-thumb").forEach(el=>el.classList.toggle("active",el===tile));
