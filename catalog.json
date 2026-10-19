@@ -272,7 +272,7 @@
     },
     {
       "id": "track7",
-      "name": "Grey Thunderbolt R4R Sweatsui",
+      "name": "Grey Thunderbolt R4R Sweatsuit",
       "price": 0,
       "stock": 10,
       "category": "Tracksuits",
@@ -326,5 +326,5 @@
     "lowStockThreshold": 5
   },
   "coupons": [],
-  "updatedAt": "2026-10-19T05:07:58.349Z"
+  "updatedAt": "2026-10-19T05:08:35.520Z"
 }
