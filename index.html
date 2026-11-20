@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Real 4 Real Store</title>
 <style>
-*{box-sizing:border-box}html,body{margin:0;background:#000;color:#fff;font-family:Arial,Helvetica,sans-serif}body{min-height:100vh}.page{display:flex;min-height:100vh}.left{flex:2.15;min-width:0;padding:8px 24px 36px;overflow:auto}.brand{text-align:center;margin:0 0 10px}.brand img{max-width:min(380px,88%);height:auto;display:block;margin:auto}.product-card{background:#111;border:1px solid #333;border-radius:12px;padding:14px;max-width:760px;margin:0 auto 16px}.product-top{display:flex;gap:14px}.product-image{flex:0 0 445px;height:460px;background:#fff;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:zoom-in;position:relative}.product-image img{width:100%;height:100%;max-height:460px;object-fit:contain;display:block;transition:transform 0.1s ease-out}.product-card.bikini-card .product-image img{transform:scale(1.235)}.product-details{flex:1;min-width:0;display:flex;flex-direction:column}.product-details h2{margin:0;font-size:22px}.item-description{margin:5px 0 8px;color:#c9c9c9;font-size:12px;font-weight:700;letter-spacing:.035em;line-height:1.45}.price{display:none!important;font-size:20px;font-weight:700;color:#ffd700}.field-label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin:10px 0 5px}.color-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;width:100%}.color-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.color-thumb{border:2px solid #444;border-radius:6px;overflow:hidden;cursor:pointer;background:#fff;aspect-ratio:1 / 1;width:100%;min-width:0;display:flex;flex-direction:column}.color-thumb img{width:100%;height:calc(100% - 18px);object-fit:contain;display:block;padding:2px}.product-card.bikini-card .color-thumb img{transform:scale(0.95)}.color-thumb span{display:block;height:18px;line-height:12px;font-size:10px;text-align:center;padding:3px 1px;background:#111;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.color-thumb.active{border-color:#ffd700}select,input[type=number]{width:100%;padding:10px;border:1px solid #555;border-radius:6px;background:#1a1a1a;color:#fff;font-size:15px}.stock{font-size:13px;color:#aaa;margin:8px 0}.add-btn,.place-btn{width:100%;border:0;border-radius:8px;padding:14px;background:#d4a017;color:#000;font-size:16px;font-weight:900;cursor:pointer;margin-top:6px;position:relative}.add-btn.blink{animation:blink .4s 2}.add-btn:disabled{background:#222;color:#e6c200;border:1px solid #d4a017;cursor:not-allowed;opacity:1;font-family:Georgia,"Times New Roman",serif;font-size:20px;font-style:italic;letter-spacing:.08em;text-transform:uppercase}.popup{position:absolute;right:-110px;top:50%;transform:translateY(-50%);background:#e6c200;color:#000;font-size:12px;font-weight:700;padding:4px 8px;border-radius:4px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s}.popup.show{opacity:1}@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}.cart{max-width:760px;margin:16px auto 0;padding-top:12px;border-top:1px solid #333}.cart-list{margin-bottom:12px;font-size:14px}.cart-item{display:flex;justify-content:space-between;align-items:center;margin:6px 0;padding:6px 0;border-bottom:1px solid #333}.cart-item .x{background:#900;color:#fff;border:0;border-radius:4px;padding:2px 6px;cursor:pointer;font-size:12px;margin-left:8px}.subtotal-row,.row{display:flex;justify-content:space-between;gap:12px}.subtotal-row{display:none!important;font-size:22px;font-weight:800;margin-bottom:12px}.pay-btn{width:100%;border:0;border-radius:8px;padding:15px;background:#f00;color:#fff;font-size:18px;font-weight:900;cursor:pointer}.pay-btn:disabled{opacity:.45;cursor:not-allowed}.stripe-btn{display:block;width:100%;text-align:center;background:#635bff;color:#fff;font-weight:900;font-size:18px;padding:15px;border-radius:8px;border:0;cursor:pointer;margin-top:10px}.video-side{height:100vh;flex:1.15;min-width:300px;background:#000;position:sticky;top:0}.main-video-wrap{position:absolute;inset:0;z-index:1;pointer-events:none}.main-video-wrap video{width:100%;height:100%;object-fit:cover;background:#000;pointer-events:none}.sound-toggle{position:absolute;right:12px;bottom:12px;z-index:5;border:1px solid #d4a017;border-radius:8px;background:rgba(0,0,0,.82);color:#ffd700;padding:11px 14px;font-weight:800;cursor:pointer}.video-thumbs{position:absolute;top:0;left:0;right:0;display:flex;gap:8px;padding:8px;z-index:9999;pointer-events:auto}.video-thumb{appearance:none;-webkit-appearance:none;padding:0;font:inherit;position:relative;z-index:10000;pointer-events:auto;flex:0 0 55px;height:36px;border:2px solid #ffd700;border-radius:6px;overflow:hidden;cursor:pointer;background:#111;opacity:0.65}.video-thumb img{width:100%;height:100%;object-fit:cover;display:block}.video-thumb.active{border-color:#fff;opacity:1}.checkout{display:none;min-height:100vh;padding:28px 16px;background:#050505}.checkout.show{display:block}.checkout-inner{max-width:640px;margin:0 auto}.back-btn{background:#111;color:#fff;border:1px solid #444;border-radius:8px;padding:10px 16px;font-weight:800;cursor:pointer;margin-bottom:16px}.checkout-card{background:#111;border:1px solid #2a2a2a;border-radius:14px;padding:20px;margin-bottom:18px}.checkout-card h2{color:#e6c200;margin:0 0 14px}.ship-row{display:flex;gap:10px;margin:12px 0}.ship{flex:1;border:1px solid #444;border-radius:10px;padding:12px;text-align:center;cursor:pointer;background:#1a1a1a}.ship.active{background:#e6c200;color:#000}label{display:block;margin-bottom:12px;font-weight:700}label input{display:block;width:100%;margin-top:5px;padding:12px;border:1px solid #444;border-radius:8px;background:#1a1a1a;color:#fff}.note{color:#bbb;font-size:13px}.pay-opt{padding:10px;border:1px solid #444;border-radius:8px;margin:8px 0}.small{color:#aaa;font-size:12px;line-height:1.5}.embedded-panel{display:none;background:#fff;color:#111;border-radius:14px;padding:12px;min-height:520px;margin:0 auto 18px}.embedded-panel.show{display:block}.embedded-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#111;padding:4px 4px 12px;font-weight:800}.embedded-close{background:#111;color:#fff;border:0;border-radius:6px;padding:8px 12px;cursor:pointer}#embedded-checkout{min-height:460px}
+*{box-sizing:border-box}html,body{margin:0;background:#000;color:#fff;font-family:Arial,Helvetica,sans-serif}body{min-height:100vh}.page{display:flex;min-height:100vh}.left{flex:2.15;min-width:0;padding:8px 24px 36px;overflow:auto}.brand{text-align:center;margin:0 0 10px}.brand img{max-width:min(380px,88%);height:auto;display:block;margin:auto}.product-card{background:#111;border:1px solid #333;border-radius:12px;padding:14px;max-width:760px;margin:0 auto 16px}.product-top{display:flex;gap:14px}.product-image{flex:0 0 445px;height:460px;background:#fff;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:zoom-in;position:relative}.product-image.drag-over{outline:3px dashed #ffd700;outline-offset:-4px}.product-image img{width:100%;height:100%;max-height:460px;object-fit:contain;display:block;will-change:transform,transform-origin}.product-card.bikini-card .product-image img{transform:scale(1.173)}.zoom-hint{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.72);color:#ffd700;font-size:11px;font-weight:700;padding:4px 8px;border-radius:4px;pointer-events:none;opacity:0;transition:opacity 0.2s}.product-image:hover .zoom-hint{opacity:1}.product-details{flex:1;min-width:0;display:flex;flex-direction:column}.product-details h2{margin:0;font-size:22px}.item-description{margin:5px 0 8px;color:#c9c9c9;font-size:12px;font-weight:700;letter-spacing:.035em;line-height:1.45}.price{display:none!important;font-size:20px;font-weight:700;color:#ffd700}.field-label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin:10px 0 5px}.color-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;width:100%}.color-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.color-thumb{border:2px solid #444;border-radius:6px;overflow:hidden;cursor:pointer;background:#fff;aspect-ratio:1 / 1;width:100%;min-width:0;display:flex;flex-direction:column}.color-thumb img{width:100%;height:calc(100% - 18px);object-fit:contain;display:block;padding:2px}.product-card.bikini-card .color-thumb img{transform:scale(0.95)}.color-thumb span{display:block;height:18px;line-height:12px;font-size:10px;text-align:center;padding:3px 1px;background:#111;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.color-thumb.active{border-color:#ffd700}select,input[type=number]{width:100%;padding:10px;border:1px solid #555;border-radius:6px;background:#1a1a1a;color:#fff;font-size:15px}.stock{font-size:13px;color:#aaa;margin:8px 0}.add-btn,.place-btn{width:100%;border:0;border-radius:8px;padding:14px;background:#d4a017;color:#000;font-size:16px;font-weight:900;cursor:pointer;margin-top:6px;position:relative}.add-btn.blink{animation:blink .4s 2}.add-btn:disabled{background:#222;color:#e6c200;border:1px solid #d4a017;cursor:not-allowed;opacity:1;font-family:Georgia,"Times New Roman",serif;font-size:20px;font-style:italic;letter-spacing:.08em;text-transform:uppercase}.popup{position:absolute;right:-110px;top:50%;transform:translateY(-50%);background:#e6c200;color:#000;font-size:12px;font-weight:700;padding:4px 8px;border-radius:4px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s}.popup.show{opacity:1}@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}.cart{max-width:760px;margin:16px auto 0;padding-top:12px;border-top:1px solid #333}.cart-list{margin-bottom:12px;font-size:14px}.cart-item{display:flex;justify-content:space-between;align-items:center;margin:6px 0;padding:6px 0;border-bottom:1px solid #333}.cart-item .x{background:#900;color:#fff;border:0;border-radius:4px;padding:2px 6px;cursor:pointer;font-size:12px;margin-left:8px}.subtotal-row,.row{display:flex;justify-content:space-between;gap:12px}.subtotal-row{display:none!important;font-size:22px;font-weight:800;margin-bottom:12px}.pay-btn{width:100%;border:0;border-radius:8px;padding:15px;background:#f00;color:#fff;font-size:18px;font-weight:900;cursor:pointer}.pay-btn:disabled{opacity:.45;cursor:not-allowed}.stripe-btn{display:block;width:100%;text-align:center;background:#635bff;color:#fff;font-weight:900;font-size:18px;padding:15px;border-radius:8px;border:0;cursor:pointer;margin-top:10px}.video-side{height:100vh;flex:1.15;min-width:300px;background:#000;position:sticky;top:0}.main-video-wrap{position:absolute;inset:0;z-index:1;pointer-events:none}.main-video-wrap video{width:100%;height:100%;object-fit:cover;background:#000;pointer-events:none}.sound-toggle{position:absolute;right:12px;bottom:12px;z-index:5;border:1px solid #d4a017;border-radius:8px;background:rgba(0,0,0,.82);color:#ffd700;padding:11px 14px;font-weight:800;cursor:pointer}.video-thumbs{position:absolute;top:0;left:0;right:0;display:flex;gap:8px;padding:8px;z-index:9999;pointer-events:auto}.video-thumb{appearance:none;-webkit-appearance:none;padding:0;font:inherit;position:relative;z-index:10000;pointer-events:auto;flex:0 0 55px;height:36px;border:2px solid #ffd700;border-radius:6px;overflow:hidden;cursor:pointer;background:#111;opacity:0.65}.video-thumb img{width:100%;height:100%;object-fit:cover;display:block}.video-thumb.active{border-color:#fff;opacity:1}.checkout{display:none;min-height:100vh;padding:28px 16px;background:#050505}.checkout.show{display:block}.checkout-inner{max-width:640px;margin:0 auto}.back-btn{background:#111;color:#fff;border:1px solid #444;border-radius:8px;padding:10px 16px;font-weight:800;cursor:pointer;margin-bottom:16px}.checkout-card{background:#111;border:1px solid #2a2a2a;border-radius:14px;padding:20px;margin-bottom:18px}.checkout-card h2{color:#e6c200;margin:0 0 14px}.ship-row{display:flex;gap:10px;margin:12px 0}.ship{flex:1;border:1px solid #444;border-radius:10px;padding:12px;text-align:center;cursor:pointer;background:#1a1a1a}.ship.active{background:#e6c200;color:#000}label{display:block;margin-bottom:12px;font-weight:700}label input{display:block;width:100%;margin-top:5px;padding:12px;border:1px solid #444;border-radius:8px;background:#1a1a1a;color:#fff}.note{color:#bbb;font-size:13px}.pay-opt{padding:10px;border:1px solid #444;border-radius:8px;margin:8px 0}.small{color:#aaa;font-size:12px;line-height:1.5}.embedded-panel{display:none;background:#fff;color:#111;border-radius:14px;padding:12px;min-height:520px;margin:0 auto 18px}.embedded-panel.show{display:block}.embedded-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#111;padding:4px 4px 12px;font-weight:800}.embedded-close{background:#111;color:#fff;border:0;border-radius:6px;padding:8px 12px;cursor:pointer}#embedded-checkout{min-height:460px}
 @media(max-width:900px){.page{display:block}.left{padding:6px 12px 28px;flex:none}.video-side{position:relative;width:100%;height:58vh;min-height:340px;flex:none}.product-top{flex-direction:column}.product-image{flex:auto;width:100%;height:360px}.video-thumb{flex-basis:40px;height:28px}.popup{right:0;top:-28px;transform:none}}
 
 /* Hide only the PAY / CHECKOUT button above Stripe; keep cart and ordering active. */
@@ -18,46 +18,63 @@
 <section class="left">
 <div class="brand"><img src="eLzdZ.jpg" alt="Real 4 Real"></div>
 
-<!-- Bikini -->
+<!-- Tile 1: Bikini -->
 <div class="product-card bikini-card"><div class="product-top">
-<div class="product-image"><img id="bikiniImage" src="5 (7).jpeg" alt="Bikini"></div>
+<div class="product-image" data-drop-target="bikini"><img id="bikiniImage" src="5 (7).jpeg" alt="Bikini"><span class="zoom-hint">Scroll wheel to zoom further</span></div>
 <div class="product-details"><h2>Real4Real Worldwide Bikini</h2><div class="item-description">White / Black logo</div><div class="price">$50.00</div><div class="field-label">Choose Color</div>
 <div class="color-grid">
-<div class="color-thumb" data-img="5 (8).jpeg" data-target="bikini" data-color="Black / Yellow"><img src="5 (8).jpeg" alt=""><span>Black / Yellow</span></div>
-<div class="color-thumb active" data-img="5 (7).jpeg" data-target="bikini" data-color="White / Black"><img src="5 (7).jpeg" alt=""><span>White / Black</span></div>
-<div class="color-thumb" data-img="5 (5).jpeg" data-target="bikini" data-color="Red / White"><img src="5 (5).jpeg" alt=""><span>Red / White</span></div>
-<div class="color-thumb" data-img="5 (1).jpeg" data-target="bikini" data-color="Royal Blue"><img src="5 (1).jpeg" alt=""><span>Royal Blue</span></div>
-<div class="color-thumb" data-img="5.jpg" data-target="bikini" data-color="Pink / Black"><img src="5.jpg" alt=""><span>Pink / Black</span></div>
-<div class="color-thumb" data-img="5 (4).jpeg" data-target="bikini" data-color="Purple / White"><img src="5 (4).jpeg" alt=""><span>Purple / White</span></div>
+<div class="color-thumb" draggable="true" data-img="5 (8).jpeg" data-target="bikini" data-color="Black / Yellow"><img src="5 (8).jpeg" alt=""><span>Black / Yellow</span></div>
+<div class="color-thumb active" draggable="true" data-img="5 (7).jpeg" data-target="bikini" data-color="White / Black"><img src="5 (7).jpeg" alt=""><span>White / Black</span></div>
+<div class="color-thumb" draggable="true" data-img="5 (5).jpeg" data-target="bikini" data-color="Red / White"><img src="5 (5).jpeg" alt=""><span>Red / White</span></div>
+<div class="color-thumb" draggable="true" data-img="5 (1).jpeg" data-target="bikini" data-color="Royal Blue"><img src="5 (1).jpeg" alt=""><span>Royal Blue</span></div>
+<div class="color-thumb" draggable="true" data-img="5.jpg" data-target="bikini" data-color="Pink / Black"><img src="5.jpg" alt=""><span>Pink / Black</span></div>
+<div class="color-thumb" draggable="true" data-img="5 (4).jpeg" data-target="bikini" data-color="Purple / White"><img src="5 (4).jpeg" alt=""><span>Purple / White</span></div>
 </div>
 <div class="field-label">Size</div><select class="size" data-product="bikini"><option value="">Select size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select>
 <div class="field-label">Quantity</div><input type="number" class="qty" data-product="bikini" value="1" min="1" max="42"><div class="stock">In stock: 42</div>
 <button class="add-btn" data-product="bikini" data-price="50">ADD TO ORDER<div class="popup">Added to cart</div></button></div></div></div>
 
-<!-- Existing Tracksuit (Updated with new logo circle images) -->
-<div class="product-card"><div class="product-top">
-<div class="product-image"><img id="tracksuitImage" src="sp - Copy.jpg" alt="Black tracksuit with yellow logo"></div>
-<div class="product-details"><h2>Black Real4Real Worldwide Sweatsuit</h2><div class="item-description">Black sweatsuit · Choose logo color below</div><div class="price">$50.00</div><div class="field-label">Choose Color</div>
+<!-- Tile 2: Black Real4Real Worldwide Sweatsuit -->
+<div class="product-card" data-product-card="tracksuit"><div class="product-top">
+<div class="product-image" data-drop-target="tracksuit"><img id="tracksuitImage" src="blyl.jpg" alt="Black tracksuit with yellow logo"><span class="zoom-hint">Scroll wheel to zoom further</span></div>
+<div class="product-details"><h2>Black Real4Real Worldwide Sweatsuit</h2><div class="item-description">Black sweatsuit · Click or drag color to preview</div><div class="price">$50.00</div><div class="field-label">Choose Color</div>
 <div class="color-grid">
-<div class="color-thumb active" data-img="sp - Copy.jpg" data-target="tracksuit" data-color="Black / Yellow"><img src="sp - Copy.jpg" alt="Black / Yellow"><span>Black / Yellow</span></div>
-<div class="color-thumb" data-img="dp - Copy.jpg" data-target="tracksuit" data-color="Black / Red"><img src="dp - Copy.jpg" alt="Black / Red"><span>Black / Red</span></div>
-<div class="color-thumb" data-img="mafp - Copy.jpg" data-target="tracksuit" data-color="Black / Green"><img src="mafp - Copy.jpg" alt="Black / Green"><span>Black / Green</span></div>
-<div class="color-thumb" data-img="mfdap - Copy.jpg" data-target="tracksuit" data-color="Black / Blue"><img src="mfdap - Copy.jpg" alt="Black / Blue"><span>Black / Blue</span></div>
-<div class="color-thumb" data-img="dsmap - Copy.jpg" data-target="tracksuit" data-color="Black / Grey"><img src="dsmap - Copy.jpg" alt="Black / Grey"><span>Black / Grey</span></div>
-<div class="color-thumb" data-img="aap - Copy.jpg" data-target="tracksuit" data-color="Black / Charcoal"><img src="aap - Copy.jpg" alt="Black / Charcoal"><span>Black / Charcoal</span></div>
+<div class="color-thumb active" draggable="true" data-img="blyl.jpg" data-target="tracksuit" data-color="Black / Yellow"><img src="blyl.jpg" alt="Black / Yellow"><span>Black / Yellow</span></div>
+<div class="color-thumb" draggable="true" data-img="blw.jpg" data-target="tracksuit" data-color="Black / White"><img src="blw.jpg" alt="Black / White"><span>Black / White</span></div>
+<div class="color-thumb" draggable="true" data-img="blred.jpg" data-target="tracksuit" data-color="Black / Red"><img src="blred.jpg" alt="Black / Red"><span>Black / Red</span></div>
+<div class="color-thumb" draggable="true" data-img="blgrn.jpg" data-target="tracksuit" data-color="Black / Green"><img src="blgrn.jpg" alt="Black / Green"><span>Black / Green</span></div>
+<div class="color-thumb" draggable="true" data-img="blblu.jpg" data-target="tracksuit" data-color="Black / Blue"><img src="blblu.jpg" alt="Black / Blue"><span>Black / Blue</span></div>
+<div class="color-thumb" draggable="true" data-img="blgry.jpg" data-target="tracksuit" data-color="Black / Grey"><img src="blgry.jpg" alt="Black / Grey"><span>Black / Grey</span></div>
 </div>
 <div class="field-label">Size</div><select class="size" data-product="tracksuit"><option value="">Select size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select>
 <div class="field-label">Quantity</div><input type="number" class="qty" data-product="tracksuit" value="1" min="1" max="28"><div class="stock">In stock: 28</div>
 <button class="add-btn" data-product="tracksuit" data-price="50">ADD TO ORDER<div class="popup">Added to cart</div></button></div></div></div>
 
-<!-- Third Tracksuit (blacknew + graynew) -->
+<!-- Tile 3: Grey Real4Real Worldwide Sweatsuit (New Grey Circle Logo Variations) -->
+<div class="product-card" data-product-card="authsuit"><div class="product-top">
+<div class="product-image" data-drop-target="authsuit"><img id="authSweatsuitImage" src="gy.jpg" alt="Grey tracksuit with yellow logo"><span class="zoom-hint">Scroll wheel to zoom further</span></div>
+<div class="product-details"><h2>Grey Real4Real Worldwide Sweatsuit</h2><div class="item-description">Grey sweatsuit · Click or drag color to preview</div><div class="price">$65.00</div>
+<div class="field-label">Choose Color</div>
+<div class="color-grid">
+<div class="color-thumb active" draggable="true" data-img="gy.jpg" data-target="authsuit" data-color="Grey / Yellow"><img src="gy.jpg" alt="Grey / Yellow"><span>Grey / Yellow</span></div>
+<div class="color-thumb" draggable="true" data-img="gw.jpg" data-target="authsuit" data-color="Grey / White"><img src="gw.jpg" alt="Grey / White"><span>Grey / White</span></div>
+<div class="color-thumb" draggable="true" data-img="gr.jpg" data-target="authsuit" data-color="Grey / Red"><img src="gr.jpg" alt="Grey / Red"><span>Grey / Red</span></div>
+<div class="color-thumb" draggable="true" data-img="gg.jpg" data-target="authsuit" data-color="Grey / Green"><img src="gg.jpg" alt="Grey / Green"><span>Grey / Green</span></div>
+<div class="color-thumb" draggable="true" data-img="blue_2.jpg" data-target="authsuit" data-color="Grey / Blue"><img src="blue_2.jpg" alt="Grey / Blue"><span>Grey / Blue</span></div>
+<div class="color-thumb" draggable="true" data-img="grey.jpg" data-target="authsuit" data-color="Grey / Grey"><img src="grey.jpg" alt="Grey / Grey"><span>Grey / Grey</span></div>
+</div>
+<div class="field-label">Size</div><select class="size" data-product="authsuit"><option value="">Select size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select>
+<div class="field-label">Quantity</div><input type="number" class="qty" data-product="authsuit" value="1" min="1" max="20"><div class="stock">In stock: 20</div>
+<button class="add-btn" data-product="authsuit" data-price="65">ADD TO ORDER<div class="popup">Added to cart</div></button></div></div></div>
+
+<!-- Tile 4: Black R4R Sweatsuit -->
 <div class="product-card"><div class="product-top">
-<div class="product-image"><img id="newTracksuitImage" src="g6R3t.jpg" alt="Tracksuit"></div>
+<div class="product-image" data-drop-target="newtrack"><img id="newTracksuitImage" src="g6R3t.jpg" alt="Tracksuit"><span class="zoom-hint">Scroll wheel to zoom further</span></div>
 <div class="product-details">
 <h2>Black R4R Sweatsuit</h2><div class="item-description">Black sweatsuit · R4R logo</div>
 <div class="price">$65.00</div>
 <div class="field-label">Choose Color</div>
-<div class="color-grid"><div class="color-thumb active" data-img="g6R3t.jpg" data-target="newtrack" data-color="Black / Yellow"><img src="g6R3t.jpg" alt="Black / Yellow"><span>Black / Yellow</span></div><div class="color-thumb" data-img="LZPk0.jpg" data-target="newtrack" data-color="Black / White"><img src="LZPk0.jpg" alt="Black / White"><span>Black / White</span></div><div class="color-thumb" data-img="nJjxr.jpg" data-target="newtrack" data-color="Black / Red"><img src="nJjxr.jpg" alt="Black / Red"><span>Black / Red</span></div><div class="color-thumb" data-img="AFO8J.jpg" data-target="newtrack" data-color="Black / Green"><img src="AFO8J.jpg" alt="Black / Green"><span>Black / Green</span></div><div class="color-thumb" data-img="qjBuO.jpg" data-target="newtrack" data-color="Black / Blue"><img src="qjBuO.jpg" alt="Black / Blue"><span>Black / Blue</span></div><div class="color-thumb" data-img="blacknew.jpeg" data-target="newtrack" data-color="Black / Grey"><img src="blacknew.jpeg" alt="Black / Grey"><span>Black / Grey</span></div></div>
+<div class="color-grid"><div class="color-thumb active" draggable="true" data-img="g6R3t.jpg" data-target="newtrack" data-color="Black / Yellow"><img src="g6R3t.jpg" alt="Black / Yellow"><span>Black / Yellow</span></div><div class="color-thumb" draggable="true" data-img="LZPk0.jpg" data-target="newtrack" data-color="Black / White"><img src="LZPk0.jpg" alt="Black / White"><span>Black / White</span></div><div class="color-thumb" draggable="true" data-img="nJjxr.jpg" data-target="newtrack" data-color="Black / Red"><img src="nJjxr.jpg" alt="Black / Red"><span>Black / Red</span></div><div class="color-thumb" draggable="true" data-img="AFO8J.jpg" data-target="newtrack" data-color="Black / Green"><img src="AFO8J.jpg" alt="Black / Green"><span>Black / Green</span></div><div class="color-thumb" draggable="true" data-img="qjBuO.jpg" data-target="newtrack" data-color="Black / Blue"><img src="qjBuO.jpg" alt="Black / Blue"><span>Black / Blue</span></div><div class="color-thumb" draggable="true" data-img="blacknew.jpeg" data-target="newtrack" data-color="Black / Grey"><img src="blacknew.jpeg" alt="Black / Grey"><span>Black / Grey</span></div></div>
 <div class="field-label">Size</div>
 <select class="size" data-product="newtrack"><option value="">Select size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select>
 <div class="field-label">Quantity</div>
@@ -66,18 +83,8 @@
 <button class="add-btn" data-product="newtrack" data-price="65">ADD TO ORDER<div class="popup">Added to cart</div></button>
 </div></div></div>
 
-<!-- Newly uploaded authentic sweatsuit images -->
-<div class="product-card"><div class="product-top">
-<div class="product-image"><img id="authSweatsuitImage" src="Igpd8.jpg" alt="Grey tracksuit with yellow logo"></div>
-<div class="product-details"><h2>Grey Real4Real Worldwide Sweatsuit</h2><div class="item-description">Grey sweatsuit · Choose logo color below</div><div class="price">$65.00</div>
-<div class="field-label">Choose Design</div>
-<div class="color-grid"><div class="color-thumb active" data-img="Igpd8.jpg" data-target="authsuit" data-color="Grey / Yellow"><img src="Igpd8.jpg" alt="Grey / Yellow"><span>Grey / Yellow</span></div><div class="color-thumb" data-img="kN3et.jpg" data-target="authsuit" data-color="Grey / White"><img src="kN3et.jpg" alt="Grey / White"><span>Grey / White</span></div><div class="color-thumb" data-img="NXEKj.jpg" data-target="authsuit" data-color="Grey / Red"><img src="NXEKj.jpg" alt="Grey / Red"><span>Grey / Red</span></div><div class="color-thumb" data-img="FbDYc (1).jpg" data-target="authsuit" data-color="Grey / Green"><img src="FbDYc (1).jpg" alt="Grey / Green"><span>Grey / Green</span></div><div class="color-thumb" data-img="blue.jpg" data-target="authsuit" data-color="Grey / Blue"><img src="blue.jpg" alt="Grey / Blue"><span>Grey / Blue</span></div><div class="color-thumb" data-img="fp - Copy.jpg" data-target="authsuit" data-color="Grey / Grey"><img src="fp - Copy.jpg" alt="Grey / Grey"><span>Grey / Grey</span></div></div>
-<div class="field-label">Size</div><select class="size" data-product="authsuit"><option value="">Select size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select>
-<div class="field-label">Quantity</div><input type="number" class="qty" data-product="authsuit" value="1" min="1" max="20"><div class="stock">In stock: 20</div>
-<button class="add-btn" data-product="authsuit" data-price="65">ADD TO ORDER<div class="popup">Added to cart</div></button></div></div></div>
-
-<!-- Tile 5 color variants -->
-<div class="product-card"><div class="product-top"><div class="product-image"><img id="tile5Image" src="Hqxxw.jpg" alt="Grey tracksuit with yellow and gray details"></div><div class="product-details"><h2>Grey R4R Sweatsuit</h2><div class="item-description">Grey sweatsuit · Choose logo color below</div><div class="price">$65.00</div><div class="field-label">Choose Color</div><div class="color-grid"><div class="color-thumb active" data-img="Hqxxw.jpg" data-target="tile5" data-color="Grey / Yellow"><img src="Hqxxw.jpg" alt="Grey / Yellow"><span>Grey / Yellow</span></div><div class="color-thumb" data-img="ArZTJ.jpg" data-target="tile5" data-color="Grey / White"><img src="ArZTJ.jpg" alt="Grey / White"><span>Grey / White</span></div><div class="color-thumb" data-img="jZRYy (2).jpg" data-target="tile5" data-color="Grey / Red"><img src="jZRYy (2).jpg" alt="Grey / Red"><span>Grey / Red</span></div><div class="color-thumb" data-img="KBUwC.jpg" data-target="tile5" data-color="Grey / Green"><img src="KBUwC.jpg" alt="Grey / Green"><span>Grey / Green</span></div><div class="color-thumb" data-img="1neSq.jpg" data-target="tile5" data-color="Grey / Blue"><img src="1neSq.jpg" alt="Grey / Blue"><span>Grey / Blue</span></div><div class="color-thumb" data-img="graynew.jpeg" data-target="tile5" data-color="Grey / Grey"><img src="graynew.jpeg" alt="Grey / Grey"><span>Grey / Grey</span></div></div><div class="field-label">Size</div><select class="size" data-product="tile5"><option value="">Select size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select><div class="field-label">Quantity</div><input type="number" class="qty" data-product="tile5" value="1" min="1" max="20"><button class="add-btn" data-product="tile5" data-price="65">ADD TO ORDER<div class="popup">Added to cart</div></button></div></div></div>
+<!-- Tile 5: Grey R4R Sweatsuit -->
+<div class="product-card"><div class="product-top"><div class="product-image" data-drop-target="tile5"><img id="tile5Image" src="Hqxxw.jpg" alt="Grey tracksuit with yellow and gray details"><span class="zoom-hint">Scroll wheel to zoom further</span></div><div class="product-details"><h2>Grey R4R Sweatsuit</h2><div class="item-description">Grey sweatsuit · Choose logo color below</div><div class="price">$65.00</div><div class="field-label">Choose Color</div><div class="color-grid"><div class="color-thumb active" draggable="true" data-img="Hqxxw.jpg" data-target="tile5" data-color="Grey / Yellow"><img src="Hqxxw.jpg" alt="Grey / Yellow"><span>Grey / Yellow</span></div><div class="color-thumb" draggable="true" data-img="ArZTJ.jpg" data-target="tile5" data-color="Grey / White"><img src="ArZTJ.jpg" alt="Grey / White"><span>Grey / White</span></div><div class="color-thumb" draggable="true" data-img="jZRYy (2).jpg" data-target="tile5" data-color="Grey / Red"><img src="jZRYy (2).jpg" alt="Grey / Red"><span>Grey / Red</span></div><div class="color-thumb" draggable="true" data-img="KBUwC.jpg" data-target="tile5" data-color="Grey / Green"><img src="KBUwC.jpg" alt="Grey / Green"><span>Grey / Green</span></div><div class="color-thumb" draggable="true" data-img="1neSq.jpg" data-target="tile5" data-color="Grey / Blue"><img src="1neSq.jpg" alt="Grey / Blue"><span>Grey / Blue</span></div><div class="color-thumb" draggable="true" data-img="graynew.jpeg" data-target="tile5" data-color="Grey / Grey"><img src="graynew.jpeg" alt="Grey / Grey"><span>Grey / Grey</span></div></div><div class="field-label">Size</div><select class="size" data-product="tile5"><option value="">Select size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select><div class="field-label">Quantity</div><input type="number" class="qty" data-product="tile5" value="1" min="1" max="20"><button class="add-btn" data-product="tile5" data-price="65">ADD TO ORDER<div class="popup">Added to cart</div></button></div></div></div>
 
 <div class="cart">
 <div class="cart-list" id="mainCartList"></div>
@@ -87,7 +94,7 @@
 <p class="small">Development preview only. Orders and payments are not transmitted or processed.</p>
 </div>
 </section>
-<section class="video-side"><div class="main-video-wrap"><video id="siteVideo" autoplay loop playsinline preload="auto"><source src="/video%20(3).mp4" type="video/mp4"></video></div>
+<section class="video-side"><div class="main-video-wrap"><video id="siteVideo" src="/video%20(3).mp4" autoplay muted loop playsinline preload="auto"></video></div>
 <div class="video-thumbs"><button type="button" class="video-thumb active" data-src="/video%20(3).mp4" aria-label="Play R4R promo video"><img src="video1-coming-soon.png" alt="R4R Coming Soon" style="opacity:1"></button><button type="button" class="video-thumb" data-src="/R4R_promo2_EST2026.mp4" aria-label="Play Mark video"><img src="mark.png" alt="Mark" style="opacity:0.5"></button><button type="button" class="video-thumb" data-src="/first.mp4" aria-label="Play first video"><img src="r4r.png" alt="R4R" style="opacity:0.5"></button></div></section>
 </main>
 <section id="checkout" class="checkout"><div class="checkout-inner"><button type="button" id="back" class="back-btn">← BACK</button><div id="embeddedCheckoutPanel" class="embedded-panel"><div class="embedded-heading"><span>Secure Stripe Checkout</span><button type="button" id="closeEmbeddedCheckout" class="embedded-close">← BACK TO STORE</button></div><div id="embedded-checkout"></div></div>
@@ -100,32 +107,135 @@
 (function(){
 const bikiniImage=document.getElementById("bikiniImage"),tracksuitImage=document.getElementById("tracksuitImage"),newTracksuitImage=document.getElementById("newTracksuitImage"),authSweatsuitImage=document.getElementById("authSweatsuitImage");
 
-// Magnifying glass zoom feature applied uniformly to all product image tiles
+// Smooth, slow-tracking magnifying glass with mouse-wheel zoom up to 5.5x
 function attachMagnifier(wrap){
   if(!wrap || wrap.dataset.magnifierAttached) return;
   const img=wrap.querySelector("img");
   if(!img) return;
   wrap.dataset.magnifierAttached="true";
   const isBikini=Boolean(wrap.closest(".bikini-card"));
-  const baseScale=isBikini?"scale(1.235)":"scale(1)";
-  wrap.addEventListener("mousemove",function(e){
+  const restScale=isBikini?1.173:1;
+  let hovering=false;
+  let zoomLevel=2.8;
+  let targetX=50,targetY=50,targetScale=restScale;
+  let currentX=50,currentY=50,currentScale=restScale;
+  let rafId=null;
+
+  function animate(){
+    const ease=0.085;
+    currentX+=(targetX-currentX)*ease;
+    currentY+=(targetY-currentY)*ease;
+    currentScale+=(targetScale-currentScale)*0.12;
+    img.style.transformOrigin=currentX.toFixed(2)+"% "+currentY.toFixed(2)+"%";
+    img.style.transform="scale("+currentScale.toFixed(4)+")";
+    if(hovering || Math.abs(targetX-currentX)>0.05 || Math.abs(targetY-currentY)>0.05 || Math.abs(targetScale-currentScale)>0.005){
+      rafId=requestAnimationFrame(animate);
+    } else {
+      img.style.transformOrigin="center center";
+      img.style.transform="scale("+restScale+")";
+      rafId=null;
+    }
+  }
+
+  function startLoop(){
+    if(!rafId) rafId=requestAnimationFrame(animate);
+  }
+
+  wrap.addEventListener("mouseenter",function(e){
+    hovering=true;
     const rect=wrap.getBoundingClientRect();
-    const x=((e.clientX-rect.left)/rect.width)*100;
-    const y=((e.clientY-rect.top)/rect.height)*100;
-    img.style.transformOrigin=x+"% "+y+"%";
-    img.style.transform="scale(2.6)";
+    targetX=((e.clientX-rect.left)/rect.width)*100;
+    targetY=((e.clientY-rect.top)/rect.height)*100;
+    targetScale=zoomLevel;
+    startLoop();
   });
+
+  wrap.addEventListener("mousemove",function(e){
+    hovering=true;
+    const rect=wrap.getBoundingClientRect();
+    targetX=Math.max(0,Math.min(100,((e.clientX-rect.left)/rect.width)*100));
+    targetY=Math.max(0,Math.min(100,((e.clientY-rect.top)/rect.height)*100));
+    targetScale=zoomLevel;
+    startLoop();
+  });
+
+  wrap.addEventListener("wheel",function(e){
+    if(!hovering) return;
+    e.preventDefault();
+    const delta=e.deltaY<0?0.45:-0.45;
+    zoomLevel=Math.max(1.8,Math.min(5.5,zoomLevel+delta));
+    targetScale=zoomLevel;
+    const hint=wrap.querySelector(".zoom-hint");
+    if(hint) hint.textContent="Zoom: "+zoomLevel.toFixed(1)+"x (scroll to adjust)";
+    startLoop();
+  },{passive:false});
+
   wrap.addEventListener("mouseleave",function(){
-    img.style.transformOrigin="center center";
-    img.style.transform=baseScale;
+    hovering=false;
+    targetX=50;
+    targetY=50;
+    targetScale=restScale;
+    const hint=wrap.querySelector(".zoom-hint");
+    if(hint) hint.textContent="Scroll wheel to zoom further";
+    startLoop();
   });
 }
 document.querySelectorAll(".product-card .product-image").forEach(attachMagnifier);
 
 const colors={bikini:"White / Black",tracksuit:"Black / Yellow",newtrack:"Black / Yellow",authsuit:"Grey / Yellow",tile5:"Grey / Yellow"};
+
+function applySwatchSelection(t){
+  if(!t) return;
+  const target=t.dataset.target;
+  document.querySelectorAll('.color-thumb[data-target="'+target+'"]').forEach(x=>x.classList.remove("active"));
+  t.classList.add("active");
+  colors[target]=t.dataset.color;
+  if(target==="bikini") bikiniImage.src=t.dataset.img;
+  else if(target==="tracksuit") tracksuitImage.src=t.dataset.img;
+  else if(target==="newtrack") newTracksuitImage.src=t.dataset.img;
+  else if(target==="authsuit") authSweatsuitImage.src=t.dataset.img;
+  else if(target==="tile5") document.getElementById("tile5Image").src=t.dataset.img;
+}
+
 // All five product tiles are previews until launch: disable ordering and show Coming Soon.
 document.querySelectorAll(".product-card .add-btn").forEach(function(btn){btn.disabled=true;btn.textContent="Coming Soon";});
-document.querySelectorAll(".color-thumb").forEach(function(t){t.addEventListener("click",function(){const target=t.dataset.target;document.querySelectorAll('.color-thumb[data-target="'+target+'"]').forEach(x=>x.classList.remove("active"));t.classList.add("active");colors[target]=t.dataset.color; if(target==="bikini")bikiniImage.src=t.dataset.img;else if(target==="tracksuit")tracksuitImage.src=t.dataset.img;else if(target==="newtrack")newTracksuitImage.src=t.dataset.img;else if(target==="authsuit")authSweatsuitImage.src=t.dataset.img;else if(target==="tile5")document.getElementById("tile5Image").src=t.dataset.img;});});
+
+let draggedSwatch=null;
+document.querySelectorAll(".color-thumb").forEach(function(t){
+  t.addEventListener("click",function(){
+    applySwatchSelection(t);
+  });
+  t.addEventListener("dragstart",function(e){
+    draggedSwatch=t;
+    if(e.dataTransfer){
+      e.dataTransfer.effectAllowed="copy";
+      e.dataTransfer.setData("text/plain",t.dataset.img||"");
+    }
+  });
+  t.addEventListener("dragend",function(){
+    draggedSwatch=null;
+    document.querySelectorAll(".product-image.drag-over").forEach(el=>el.classList.remove("drag-over"));
+  });
+});
+
+document.querySelectorAll(".product-image[data-drop-target]").forEach(function(box){
+  box.addEventListener("dragover",function(e){
+    e.preventDefault();
+    box.classList.add("drag-over");
+  });
+  box.addEventListener("dragleave",function(){
+    box.classList.remove("drag-over");
+  });
+  box.addEventListener("drop",function(e){
+    e.preventDefault();
+    box.classList.remove("drag-over");
+    const targetName=box.dataset.dropTarget;
+    if(draggedSwatch && draggedSwatch.dataset.target===targetName){
+      applySwatchSelection(draggedSwatch);
+    }
+  });
+});
+
 let cartTotal=0,shippingCost=5.99,cartItems=[];
 function renderMainCart(){
   const list=document.getElementById("mainCartList");
@@ -234,102 +344,88 @@ document.getElementById("stripePay")?.addEventListener("click", async function()
   }
 });
 
+// Video playback and thumbnail switcher
 const video=document.getElementById("siteVideo");
-video.loop=true;
-video.autoplay=true;
-video.playsInline=true;
-video.setAttribute("playsinline","");
-video.preload="auto";
-video.controls=false;
-video.muted=false;
-video.defaultMuted=false;
-video.volume=1;
-let soundRequested=false;
-
-function playCurrentVideo(){
+if(video){
+  video.loop=true;
+  video.autoplay=true;
+  video.playsInline=true;
+  video.setAttribute("playsinline","");
+  video.setAttribute("muted","");
+  video.preload="auto";
   video.controls=false;
+  video.muted=true;
+  video.defaultMuted=true;
   video.volume=1;
-  // Try audible autoplay. If the browser blocks sound before a user gesture,
-  // keep the video unmuted and retry after the visitor's first normal interaction.
-  video.muted=false;
-  video.defaultMuted=false;
-  let result;
-  try { result=video.play(); } catch(error) { result=Promise.reject(error); }
-  if(result && typeof result.then==="function"){
-    result.then(()=>{ video.controls=false; }).catch(()=>{
-      // If the browser blocks audible autoplay, keep the video playing.
-      // Retry with sound after the visitor's first normal interaction.
-      video.controls=false;
-      video.muted=true;
-      const fallback=video.play();
-      if(fallback && typeof fallback.then==="function"){
-        fallback.then(()=>{ video.controls=false; }).catch(()=>{});
-      }
-    });
+
+  function startStartupVideo(){
+    video.controls=false;
+    video.muted=true;
+    const p=video.play();
+    if(p && typeof p.then==="function"){
+      p.catch(()=>{});
+    }
   }
-}
 
-function enableVideoSound(){
-  video.muted=false;
-  video.defaultMuted=false;
-  video.volume=1;
-  const result=video.play();
-  if(result && typeof result.then==="function") result.then(()=>{ video.controls=false; }).catch(()=>{});
-  soundRequested=true;
-}
-// Browsers may block sound on page load. Unmute on the visitor's first regular
-// click, tap, or key press anywhere on the page, without adding a visible button.
-function handleFirstInteraction(){
-  enableVideoSound();
-  document.removeEventListener("pointerdown",handleFirstInteraction,true);
-  document.removeEventListener("keydown",handleFirstInteraction,true);
-  document.removeEventListener("touchstart",handleFirstInteraction,true);
-}
-document.addEventListener("pointerdown",handleFirstInteraction,true);
-document.addEventListener("keydown",handleFirstInteraction,true);
-document.addEventListener("touchstart",handleFirstInteraction,{capture:true,passive:true});
-
-function chooseVideo(tile){
-  document.querySelectorAll(".video-thumb").forEach(el=>el.classList.toggle("active",el===tile));
-  const selected=new URL(tile.dataset.src,window.location.href).href;
-  soundRequested=true;
-  video.pause();
-  video.controls=false;
-  video.muted=false;
-  video.defaultMuted=false;
-  video.volume=1;
-  video.src=selected;
-  video.load();
-  const playAfterReady=()=>{
+  function unmuteOnInteraction(){
     video.muted=false;
     video.defaultMuted=false;
     video.volume=1;
-    playCurrentVideo();
-  };
-  video.addEventListener("canplay",playAfterReady,{once:true});
-  playAfterReady();
-}
+    const p=video.play();
+    if(p && typeof p.then==="function"){
+      p.catch(()=>{});
+    }
+    document.removeEventListener("pointerdown",unmuteOnInteraction,true);
+    document.removeEventListener("keydown",unmuteOnInteraction,true);
+    document.removeEventListener("touchstart",unmuteOnInteraction,true);
+  }
 
-playCurrentVideo();
-video.addEventListener("loadeddata",()=>{ if(!soundRequested) playCurrentVideo(); });
-document.addEventListener("visibilitychange",()=>{ if(!document.hidden) playCurrentVideo(); });
-document.querySelectorAll(".video-thumb").forEach(tile=>{
-  tile.addEventListener("click",event=>{
-    event.preventDefault();
-    event.stopPropagation();
-    chooseVideo(tile);
+  document.addEventListener("pointerdown",unmuteOnInteraction,true);
+  document.addEventListener("keydown",unmuteOnInteraction,true);
+  document.addEventListener("touchstart",unmuteOnInteraction,{capture:true,passive:true});
+
+  function chooseVideo(tile){
+    document.querySelectorAll(".video-thumb").forEach(el=>{
+      const isMatch=(el===tile);
+      el.classList.toggle("active",isMatch);
+      const thumbImg=el.querySelector("img");
+      if(thumbImg) thumbImg.style.opacity=isMatch?"1":"0.5";
+    });
+    const rawSrc=tile.getAttribute("data-src")||tile.dataset.src;
+    if(!rawSrc) return;
+    video.pause();
+    video.controls=false;
+    video.muted=false;
+    video.defaultMuted=false;
+    video.volume=1;
+    video.src=rawSrc;
+    video.load();
+    const playPromise=video.play();
+    if(playPromise && typeof playPromise.then==="function"){
+      playPromise.catch(()=>{
+        video.muted=true;
+        video.play().catch(()=>{});
+      });
+    }
+  }
+
+  document.querySelectorAll(".video-thumb").forEach(tile=>{
+    tile.addEventListener("click",function(event){
+      event.preventDefault();
+      event.stopPropagation();
+      chooseVideo(tile);
+    });
   });
-});
-video.addEventListener("error",()=>{
-  video.controls=false;
-  console.error("Video failed to load:",video.currentSrc,video.error);
-});
+
+  startStartupVideo();
+  video.addEventListener("loadeddata",()=>{ if(video.paused) startStartupVideo(); });
+  document.addEventListener("visibilitychange",()=>{ if(!document.hidden && video.paused) video.play().catch(()=>{}); });
+}
 
 })();
 </script>
 <script id="r4r-live-catalog">
-/* Load shared product data. Existing five tiles keep their original layout;
-   extra products created in Admin are added as simple Coming Soon cards. */
+/* Load shared product data while preserving custom local images on Tiles 1, 2, and 3 */
 (async function(){
   try {
     const response = await fetch("/api/catalog",{cache:"no-store"});
@@ -363,18 +459,17 @@ video.addEventListener("error",()=>{
       if(qty && Number.isFinite(Number(p.stock))){qty.max=String(Math.max(0,Number(p.stock)));if(Number(qty.value)>Number(qty.max))qty.value=qty.max;}
       const stock=card&&card.querySelector(".stock");
       if(stock && Number.isFinite(Number(p.stock)))stock.textContent="In stock: "+Number(p.stock);
-      if(card && p.image && id!=="bikini"){const img=card.querySelector(".product-image img");if(img)img.src=p.image;}
+      // Do not overwrite Tile 1 (bikini), Tile 2 (tracksuit), or Tile 3 (authsuit) custom GitHub images
+      if(card && p.image && id!=="bikini" && id!=="tracksuit" && id!=="authsuit"){const img=card.querySelector(".product-image img");if(img)img.src=p.image;}
       if(card)card.dataset.catalogActive="true";
     });
     const left=document.querySelector(".left");
     const cart=document.querySelector(".cart");
     if(left){
-      let extraTileNumber=6;
       catalog.forEach(p=>{
         const id=String(p.id||p.sku||"");
         const key=id.toLowerCase();
         if(!id||knownIds.has(key)||removedIds.has(key)) return;
-        const tileNumber=extraTileNumber++;
         let card=Array.from(left.querySelectorAll("[data-catalog-extra]")).find(el=>el.dataset.catalogExtra===id);
         if(p.active===false){if(card)card.style.display="none";return;}
         if(!card){
@@ -384,21 +479,20 @@ video.addEventListener("error",()=>{
           const top=document.createElement("div");top.className="product-top";
           const media=document.createElement("div");media.className="product-image";
           if(p.image){const img=document.createElement("img");img.alt=String(p.name||"Product");img.src=p.image;img.onerror=()=>{img.style.display="none";};media.appendChild(img);}
-          media.addEventListener("mousemove",function(e){
+          const hint=document.createElement("span");hint.className="zoom-hint";hint.textContent="Scroll wheel to zoom further";media.appendChild(hint);
+          let hovering=false,zoomLevel=2.8,tx=50,ty=50,ts=1,cx=50,cy=50,cs=1,raf=null;
+          const step=()=>{
             const img=media.querySelector("img");
-            if(!img)return;
-            const rect=media.getBoundingClientRect();
-            const x=((e.clientX-rect.left)/rect.width)*100;
-            const y=((e.clientY-rect.top)/rect.height)*100;
-            img.style.transformOrigin=x+"% "+y+"%";
-            img.style.transform="scale(2.6)";
-          });
-          media.addEventListener("mouseleave",function(){
-            const img=media.querySelector("img");
-            if(!img)return;
-            img.style.transformOrigin="center center";
-            img.style.transform="scale(1)";
-          });
+            if(!img){raf=null;return;}
+            cx+=(tx-cx)*0.085;cy+=(ty-cy)*0.085;cs+=(ts-cs)*0.12;
+            img.style.transformOrigin=cx.toFixed(2)+"% "+cy.toFixed(2)+"%";
+            img.style.transform="scale("+cs.toFixed(4)+")";
+            if(hovering||Math.abs(tx-cx)>0.05||Math.abs(ty-cy)>0.05||Math.abs(ts-cs)>0.005){raf=requestAnimationFrame(step);}else{img.style.transformOrigin="center center";img.style.transform="scale(1)";raf=null;}
+          };
+          media.addEventListener("mouseenter",e=>{hovering=true;const r=media.getBoundingClientRect();tx=((e.clientX-r.left)/r.width)*100;ty=((e.clientY-r.top)/r.height)*100;ts=zoomLevel;if(!raf)raf=requestAnimationFrame(step);});
+          media.addEventListener("mousemove",e=>{hovering=true;const r=media.getBoundingClientRect();tx=Math.max(0,Math.min(100,((e.clientX-r.left)/r.width)*100));ty=Math.max(0,Math.min(100,((e.clientY-r.top)/r.height)*100));ts=zoomLevel;if(!raf)raf=requestAnimationFrame(step);});
+          media.addEventListener("wheel",e=>{if(!hovering)return;e.preventDefault();zoomLevel=Math.max(1.8,Math.min(5.5,zoomLevel+(e.deltaY<0?0.45:-0.45)));ts=zoomLevel;hint.textContent="Zoom: "+zoomLevel.toFixed(1)+"x (scroll to adjust)";if(!raf)raf=requestAnimationFrame(step);},{passive:false});
+          media.addEventListener("mouseleave",()=>{hovering=false;tx=50;ty=50;ts=1;hint.textContent="Scroll wheel to zoom further";if(!raf)raf=requestAnimationFrame(step);});
           const details=document.createElement("div");details.className="product-details";
           const title=document.createElement("h2");details.appendChild(title);
           const price=document.createElement("div");price.className="price";details.appendChild(price);
@@ -422,13 +516,6 @@ video.addEventListener("error",()=>{
         const qty=card.querySelector(".qty");if(qty){qty.max=String(Math.max(0,Number(p.stock)||0));if(Number(qty.value)>Number(qty.max))qty.value=qty.max;}
         const img=card.querySelector(".product-image img");if(img&&p.image&&img.src!==p.image)img.src=p.image;
       });
-    }
-    // Keep the newly swapped first video fixed to /video%20(3).mp4.
-    const firstVideo=document.querySelector("#siteVideo");
-    const firstThumb=document.querySelector(".video-thumb");
-    if(firstVideo && firstThumb && (!document.querySelector(".video-thumb.active") || document.querySelector(".video-thumb.active")===firstThumb)){
-      if(firstThumb.dataset.src!=="/video%20(3).mp4") firstThumb.dataset.src="/video%20(3).mp4";
-      if(!firstVideo.currentSrc.endsWith("/video%20(3).mp4")){firstVideo.src="/video%20(3).mp4";firstVideo.load();firstVideo.play().catch(()=>{});}
     }
   } catch (error) { console.warn("Shared catalog unavailable; showing storefront defaults.",error); }
 })();
