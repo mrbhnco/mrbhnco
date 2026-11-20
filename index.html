@@ -23,6 +23,7 @@
 <div class="product-image"><img id="bikiniImage" src="5 (7).jpeg" alt="Bikini"></div>
 <div class="product-details"><h2>Real4Real Worldwide Bikini</h2><div class="item-description">White / Black logo</div><div class="price">$50.00</div><div class="field-label">Choose Color</div>
 <div class="color-grid">
+<div class="color-thumb" data-img="5 (8).jpeg" data-target="bikini" data-color="Black / Yellow"><img src="5 (8).jpeg" alt=""><span>Black / Yellow</span></div>
 <div class="color-thumb active" data-img="5 (7).jpeg" data-target="bikini" data-color="White / Black"><img src="5 (7).jpeg" alt=""><span>White / Black</span></div>
 <div class="color-thumb" data-img="5 (5).jpeg" data-target="bikini" data-color="Red / White"><img src="5 (5).jpeg" alt=""><span>Red / White</span></div>
 <div class="color-thumb" data-img="5 (1).jpeg" data-target="bikini" data-color="Royal Blue"><img src="5 (1).jpeg" alt=""><span>Royal Blue</span></div>
@@ -343,7 +344,7 @@ video.addEventListener("error",()=>{
       if(qty && Number.isFinite(Number(p.stock))){qty.max=String(Math.max(0,Number(p.stock)));if(Number(qty.value)>Number(qty.max))qty.value=qty.max;}
       const stock=card&&card.querySelector(".stock");
       if(stock && Number.isFinite(Number(p.stock)))stock.textContent="In stock: "+Number(p.stock);
-      if(card && p.image){const img=card.querySelector(".product-image img");if(img)img.src=p.image;}
+      if(card && p.image && id!=="bikini"){const img=card.querySelector(".product-image img");if(img)img.src=p.image;}
       if(card)card.dataset.catalogActive="true";
     });
     const left=document.querySelector(".left");
