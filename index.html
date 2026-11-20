@@ -20,15 +20,15 @@
 
 <!-- Bikini -->
 <div class="product-card"><div class="product-top">
-<div class="product-image"><img id="bikiniImage" src="Untitled - November 15, 2026 at 07.57.34 (7).jpg" alt="Bikini"></div>
+<div class="product-image"><img id="bikiniImage" src="5 (8).jpg" alt="Bikini"></div>
 <div class="product-details"><h2>Real4Real Worldwide Bikini</h2><div class="item-description">Black / Yellow logo</div><div class="price">$50.00</div><div class="field-label">Choose Color</div>
 <div class="color-grid">
-<div class="color-thumb active" data-img="Untitled - November 15, 2026 at 07.57.34 (7).jpg" data-target="bikini" data-color="Black / Yellow"><img src="Untitled - November 15, 2026 at 07.57.34 (7).jpg" alt="Black / Yellow"><span>Black / Yellow</span></div>
-<div class="color-thumb" data-img="Untitled - November 15, 2026 at 07.57.34 (10).jpg" data-target="bikini" data-color="White / Black"><img src="Untitled - November 15, 2026 at 07.57.34 (10).jpg" alt="White / Black"><span>White / Black</span></div>
-<div class="color-thumb" data-img="Untitled - November 15, 2026 at 07.57.34 (11).jpg" data-target="bikini" data-color="Red / White"><img src="Untitled - November 15, 2026 at 07.57.34 (11).jpg" alt="Red / White"><span>Red / White</span></div>
-<div class="color-thumb" data-img="Untitled - November 15, 2026 at 07.57.34 (12).jpg" data-target="bikini" data-color="Royal Blue"><img src="Untitled - November 15, 2026 at 07.57.34 (12).jpg" alt="Royal Blue"><span>Royal Blue</span></div>
-<div class="color-thumb" data-img="Untitled - November 15, 2026 at 07.57.34 (14).jpg" data-target="bikini" data-color="Pink / Black"><img src="Untitled - November 15, 2026 at 07.57.34 (14).jpg" alt="Pink / Black"><span>Pink / Black</span></div>
-<div class="color-thumb" data-img="Untitled - November 15, 2026 at 07.57.34 (13).jpg" data-target="bikini" data-color="Purple / White"><img src="Untitled - November 15, 2026 at 07.57.34 (13).jpg" alt="Purple / White"><span>Purple / White</span></div>
+<div class="color-thumb active" data-img="5 (8).jpg" data-target="bikini" data-color="Black / Yellow"><img src="5 (8).jpg" alt=""><span>Black / Yellow</span></div>
+<div class="color-thumb" data-img="5 (7).jpg" data-target="bikini" data-color="White / Black"><img src="5 (7).jpg" alt=""><span>White / Black</span></div>
+<div class="color-thumb" data-img="5 (5).jpg" data-target="bikini" data-color="Red / White"><img src="5 (5).jpg" alt=""><span>Red / White</span></div>
+<div class="color-thumb" data-img="5 (1).jpg" data-target="bikini" data-color="Royal Blue"><img src="5 (1).jpg" alt=""><span>Royal Blue</span></div>
+<div class="color-thumb" data-img="5.jpg" data-target="bikini" data-color="Pink / Black"><img src="5.jpg" alt=""><span>Pink / Black</span></div>
+<div class="color-thumb" data-img="5 (4).jpg" data-target="bikini" data-color="Purple / White"><img src="5 (4).jpg" alt=""><span>Purple / White</span></div>
 </div>
 <div class="field-label">Size</div><select class="size" data-product="bikini"><option value="">Select size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select>
 <div class="field-label">Quantity</div><input type="number" class="qty" data-product="bikini" value="1" min="1" max="42"><div class="stock">In stock: 42</div>
@@ -344,7 +344,7 @@ video.addEventListener("error",()=>{
       if(qty && Number.isFinite(Number(p.stock))){qty.max=String(Math.max(0,Number(p.stock)));if(Number(qty.value)>Number(qty.max))qty.value=qty.max;}
       const stock=card&&card.querySelector(".stock");
       if(stock && Number.isFinite(Number(p.stock)))stock.textContent="In stock: "+Number(p.stock);
-      if(card && p.image && id!=="bikini"){const img=card.querySelector(".product-image img");if(img)img.src=p.image;}
+      if(card && p.image){const img=card.querySelector(".product-image img");if(img)img.src=p.image;}
       if(card)card.dataset.catalogActive="true";
     });
     const left=document.querySelector(".left");
@@ -385,19 +385,4 @@ video.addEventListener("error",()=>{
         const title=card.querySelector("h2");if(title)title.textContent=String(p.name||"Product");
         const price=card.querySelector(".price");if(price)price.textContent=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(Number(p.price)||0);
         const stock=card.querySelector(".stock");if(stock)stock.textContent="In stock: "+Math.max(0,Number(p.stock)||0);
-        const qty=card.querySelector(".qty");if(qty){qty.max=String(Math.max(0,Number(p.stock)||0));if(Number(qty.value)>Number(qty.max))qty.value=qty.max;}
-        const img=card.querySelector(".product-image img");if(img&&p.image&&img.src!==p.image)img.src=p.image;
-      });
-    }
-    // Keep the newly swapped first video fixed to /video%20(3).mp4.
-    const firstVideo=document.querySelector("#siteVideo");
-    const firstThumb=document.querySelector(".video-thumb");
-    if(firstVideo && firstThumb && (!document.querySelector(".video-thumb.active") || document.querySelector(".video-thumb.active")===firstThumb)){
-      if(firstThumb.dataset.src!=="/video%20(3).mp4") firstThumb.dataset.src="/video%20(3).mp4";
-      if(!firstVideo.currentSrc.endsWith("/video%20(3).mp4")){firstVideo.src="/video%20(3).mp4";firstVideo.load();firstVideo.play().catch(()=>{});}
-    }
-  } catch (error) { console.warn("Shared catalog unavailable; showing storefront defaults.",error); }
-})();
-</script>
-
-</body></html>
+        const qty=card.querySelector(".qty");if(qty
